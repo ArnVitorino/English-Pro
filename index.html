@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>English Pro - Tech & Sales</title>
+
+  <!-- PWA & Mobile Meta Tags -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0b0f19">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="English Pro">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="apple-touch-icon" href="icon.svg">
+
+  <!-- Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-light: #6366f1;
+      --primary-dark: #3730a3;
+      --accent: #06b6d4;
+      --accent-tech: #10b981;
+      --accent-sales: #f59e0b;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --bg: #0b0f19;
+      --card-bg: #111827;
+      --card-border: #1f2937;
+      --text: #f9fafb;
+      --text-muted: #9ca3af;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      min-height: -webkit-fill-available;
+      display: flex;
+      flex-direction: column;
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    /* Header */
+    header {
+      background: rgba(17, 24, 39, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 19px;
+      box-shadow: 0 0 18px rgba(79, 70, 229, 0.4);
+    }
+
+    .logo-text h1 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+    }
+
+    .logo-text span {
+      font-size: 11px;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .teacher-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(79, 70, 229, 0.15);
+      border: 1px solid rgba(79, 70, 229, 0.3);
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 12px;
+    }
+
+    .teacher-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #4f46e5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    /* Container Principal */
+    .app-container {
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Tabs de Navegação */
+    .tabs-nav {
+      display: flex;
+      gap: 8px;
+      background: var(--card-bg);
+      padding: 5px;
+      border-radius: 14px;
+      border: 1px solid var(--card-border);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .tabs-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab-btn {
+      flex: 1;
+      min-width: 130px;
+      padding: 10px 14px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      color: var(--text);
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(79, 70, 229, 0.35);
+    }
+
+    /* Filtro de Área */
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+
+    .filter-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .filter-btn {
+      padding: 7px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--card-border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .filter-btn.active {
+      background: rgba(79, 70, 229, 0.2);
+      border-color: var(--primary-light);
+      color: #fff;
+    }
+
+    .filter-btn.active-tech {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: var(--accent-tech);
+      color: #a7f3d0;
+    }
+
+    .filter-btn.active-sales {
+      background: rgba(245, 158, 11, 0.2);
+      border-color: var(--accent-sales);
+      color: #fde68a;
+    }
+
+    /* Conteúdos das Abas */
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Cartão do Treinador */
+    .coach-card {
+      background: linear-gradient(145deg, #161e2e 0%, #111827 100%);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .badge-area {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .category-pill {
+      background: rgba(6, 182, 212, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .tag-track {
+      background: rgba(16, 185, 129, 0.15);
+      color: #a7f3d0;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .phrase-en {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 12px;
+      color: #ffffff;
+      font-family: 'Space Grotesk', sans-serif;
+      max-width: 800px;
+    }
+
+    .phrase-pt {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 22px;
+      font-style: italic;
+    }
+
+    /* Dica do Professor */
+    .teacher-tip {
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 26px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      text-align: left;
+      width: 100%;
+      max-width: 680px;
+    }
+
+    .teacher-tip-icon {
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .teacher-tip-text {
+      font-size: 13px;
+      color: #fde68a;
+      line-height: 1.5;
+    }
+
+    /* Ações de Áudio */
+    .action-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: none;
+      background: var(--card-border);
+      color: #fff;
+      font-size: 19px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .btn-circle:active {
+      transform: scale(0.94);
+    }
+
+    .btn-mic {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      border: none;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: #fff;
+      font-size: 30px;
+      cursor: pointer;
+      box-shadow: 0 0 25px rgba(79, 70, 229, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s;
+    }
+
+    .btn-mic:active {
+      transform: scale(0.95);
+    }
+
+    .btn-mic.recording {
+      background: linear-gradient(135deg, var(--danger), #f43f5e);
+      box-shadow: 0 0 35px rgba(239, 68, 68, 0.85);
+      animation: pulse 1.2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+
+    /* Feedback de Fala */
+    .speech-result {
+      margin-top: 20px;
+      padding: 14px 18px;
+      border-radius: 14px;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid var(--card-border);
+      width: 100%;
+      max-width: 660px;
+      display: none;
+    }
+
+    .speech-result.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .score-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    .score-great { background: rgba(16, 185, 129, 0.2); color: var(--success); border: 1px solid var(--success); }
+    .score-good { background: rgba(245, 158, 11, 0.2); color: var(--warning); border: 1px solid var(--warning); }
+    .score-retry { background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid var(--danger); }
+
+    .heard-text {
+      font-size: 14px;
+      color: #e5e7eb;
+      margin-top: 4px;
+    }
+
+    .heard-text strong {
+      color: var(--accent);
+    }
+
+    .bottom-nav {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 22px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      gap: 10px;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--card-border);
+      color: #fff;
+      padding: 9px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:active {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    /* ABA 2: SIMULAÇÕES INTERATIVAS */
+    .roleplay-container {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      overflow: hidden;
+      min-height: 520px;
+    }
+
+    .scenarios-sidebar {
+      background: rgba(0, 0, 0, 0.25);
+      border-right: 1px solid var(--card-border);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .scenario-item {
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .scenario-item.active {
+      background: rgba(79, 70, 229, 0.15);
+      border-color: var(--primary-light);
+    }
+
+    .scenario-title {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .scenario-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .chat-area {
+      display: flex;
+      flex-direction: column;
+      height: 520px;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 18px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .message {
+      max-width: 85%;
+      padding: 12px 16px;
+      border-radius: 16px;
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+
+    .message-teacher {
+      background: #1e293b;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+      border: 1px solid #334155;
+    }
+
+    .message-user {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+      color: #fff;
+    }
+
+    .msg-trans {
+      font-size: 11.5px;
+      color: #94a3b8;
+      margin-top: 5px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 5px;
+    }
+
+    .msg-speaker-btn {
+      background: none;
+      border: none;
+      color: #38bdf8;
+      cursor: pointer;
+      font-size: 14px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    .chat-input-bar {
+      padding: 12px 16px;
+      border-top: 1px solid var(--card-border);
+      background: rgba(0, 0, 0, 0.2);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .chat-input {
+      flex: 1;
+      background: #1f2937;
+      border: 1px solid #374151;
+      border-radius: 12px;
+      padding: 11px 16px;
+      color: #fff;
+      font-size: 13.5px;
+      outline: none;
+    }
+
+    .chat-input:focus {
+      border-color: var(--primary);
+    }
+
+    .chat-btn-send {
+      background: var(--primary);
+      border: none;
+      color: #fff;
+      padding: 11px 16px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    /* ABA 3: ARMADILHAS */
+    .pitfalls-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 16px;
+    }
+
+    .pitfall-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .pitfall-header {
+      font-size: 11.5px;
+      color: var(--danger);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .bad-phrase {
+      background: rgba(239, 68, 68, 0.1);
+      border-left: 3px solid var(--danger);
+      padding: 7px 11px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #fca5a5;
+      text-decoration: line-through;
+    }
+
+    .good-phrase {
+      background: rgba(16, 185, 129, 0.1);
+      border-left: 3px solid var(--success);
+      padding: 7px 11px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #6ee7b7;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .pitfall-explanation {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #1f2937;
+      border: 1px solid var(--card-border);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 13px;
+      display: none;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+      z-index: 100;
+    }
+
+    .toast.show {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    /* ========================================================
+       RESPONSIVIDADE COMPLETA PARA CELULAR (< 768px)
+       ======================================================== */
+    @media (max-width: 768px) {
+      header {
+        padding: 12px 16px;
+      }
+
+      .logo-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 16px;
+      }
+
+      .logo-text h1 {
+        font-size: 16px;
+      }
+
+      .teacher-badge {
+        padding: 4px 10px;
+        font-size: 11px;
+      }
+
+      .teacher-badge div strong {
+        display: none; /* Deixa compacto no celular */
+      }
+
+      .app-container {
+        padding: 14px 12px;
+        gap: 14px;
+      }
+
+      .tab-btn {
+        min-width: 110px;
+        padding: 8px 12px;
+        font-size: 12px;
+      }
+
+      .coach-card {
+        padding: 24px 16px;
+      }
+
+      .phrase-en {
+        font-size: 20px;
+      }
+
+      .phrase-pt {
+        font-size: 14px;
+      }
+
+      .teacher-tip {
+        padding: 12px 14px;
+      }
+
+      .teacher-tip-text {
+        font-size: 12px;
+      }
+
+      .btn-mic {
+        width: 68px;
+        height: 68px;
+        font-size: 26px;
+      }
+
+      .btn-circle {
+        width: 44px;
+        height: 44px;
+        font-size: 17px;
+      }
+
+      .roleplay-container {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .scenarios-sidebar {
+        border-right: none;
+        border-bottom: 1px solid var(--card-border);
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 10px;
+      }
+
+      .scenario-item {
+        min-width: 170px;
+      }
+
+      .chat-area {
+        height: 440px;
+      }
+
+      .bottom-nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .bottom-nav .btn-secondary {
+        width: 100%;
+        justify-content: center;
+      }
+
+      #phrase-counter {
+        order: -1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo-area">
+      <div class="logo-icon">EP</div>
+      <div class="logo-text">
+        <h1>English Pro</h1>
+        <span>Tech & Sales Edition</span>
+      </div>
+    </div>
+
+    <div class="teacher-badge">
+      <div class="teacher-avatar">👨‍🏫</div>
+      <div><strong>Teacher Antigravity</strong> &bull; <span style="color:#4ade80;">Online</span></div>
+    </div>
+  </header>
+
+  <!-- Container -->
+  <div class="app-container">
+
+    <!-- Navegação de Abas -->
+    <div class="tabs-nav">
+      <button class="tab-btn active" onclick="switchTab('drill')">
+        <span>🎙️</span> Fala (TI & Vendas)
+      </button>
+      <button class="tab-btn" onclick="switchTab('roleplay')">
+        <span>💼</span> Reunião & Demo
+      </button>
+      <button class="tab-btn" onclick="switchTab('traps')">
+        <span>⚡</span> Armadilhas
+      </button>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- ABA 1: TREINO DE FALA & PRONÚNCIA (DRILL) -->
+    <!-- ============================================== -->
+    <div id="tab-drill" class="tab-content active">
+      
+      <!-- Filtro de Trilha -->
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="setFilter('all', this)">Todas (18)</button>
+        <button class="filter-btn" onclick="setFilter('tech', this)">💻 TI & Dev</button>
+        <button class="filter-btn" onclick="setFilter('sales', this)">📈 Vendas</button>
+      </div>
+
+      <div class="coach-card">
+        <div class="badge-area">
+          <span class="tag-track" id="phrase-track">💻 TI & Dev</span>
+          <span class="category-pill" id="phrase-category">Daily Standup</span>
+        </div>
+        
+        <div class="phrase-en" id="target-phrase">I opened a pull request this morning and I'm waiting for reviews.</div>
+        <div class="phrase-pt" id="target-trans">Abri um pull request hoje de manhã e estou aguardando revisões.</div>
+
+        <!-- Dica do Professor -->
+        <div class="teacher-tip">
+          <div class="teacher-tip-icon">💡</div>
+          <div class="teacher-tip-text">
+            <strong>Dica do Teacher:</strong> Em TI, <em>"opened a PR"</em> conecta como <strong>/óupend-a-PR/</strong>. Não fale "I opened ONE PR", use sempre o artigo 'a'.
+          </div>
+        </div>
+
+        <!-- Controles de Áudio & Fala -->
+        <div class="action-controls">
+          <button class="btn-circle" onclick="playAudio(1.0)" title="Ouvir em velocidade normal">
+            🔊
+          </button>
+
+          <button class="btn-circle" onclick="playAudio(0.75)" title="Ouvir devagar" style="font-size: 14px; font-weight: bold; color: var(--accent);">
+            0.75x
+          </button>
+
+          <button class="btn-mic" id="mic-btn" onclick="toggleRecording()" title="Falar em inglês">
+            🎙️
+          </button>
+
+          <button class="btn-circle" onclick="toggleTranslation()" title="Ver/Ocultar tradução">
+            👁️
+          </button>
+        </div>
+
+        <div style="font-size: 12px; color: var(--text-muted); margin-top: 14px;">
+          Toque no <strong>microfone</strong> e fale a frase acima!
+        </div>
+
+        <!-- Resultado da Fala -->
+        <div class="speech-result" id="speech-result-box">
+          <div id="score-badge" class="score-badge score-great">Excelente! 95% Match</div>
+          <div class="heard-text">
+            O que ouvi de você: <strong id="recognized-text">"i opened a pull request..."</strong>
+          </div>
+        </div>
+
+        <!-- Navegação de Frases -->
+        <div class="bottom-nav">
+          <button class="btn-secondary" onclick="prevPhrase()">
+            ⬅️ Anterior
+          </button>
+          <span style="font-size: 13px; color: var(--text-muted); align-self: center;" id="phrase-counter">
+            Frase 1 de 18
+          </span>
+          <button class="btn-secondary" onclick="nextPhrase()">
+            Próxima ➡️
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ============================================== -->
+    <!-- ABA 2: SIMULAÇÃO DE CENÁRIOS / ROLEPLAY -->
+    <!-- ============================================== -->
+    <div id="tab-roleplay" class="tab-content">
+      <div class="roleplay-container">
+        
+        <!-- Sidebar de Cenários -->
+        <div class="scenarios-sidebar">
+          <div class="scenario-item active" onclick="selectScenario(0)">
+            <div class="scenario-title">💻 Daily Standup (TI)</div>
+            <div class="scenario-desc">Tasks e bloqueios</div>
+          </div>
+
+          <div class="scenario-item" onclick="selectScenario(1)">
+            <div class="scenario-title">📈 Discovery Call (Vendas)</div>
+            <div class="scenario-desc">Mapear dores do lead</div>
+          </div>
+
+          <div class="scenario-item" onclick="selectScenario(2)">
+            <div class="scenario-title">💻 Bug em Produção (TI)</div>
+            <div class="scenario-desc">Comunicação de crise</div>
+          </div>
+
+          <div class="scenario-item" onclick="selectScenario(3)">
+            <div class="scenario-title">📈 Objeção de Preço (Vendas)</div>
+            <div class="scenario-desc">Fechamento com ROI</div>
+          </div>
+        </div>
+
+        <!-- Área de Conversação -->
+        <div class="chat-area">
+          <div class="chat-messages" id="chat-messages">
+            <!-- Mensagens via JS -->
+          </div>
+
+          <div style="padding: 8px 16px; background: rgba(0,0,0,0.15); display: flex; gap: 8px; overflow-x: auto;" id="quick-replies">
+            <!-- Respostas Rápidas via JS -->
+          </div>
+
+          <!-- Barra de Envio -->
+          <div class="chat-input-bar">
+            <input type="text" class="chat-input" id="chat-user-input" placeholder="Digite em inglês ou use o microfone..." onkeydown="if(event.key==='Enter') sendChatMessage()">
+            <button class="btn-circle" style="width: 42px; height: 42px; font-size: 15px;" onclick="startChatVoiceInput()" title="Falar pelo microfone">
+              🎙️
+            </button>
+            <button class="chat-btn-send" onclick="sendChatMessage()">
+              Enviar
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- ABA 3: ARMADILHAS ESPECÍFICAS DE TI & VENDAS -->
+    <!-- ============================================== -->
+    <div id="tab-traps" class="tab-content">
+      <div style="margin-bottom: 4px;">
+        <h2 style="font-size: 18px; font-weight: 700;">Erros Críticos em TI e Vendas</h2>
+        <p style="font-size: 13px; color: var(--text-muted);">Como substituir termos que entregam sotaque por vocabulário corporativo nativo.</p>
+      </div>
+
+      <div class="pitfalls-grid">
+
+        <div class="pitfall-card">
+          <div class="pitfall-header">💻 TI &bull; "Trabalho com programação"</div>
+          <div class="bad-phrase">I work with programming.</div>
+          <div class="good-phrase">
+            <span>I work in software development.</span>
+            <button class="msg-speaker-btn" onclick="speakText('I work in software development.')">🔊</button>
+          </div>
+          <div class="pitfall-explanation">
+            Diga sempre <strong>"I work in software development"</strong> ou <strong>"I'm a software engineer / developer"</strong>.
+          </div>
+        </div>
+
+        <div class="pitfall-card">
+          <div class="pitfall-header">📈 Vendas &bull; "Passar a proposta"</div>
+          <div class="bad-phrase">I will pass the proposal.</div>
+          <div class="good-phrase">
+            <span>I'll send over the proposal by tomorrow.</span>
+            <button class="msg-speaker-btn" onclick="speakText('I will send over the proposal by tomorrow.')">🔊</button>
+          </div>
+          <div class="pitfall-explanation">
+            No meio comercial, use sempre o phrasal verb nativo <strong>"send over"</strong> (enviar proposta/contrato).
+          </div>
+        </div>
+
+        <div class="pitfall-card">
+          <div class="pitfall-header">💻 TI &bull; "Está dando erro"</div>
+          <div class="bad-phrase">The code is giving error.</div>
+          <div class="good-phrase">
+            <span>It's throwing an error in production.</span>
+            <button class="msg-speaker-btn" onclick="speakText('It is throwing an error in production.')">🔊</button>
+          </div>
+          <div class="pitfall-explanation">
+            Código não "dá" (give) erro. O termo correto é <strong>"throw an error"</strong> (lançar erro/exceção).
+          </div>
+        </div>
+
+        <div class="pitfall-card">
+          <div class="pitfall-header">📈 Vendas &bull; "Tem alguma dúvida?"</div>
+          <div class="bad-phrase">Do you have any doubt?</div>
+          <div class="good-phrase">
+            <span>Do you have any questions or concerns?</span>
+            <button class="msg-speaker-btn" onclick="speakText('Do you have any questions or concerns?')">🔊</button>
+          </div>
+          <div class="pitfall-explanation">
+            <em>"Doubt"</em> soa como desconfiança. Para clientes use sempre <strong>"questions or concerns"</strong>.
+          </div>
+        </div>
+
+        <div class="pitfall-card">
+          <div class="pitfall-header">💻 TI &bull; "Subir código / deployar"</div>
+          <div class="bad-phrase">I will up the code.</div>
+          <div class="good-phrase">
+            <span>I'll deploy the build to staging.</span>
+            <button class="msg-speaker-btn" onclick="speakText('I will deploy the build to staging.')">🔊</button>
+          </div>
+          <div class="pitfall-explanation">
+            Nunca traduza "subir o código". O termo profissional universal é o verbo <strong>"to deploy"</strong> ou <strong>"push"</strong>.
+          </div>
+        </div>
+
+        <div class="pitfall-card">
+          <div class="pitfall-header">📈 Vendas &bull; "Fechar negócio"</div>
+          <div class="bad-phrase">We need to close business.</div>
+          <div class="good-phrase">
+            <span>We're ready to close the deal.</span>
+            <button class="msg-speaker-btn" onclick="speakText('We are ready to close the deal.')">🔊</button>
+          </div>
+          <div class="pitfall-explanation">
+            Em vendas corporativas B2B, a expressão de ouro é sempre <strong>"close the deal"</strong>.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="toast" id="toast-msg">Microfone ativado! Fale agora...</div>
+
+  <script>
+    // ========================================================
+    // REGISTRO DO SERVICE WORKER (PWA)
+    // ========================================================
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(() => console.log('PWA Service Worker Ativo!'))
+          .catch((err) => console.log('Service Worker falhou:', err));
+      });
+    }
+
+    // ========================================================
+    // BANCO DE DADOS COMPLETO: TI / PROGRAMAÇÃO & VENDAS
+    // ========================================================
+    const allPhrases = [
+      {
+        track: "tech",
+        trackLabel: "💻 TI & Dev",
+        category: "Daily & Sprint",
+        en: "I opened a pull request this morning and I'm waiting for reviews.",
+        pt: "Abri um pull request hoje de manhã e estou aguardando revisões.",
+        tip: "Conecte 'opened a' como /óupend-a/. O termo 'PR' pode ser falado como /pí-ár/."
+      },
+      {
+        track: "tech",
+        trackLabel: "💻 TI & Dev",
+        category: "Debugging & Erros",
+        en: "It works fine locally on my machine, but it fails in staging.",
+        pt: "Funciona perfeitamente local na minha máquina, mas falha em homologação.",
+        tip: "A frase clássica de dev! Lembre-se de pronunciar 'staging' como /stêi-djin/."
+      },
+      {
+        track: "tech",
+        trackLabel: "💻 TI & Dev",
+        category: "Bloqueios & Dependências",
+        en: "I'm currently blocked because the backend endpoint isn't ready yet.",
+        pt: "Estou travado no momento porque o endpoint do backend ainda não está pronto.",
+        tip: "Sempre que depender de outro time, use 'I'm blocked because...'. Soa claro e profissional."
+      },
+      {
+        track: "tech",
+        trackLabel: "💻 TI & Dev",
+        category: "Estimativa & Prazos",
+        en: "This refactoring might take an extra couple of days to test properly.",
+        pt: "Essa refatoração pode levar mais uns dois dias para ser testada adequadamente.",
+        tip: "'A couple of days' é a forma mais natural que os nativos usam para dizer 'uns dois dias'."
+      },
+      {
+        track: "tech",
+        trackLabel: "💻 TI & Dev",
+        category: "Code Review",
+        en: "Looks good to me, but did you consider the edge cases for null values?",
+        pt: "Parece bom para mim, mas você considerou os casos extremos de valores nulos?",
+        tip: "'Edge cases' significa casos de teste extremos. 'LGTM' = Looks Good To Me."
+      },
+      {
+        track: "tech",
+        trackLabel: "💻 TI & Dev",
+        category: "Arquitetura & Deploy",
+        en: "We need to roll back the release due to a high CPU usage issue.",
+        pt: "Precisamos reverter a release devido a um problema de alto consumo de CPU.",
+        tip: "'Roll back' é o termo técnico para desfazer uma versão que causou instabilidade."
+      },
+      {
+        track: "tech",
+        trackLabel: "💻 TI & Dev",
+        category: "Documentação & API",
+        en: "Could you share the API documentation and sample payloads?",
+        pt: "Você poderia compartilhar a documentação da API e exemplos de payload?",
+        tip: "Fale 'payloads' como /pêi-louds/. Junte 'Could you' como /kúd-ju/."
+      },
+      {
+        track: "tech",
+        trackLabel: "💻 TI & Dev",
+        category: "Alinhamento Técnico",
+        en: "Let's hop on a quick call to debug this together.",
+        pt: "Vamos entrar numa chamada rápida para debugar isso juntos?",
+        tip: "'Hop on a call' é gíria de escritório tech para 'vamos abrir o Meet/Slack rapidinho'."
+      },
+      {
+        track: "sales",
+        trackLabel: "📈 Vendas & Negociação",
+        category: "Abertura de Pitch",
+        en: "Thanks for taking the time to meet with us today.",
+        pt: "Obrigado por disponibilizar um tempo para se reunir conosco hoje.",
+        tip: "A frase mais elegante para abrir qualquer reunião de negócios com cliente estrangeiro."
+      },
+      {
+        track: "sales",
+        trackLabel: "📈 Vendas & Negociação",
+        category: "Discovery Call",
+        en: "What are the biggest bottlenecks in your current software workflow?",
+        pt: "Quais são os maiores gargalos no seu fluxo de trabalho atual de software?",
+        tip: "'Bottleneck' (gargalo) é a palavra-chave de vendas B2B para descobrir a dor do cliente."
+      },
+      {
+        track: "sales",
+        trackLabel: "📈 Vendas & Negociação",
+        category: "Apresentando Valor / Demo",
+        en: "Our platform automates this process and cuts delivery time in half.",
+        pt: "Nossa plataforma automatiza esse processo e reduz o tempo de entrega pela metade.",
+        tip: "'Cuts in half' (corta pela metade). Clientes amam ouvir redução de tempo e custo."
+      },
+      {
+        track: "sales",
+        trackLabel: "📈 Vendas & Negociação",
+        category: "Objeção de Preço",
+        en: "I understand your budget constraints, but consider the return on investment.",
+        pt: "Entendo suas limitações de orçamento, mas considere o retorno sobre o investimento.",
+        tip: "Em vez de falar 'you don't have money', diga com classe: 'budget constraints'."
+      },
+      {
+        track: "sales",
+        trackLabel: "📈 Vendas & Negociação",
+        category: "Prazos do Cliente",
+        en: "What does your timeline look like to make a decision?",
+        pt: "Como está o cronograma de vocês para tomar uma decisão?",
+        tip: "Pergunta de ouro para qualificar se o lead vai fechar agora ou daqui a 6 meses."
+      },
+      {
+        track: "sales",
+        trackLabel: "📈 Vendas & Negociação",
+        category: "Negociação de Escopo",
+        en: "We can offer a tiered pricing model based on the number of active users.",
+        pt: "Podemos oferecer um modelo de preço em camadas baseado no número de usuários ativos.",
+        tip: "'Tiered pricing' significa preço por faixas/planos. Muito comum em SaaS."
+      },
+      {
+        track: "sales",
+        trackLabel: "📈 Vendas & Negociação",
+        category: "Follow-up Comercial",
+        en: "I'm following up on the proposal I sent last Thursday. Any updates?",
+        pt: "Estou dando um retorno sobre a proposta que enviei na última quinta. Alguma novidade?",
+        tip: "'Following up' é a forma mais polida de cobrar uma resposta sem ser invasivo."
+      },
+      {
+        track: "sales",
+        trackLabel: "📈 Vendas & Negociação",
+        category: "Fechamento de Negócio",
+        en: "If the terms look good to you, we can send over the contract today.",
+        pt: "Se os termos parecerem bons para você, podemos enviar o contrato hoje.",
+        tip: "Transição suave para o fechamento. 'Send over the contract' em vez de 'pass the contract'."
+      },
+      {
+        track: "sales",
+        trackLabel: "📈 Vendas & Negociação",
+        category: "Pós-Venda & Onboarding",
+        en: "Our dedicated engineering team will support your team during implementation.",
+        pt: "Nossa equipe dedicada de engenharia dará suporte ao seu time durante a implementação.",
+        tip: "Tranquiliza o cliente corporativo sobre o suporte técnico pós-fechamento."
+      },
+      {
+        track: "tech",
+        trackLabel: "💻 TI & Dev",
+        category: "Performance & Banco",
+        en: "We optimized the database query and reduced the response time by forty percent.",
+        pt: "Otimizamos a consulta do banco de dados e reduzimos o tempo de resposta em quarenta por cento.",
+        tip: "Mostra liderança e resultado concreto: 'reduced response time by forty percent'."
+      }
+    ];
+
+    let currentPhrases = [...allPhrases];
+    let currentPhraseIdx = 0;
+    let isRecording = false;
+    let recognition = null;
+
+    // Elementos da UI
+    const targetPhraseEl = document.getElementById("target-phrase");
+    const targetTransEl = document.getElementById("target-trans");
+    const phraseTrackEl = document.getElementById("phrase-track");
+    const phraseCategoryEl = document.getElementById("phrase-category");
+    const phraseCounterEl = document.getElementById("phrase-counter");
+    const speechResultBox = document.getElementById("speech-result-box");
+    const scoreBadge = document.getElementById("score-badge");
+    const recognizedTextEl = document.getElementById("recognized-text");
+    const micBtn = document.getElementById("mic-btn");
+    const teacherTipText = document.querySelector(".teacher-tip-text");
+
+    // ========================================================
+    // FILTROS
+    // ========================================================
+    function setFilter(track, btn) {
+      document.querySelectorAll(".filter-btn").forEach(b => {
+        b.className = "filter-btn";
+      });
+
+      if (track === "all") {
+        currentPhrases = [...allPhrases];
+        btn.classList.add("active");
+      } else if (track === "tech") {
+        currentPhrases = allPhrases.filter(p => p.track === "tech");
+        btn.classList.add("active-tech");
+      } else if (track === "sales") {
+        currentPhrases = allPhrases.filter(p => p.track === "sales");
+        btn.classList.add("active-sales");
+      }
+
+      currentPhraseIdx = 0;
+      updatePhraseUI();
+    }
+
+    // ========================================================
+    // ÁUDIO NATIVO
+    // ========================================================
+    function speakText(text, rate = 1.0) {
+      if (!('speechSynthesis' in window)) {
+        showToast("Áudio nativo não disponível.");
+        return;
+      }
+
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-US';
+      utterance.rate = rate;
+
+      const voices = window.speechSynthesis.getVoices();
+      const preferred = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Samantha')));
+      if (preferred) utterance.voice = preferred;
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function playAudio(speed) {
+      const phrase = currentPhrases[currentPhraseIdx].en;
+      speakText(phrase, speed);
+    }
+
+    // ========================================================
+    // RECONHECIMENTO DE FALA
+    // ========================================================
+    function setupRecognition() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) return null;
+
+      const rec = new SpeechRecognition();
+      rec.lang = 'en-US';
+      rec.continuous = false;
+      rec.interimResults = false;
+
+      rec.onstart = () => {
+        isRecording = true;
+        micBtn.classList.add("recording");
+        showToast("🎙️ Ouvindo você... Fale agora!");
+      };
+
+      rec.onresult = (event) => {
+        const spoken = event.results[0][0].transcript;
+        evaluatePronunciation(spoken);
+      };
+
+      rec.onerror = () => {
+        stopRecording();
+        showToast("Não consegui ouvir. Tente novamente!");
+      };
+
+      rec.onend = () => {
+        stopRecording();
+      };
+
+      return rec;
+    }
+
+    function toggleRecording() {
+      if (!recognition) recognition = setupRecognition();
+      if (!recognition) {
+        showToast("Reconhecimento de voz requer Chrome, Edge ou Safari atualizado.");
+        return;
+      }
+
+      if (isRecording) {
+        recognition.stop();
+      } else {
+        recognition.start();
+      }
+    }
+
+    function stopRecording() {
+      isRecording = false;
+      micBtn.classList.remove("recording");
+    }
+
+    function evaluatePronunciation(spokenText) {
+      const target = currentPhrases[currentPhraseIdx].en.toLowerCase().replace(/[^a-z0-9 ]/g, '');
+      const cleanSpoken = spokenText.toLowerCase().replace(/[^a-z0-9 ]/g, '');
+
+      const targetWords = target.split(' ');
+      const spokenWords = cleanSpoken.split(' ');
+
+      let matches = 0;
+      targetWords.forEach(word => {
+        if (spokenWords.includes(word)) matches++;
+      });
+
+      const score = Math.round((matches / targetWords.length) * 100);
+
+      speechResultBox.classList.add("active");
+      recognizedTextEl.textContent = `"${spokenText}"`;
+
+      if (score >= 80) {
+        scoreBadge.className = "score-badge score-great";
+        scoreBadge.textContent = `🎉 Excelente! ${score}% de precisão`;
+      } else if (score >= 50) {
+        scoreBadge.className = "score-badge score-good";
+        scoreBadge.textContent = `👍 Muito bom! ${score}% - Quase perfeito`;
+      } else {
+        scoreBadge.className = "score-badge score-retry";
+        scoreBadge.textContent = `🔄 ${score}% - Ouça em 0.75x e repita com calma!`;
+      }
+    }
+
+    // ========================================================
+    // UI UPDATES
+    // ========================================================
+    function updatePhraseUI() {
+      const p = currentPhrases[currentPhraseIdx];
+      targetPhraseEl.textContent = p.en;
+      targetTransEl.textContent = p.pt;
+      phraseTrackEl.textContent = p.trackLabel;
+      phraseCategoryEl.textContent = p.category;
+      phraseCounterEl.textContent = `Frase ${currentPhraseIdx + 1} de ${currentPhrases.length}`;
+      teacherTipText.innerHTML = `<strong>Dica do Teacher:</strong> ${p.tip}`;
+      speechResultBox.classList.remove("active");
+    }
+
+    function nextPhrase() {
+      currentPhraseIdx = (currentPhraseIdx + 1) % currentPhrases.length;
+      updatePhraseUI();
+    }
+
+    function prevPhrase() {
+      currentPhraseIdx = (currentPhraseIdx - 1 + currentPhrases.length) % currentPhrases.length;
+      updatePhraseUI();
+    }
+
+    function toggleTranslation() {
+      targetTransEl.style.display = targetTransEl.style.display === "none" ? "block" : "none";
+    }
+
+    // ========================================================
+    // ABA 2: CENÁRIOS ROLEPLAY
+    // ========================================================
+    const scenarios = [
+      {
+        title: "Daily Standup (TI)",
+        messages: [
+          { sender: "teacher", text: "Good morning team! Let's do our daily sync. What did you work on yesterday and do you have any blockers?", trans: "Bom dia equipe! Vamos ao nosso sync diário. No que você trabalhou ontem e tem algum impedimento?" }
+        ],
+        quickReplies: [
+          "Yesterday I worked on the database migration, and today I'm fixing frontend bugs. No blockers!",
+          "I opened a PR for the authentication feature, and I'm waiting for approval to merge.",
+          "I'm currently blocked by the payment gateway API credentials. Could someone assist me?"
+        ]
+      },
+      {
+        title: "Discovery Call com Cliente (Vendas)",
+        messages: [
+          { sender: "teacher", text: "Hi! Thanks for reaching out. We are looking for a solution to automate our reporting, but our current tools are too slow.", trans: "Olá! Obrigado pelo contato. Estamos buscando uma solução para automatizar nossos relatórios, mas nossas ferramentas atuais são muito lentas." }
+        ],
+        quickReplies: [
+          "Thanks for having us! Could you tell me more about how many hours your team spends on this weekly?",
+          "I completely understand. Our platform was specifically designed to handle high-volume data in real time.",
+          "That makes total sense. What does your current tech stack look like?"
+        ]
+      },
+      {
+        title: "Reportando Bug em Produção (TI)",
+        messages: [
+          { sender: "teacher", text: "Attention team: users are reporting timeout errors on the checkout page. Does anyone know what's causing this?", trans: "Atenção equipe: usuários estão relatando erros de timeout no checkout. Alguém sabe o que está causando isso?" }
+        ],
+        quickReplies: [
+          "I'm checking the server logs right now. It seems like a database connection pool bottleneck.",
+          "I'll reproduce the bug locally and push a hotfix within the next thirty minutes.",
+          "Let's roll back the last deployment while we investigate the root cause."
+        ]
+      },
+      {
+        title: "Fechamento & Objeção de Preço (Vendas)",
+        messages: [
+          { sender: "teacher", text: "We love your software demo, but honestly, your proposal is a bit above our budget for this quarter.", trans: "Nós adoramos a demonstração do software, mas sinceramente, sua proposta está um pouco acima do nosso orçamento para este trimestre." }
+        ],
+        quickReplies: [
+          "I understand your budget constraints. What if we start with fewer seats and scale up next quarter?",
+          "We can offer a 15% discount if we commit to an annual contract today. Would that work?",
+          "Consider the ROI: this automation will save your team over 40 hours every month."
+        ]
+      }
+    ];
+
+    let currentScenarioIdx = 0;
+
+    function selectScenario(idx) {
+      currentScenarioIdx = idx;
+      document.querySelectorAll(".scenario-item").forEach((el, i) => {
+        el.classList.toggle("active", i === idx);
+      });
+      loadChat();
+    }
+
+    function loadChat() {
+      const chatBox = document.getElementById("chat-messages");
+      chatBox.innerHTML = "";
+      const sc = scenarios[currentScenarioIdx];
+
+      sc.messages.forEach(msg => {
+        appendMessage(msg.sender, msg.text, msg.trans);
+      });
+
+      const qrBox = document.getElementById("quick-replies");
+      qrBox.innerHTML = "";
+      sc.quickReplies.forEach(reply => {
+        const btn = document.createElement("button");
+        btn.className = "btn-secondary";
+        btn.style.fontSize = "12px";
+        btn.style.padding = "5px 11px";
+        btn.textContent = `💬 "${reply.substring(0, 32)}..."`;
+        btn.onclick = () => {
+          document.getElementById("chat-user-input").value = reply;
+          sendChatMessage();
+        };
+        qrBox.appendChild(btn);
+      });
+    }
+
+    function appendMessage(sender, text, trans = null) {
+      const chatBox = document.getElementById("chat-messages");
+      const msgDiv = document.createElement("div");
+      msgDiv.className = `message message-${sender}`;
+
+      let html = `<div>${text}</div>`;
+      if (sender === "teacher") {
+        html += `<button class="msg-speaker-btn" onclick="speakText('${text.replace(/'/g, "\\'")}')">🔊</button>`;
+      }
+      if (trans) {
+        html += `<div class="msg-trans">${trans}</div>`;
+      }
+
+      msgDiv.innerHTML = html;
+      chatBox.appendChild(msgDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function sendChatMessage() {
+      const input = document.getElementById("chat-user-input");
+      const userText = input.value.trim();
+      if (!userText) return;
+
+      appendMessage("user", userText);
+      input.value = "";
+
+      setTimeout(() => {
+        const feedback = getTeacherFeedback(userText);
+        appendMessage("teacher", feedback.reply, feedback.trans);
+      }, 700);
+    }
+
+    function getTeacherFeedback(text) {
+      const lower = text.toLowerCase();
+      if (lower.includes("doubt")) {
+        return {
+          reply: "Nice! Quick tip: say 'question' or 'concern' instead of 'doubt'. That sounds much more professional in meetings!",
+          trans: "Boa! Dica rápida: use 'question' ou 'concern' no lugar de 'doubt'. Soa muito mais profissional em reuniões!"
+        };
+      }
+      if (lower.includes("work with programming")) {
+        return {
+          reply: "Great! In English, native devs usually say 'I work in software engineering' or 'I'm a developer'. Good articulation!",
+          trans: "Ótimo! Em inglês os devs costumam dizer 'I work in software engineering'. Boa articulação!"
+        };
+      }
+      return {
+        reply: "Impressive articulation! That was clear, concise, and professional. Keep practicing your delivery!",
+        trans: "Articulação impressionante! Foi clara, concisa e profissional. Continue praticando sua entrega!"
+      };
+    }
+
+    function startChatVoiceInput() {
+      if (!recognition) recognition = setupRecognition();
+      if (!recognition) {
+        showToast("Reconhecimento de voz requer Chrome, Edge ou Safari.");
+        return;
+      }
+
+      showToast("Fale sua mensagem no microfone...");
+      recognition.onresult = (e) => {
+        const val = e.results[0][0].transcript;
+        document.getElementById("chat-user-input").value = val;
+        sendChatMessage();
+      };
+      recognition.start();
+    }
+
+    // ========================================================
+    // TABS E TOAST
+    // ========================================================
+    function switchTab(tabId) {
+      document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+      document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+
+      document.getElementById(`tab-${tabId}`).classList.add("active");
+      event.currentTarget.classList.add("active");
+
+      if (tabId === "roleplay") loadChat();
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById("toast-msg");
+      toast.textContent = msg;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 3200);
+    }
+
+    // Início
+    updatePhraseUI();
+    loadChat();
+  </script>
+</body>
+</html>
