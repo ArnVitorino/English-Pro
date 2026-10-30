@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>English Pro RPG - Tech & Sales</title>
+  <title>Polyglot RPG - English & Deutsch</title>
 
   <!-- PWA & Mobile Meta Tags -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#070a12">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="English RPG">
+  <meta name="apple-mobile-web-app-title" content="Polyglot RPG">
   <link rel="icon" type="image/svg+xml" href="icon.svg">
   <link rel="apple-touch-icon" href="icon.svg">
 
@@ -26,6 +26,7 @@
       --accent-dark: #1899d6;
       --warrior: #f59e0b;
       --mage: #a855f7;
+      --paladin: #3b82f6;
       --bg: #070a12;
       --card-bg: #111827;
       --card-border: #1f293d;
@@ -33,8 +34,6 @@
       --text-muted: #94a3b8;
       --danger: #ff4b4b;
       --gold: #fbbf24;
-      --purple-glow: rgba(168, 85, 247, 0.4);
-      --gold-glow: rgba(251, 191, 36, 0.4);
     }
 
     * {
@@ -72,6 +71,12 @@
       backdrop-filter: blur(8px);
     }
 
+    .brand-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
     .brand-title {
       font-family: 'Cinzel', serif;
       font-size: 15px;
@@ -82,10 +87,29 @@
       gap: 8px;
     }
 
+    .btn-lang-switcher {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1.5px solid var(--card-border);
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 18px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-lang-switcher:hover {
+      border-color: var(--gold);
+    }
+
     .stats-group {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 12px;
     }
 
     .stat-item {
@@ -99,7 +123,7 @@
     .stat-xp { color: var(--accent); }
     .stat-hearts { color: var(--danger); }
 
-    /* Layout Geral com Personagem ao Lado */
+    /* Layout Geral */
     .main-grid-layout {
       max-width: 1180px;
       width: 100%;
@@ -113,8 +137,207 @@
     }
 
     /* ========================================================
-       COLUNA DIREITA: PEDESTAL & VISUAL DO HERÓI (SIDEBAR VIVA)
+       MODAL 1: ESCOLHA DO IDIOMA (INGLÊS OU ALEMÃO)
        ======================================================== */
+    .language-selection-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(7, 10, 18, 0.98);
+      z-index: 400;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .lang-selection-title {
+      font-family: 'Cinzel', serif;
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--gold);
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+
+    .lang-cards-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      max-width: 380px;
+      margin: 24px 0;
+    }
+
+    .lang-card {
+      background: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 20px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s;
+    }
+
+    .lang-card:active {
+      transform: scale(0.97);
+    }
+
+    .lang-card.selected {
+      border-color: var(--gold);
+      background: rgba(251, 191, 36, 0.08);
+      box-shadow: 0 0 25px rgba(251, 191, 36, 0.3);
+    }
+
+    .lang-flag {
+      font-size: 40px;
+      line-height: 1;
+    }
+
+    .lang-info h3 {
+      font-size: 17px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 2px;
+    }
+
+    .lang-info p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ========================================================
+       MODAL 2: ESCOLHA DA CLASSE (ONBOARDING)
+       ======================================================== */
+    .class-selection-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(7, 10, 18, 0.98);
+      z-index: 300;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .class-selection-title {
+      font-family: 'Cinzel', serif;
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--gold);
+      margin-bottom: 6px;
+      letter-spacing: 1px;
+    }
+
+    .class-cards-container {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      width: 100%;
+      max-width: 380px;
+      margin: 20px 0;
+    }
+
+    .class-card {
+      background: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 20px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s;
+    }
+
+    .class-card.selected {
+      border-color: var(--gold);
+      background: rgba(251, 191, 36, 0.08);
+      box-shadow: 0 0 25px rgba(251, 191, 36, 0.3);
+    }
+
+    /* Barra Rápida de Carreiras */
+    .career-switcher-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      margin-bottom: 22px;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+    .career-switcher-bar::-webkit-scrollbar { display: none; }
+
+    .career-pill {
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .career-pill.active-mage {
+      background: rgba(168, 85, 247, 0.18);
+      border-color: var(--mage);
+      color: #e9d5ff;
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.25);
+    }
+
+    .career-pill.active-warrior {
+      background: rgba(245, 158, 11, 0.18);
+      border-color: var(--warrior);
+      color: #fde68a;
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.25);
+    }
+
+    .career-pill.active-paladin {
+      background: rgba(59, 130, 246, 0.18);
+      border-color: #3b82f6;
+      color: #bfdbfe;
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.25);
+    }
+
+    .career-pill.active-all {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: #fff;
+      color: #fff;
+    }
+
+    .btn-change-class-header {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--card-border);
+      color: #fff;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Coluna Direita: Pedestal do Herói */
     .hero-side-stage {
       background: linear-gradient(180deg, #131b2e 0%, #0d1322 100%);
       border: 2px solid var(--card-border);
@@ -156,13 +379,12 @@
       font-weight: 800;
     }
 
-    /* Balão de Fala do Herói */
     .hero-dialogue-bubble {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--card-border);
       border-radius: 16px;
       padding: 10px 14px;
-      font-size: 12.5px;
+      font-size: 12px;
       line-height: 1.4;
       color: #e2e8f0;
       text-align: center;
@@ -182,7 +404,6 @@
       border-top: 6px solid var(--card-border);
     }
 
-    /* Pedestal Mágico do Personagem */
     .pedestal-viewport {
       width: 220px;
       height: 220px;
@@ -191,9 +412,9 @@
       align-items: center;
       justify-content: center;
       margin-bottom: 10px;
+      cursor: pointer;
     }
 
-    /* Runa Mágica no Chão */
     .magic-rune-floor {
       position: absolute;
       bottom: 10px;
@@ -210,7 +431,6 @@
       to { transform: rotate(360deg); }
     }
 
-    /* Ilustração Vetorial do Personagem */
     .character-avatar-svg {
       width: 160px;
       height: 190px;
@@ -225,10 +445,9 @@
       50% { transform: translateY(-8px); }
     }
 
-    /* Barra de XP de Level Up */
     .side-xp-section {
       width: 100%;
-      margin: 12px 0 18px 0;
+      margin: 12px 0 16px 0;
     }
 
     .side-xp-labels {
@@ -257,7 +476,6 @@
       transition: width 0.4s ease;
     }
 
-    /* Slots de Equipamentos em volta do Personagem */
     .side-gear-slots {
       width: 100%;
       display: grid;
@@ -273,7 +491,6 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      transition: all 0.2s;
     }
 
     .gear-slot-item.unlocked {
@@ -314,9 +531,24 @@
       text-transform: uppercase;
     }
 
-    /* ========================================================
-       COLUNA ESQUERDA: TRILHA DUOLINGO (ROADMAP)
-       ======================================================== */
+    .btn-swap-class-side {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--card-border);
+      color: #e2e8f0;
+      padding: 9px 14px;
+      border-radius: 14px;
+      font-size: 12.5px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    /* Trilha de Aulas */
     .section-header {
       background: linear-gradient(135deg, #131b2e, #0c1220);
       border: 2px solid var(--card-border);
@@ -380,9 +612,7 @@
       transition: transform 0.15s, box-shadow 0.15s;
     }
 
-    .lesson-node:active {
-      transform: translateY(4px) !important;
-    }
+    .lesson-node:active { transform: translateY(4px) !important; }
 
     .node-current {
       background: var(--primary);
@@ -450,9 +680,7 @@
     .pos-center { transform: translateX(0); }
     .pos-right { transform: translateX(38px); }
 
-    /* ========================================================
-       TELA DA LIÇÃO ATIVA
-       ======================================================== */
+    /* Tela da Lição Ativa */
     .lesson-view {
       display: none;
       flex-direction: column;
@@ -531,7 +759,7 @@
       border: 2px solid var(--card-border);
       border-radius: 18px;
       padding: 12px 16px;
-      font-size: 17px;
+      font-size: 16.5px;
       font-weight: 700;
       color: #fff;
       display: flex;
@@ -539,16 +767,6 @@
       gap: 10px;
       position: relative;
       line-height: 1.4;
-    }
-
-    .speech-bubble::before {
-      content: '';
-      position: absolute;
-      left: -9px;
-      top: 15px;
-      border-top: 8px solid transparent;
-      border-bottom: 8px solid transparent;
-      border-right: 9px solid var(--card-border);
     }
 
     .btn-listen-bubble {
@@ -567,9 +785,7 @@
       transition: all 0.15s;
     }
 
-    .btn-listen-bubble:active {
-      transform: scale(0.92);
-    }
+    .btn-listen-bubble:active { transform: scale(0.92); }
 
     .btn-listen-bubble.btn-slow {
       background: rgba(28, 176, 246, 0.18);
@@ -753,7 +969,7 @@
       opacity: 0.7;
     }
 
-    /* Modal de Vitória */
+    /* Modal Vitória */
     .victory-modal {
       position: fixed;
       top: 0;
@@ -813,62 +1029,7 @@
     .item-drop-tag { font-size: 10px; font-weight: 900; color: var(--gold); text-transform: uppercase; }
     .item-drop-name { font-size: 14px; font-weight: 800; color: #fff; }
 
-    /* Modal de Onboarding Inicial */
-    .class-selection-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(7, 10, 18, 0.98);
-      z-index: 300;
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      text-align: center;
-    }
-
-    .class-selection-title {
-      font-family: 'Cinzel', serif;
-      font-size: 24px;
-      font-weight: 900;
-      color: var(--gold);
-      margin-bottom: 6px;
-      letter-spacing: 1px;
-    }
-
-    .class-cards-container {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      width: 100%;
-      max-width: 380px;
-      margin: 20px 0;
-    }
-
-    .class-card {
-      background: var(--card-bg);
-      border: 2px solid var(--card-border);
-      border-radius: 20px;
-      padding: 18px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      cursor: pointer;
-      text-align: left;
-    }
-
-    .class-card.selected {
-      border-color: var(--gold);
-      background: rgba(251, 191, 36, 0.08);
-      box-shadow: 0 0 25px rgba(251, 191, 36, 0.3);
-    }
-
-    /* ========================================================
-       RESPONSIVIDADE: COMPANHEIRO NO CELULAR (< 880px)
-       ======================================================== */
+    /* Responsividade */
     @media (max-width: 880px) {
       .main-grid-layout {
         grid-template-columns: 1fr;
@@ -876,7 +1037,6 @@
         gap: 20px;
       }
 
-      /* No smartphone, o herói fica em formato de banner de topo compacto e interativo */
       .hero-side-stage {
         position: static;
         flex-direction: row;
@@ -885,30 +1045,11 @@
         gap: 12px;
       }
 
-      .hero-stage-header {
-        width: 100%;
-        margin-bottom: 4px;
-      }
-
-      .hero-dialogue-bubble {
-        order: 3;
-        margin-bottom: 0;
-      }
-
-      .pedestal-viewport {
-        width: 110px;
-        height: 120px;
-      }
-
-      .magic-rune-floor {
-        width: 90px;
-        height: 30px;
-      }
-
-      .character-avatar-svg {
-        width: 85px;
-        height: 105px;
-      }
+      .hero-stage-header { width: 100%; margin-bottom: 4px; }
+      .hero-dialogue-bubble { order: 3; margin-bottom: 0; }
+      .pedestal-viewport { width: 110px; height: 120px; }
+      .magic-rune-floor { width: 90px; height: 30px; }
+      .character-avatar-svg { width: 85px; height: 105px; }
 
       .side-xp-section {
         flex: 1;
@@ -930,11 +1071,20 @@
 
   <!-- Top Stats Bar -->
   <div class="top-stats-bar">
-    <div class="brand-title">
-      <span>🛡️</span> ENGLISH PRO RPG
+    <div class="brand-area">
+      <div class="brand-title">
+        <span>🛡️</span> POLYGLOT RPG
+      </div>
+      <!-- Botão Rápido de Idioma -->
+      <button class="btn-lang-switcher" onclick="openLanguageModal()" id="header-lang-btn">
+        <span>🇺🇸</span> English
+      </button>
     </div>
 
     <div class="stats-group">
+      <button class="btn-change-class-header" onclick="openClassModal()">
+        <span>🔄</span> Mudar Classe
+      </button>
       <div class="stat-item stat-xp">
         <span>⚡</span> <span id="user-xp">0 XP</span>
       </div>
@@ -944,18 +1094,26 @@
     </div>
   </div>
 
-  <!-- GRID PRINCIPAL: LIÇÕES + PERSONAGEM LATERAL -->
+  <!-- GRID PRINCIPAL -->
   <div class="main-grid-layout">
 
-    <!-- COLUNA 1: ROADMAP DUOLINGO (OU LIÇÃO ATIVA) -->
+    <!-- COLUNA 1: ROADMAP DUOLINGO -->
     <div class="left-content-area">
       
       <!-- ROADMAP VIEW -->
       <div id="roadmap-view">
+        <!-- BARRA RÁPIDA DE TROCA DE CLASSE -->
+        <div class="career-switcher-bar">
+          <button class="career-pill active-all" id="pill-all" onclick="switchClassAndFilter('all')">📚 Todas as Aulas</button>
+          <button class="career-pill" id="pill-mage" onclick="switchClassAndFilter('mage')">🧙‍♂️ TI / Dev (Mago)</button>
+          <button class="career-pill" id="pill-warrior" onclick="switchClassAndFilter('warrior')">⚔️ Vendas (Guerreiro)</button>
+          <button class="career-pill" id="pill-paladin" onclick="switchClassAndFilter('paladin')">⚖️ Direito (Paladino)</button>
+        </div>
+
         <div class="section-header">
           <div class="section-title">
-            <h2>Módulo 1: Apresentação & Reuniões</h2>
-            <p>Destrave sua fala e conheça a equipe</p>
+            <h2 id="mod1-title">Módulo 1: Apresentação & Reuniões</h2>
+            <p id="mod1-desc">Destrave sua fala e conheça a equipe</p>
           </div>
           <div class="section-badge">Módulo 1</div>
         </div>
@@ -1023,55 +1181,33 @@
         <div class="hero-level-pill" id="side-hero-lvl">Nível 1</div>
       </div>
 
-      <!-- Balão com Frase Falada em Inglês -->
       <div class="hero-dialogue-bubble" id="hero-dialogue">
         "Ready to conquer today's lessons?"
       </div>
 
-      <!-- Palco / Pedestal com o Avatar Ilustrado -->
       <div class="pedestal-viewport" onclick="animateHeroClick()">
         <div class="magic-rune-floor" id="rune-floor"></div>
         
-        <!-- Ilustração SVG Dinâmica do Personagem -->
         <svg class="character-avatar-svg" id="hero-svg-body" viewBox="0 0 160 190">
-          <!-- Sombra Base -->
           <ellipse cx="80" cy="170" rx="45" ry="12" fill="rgba(0,0,0,0.5)" />
-
-          <!-- Capa Épica Traseira -->
           <path id="svg-cape" d="M45 65 Q25 130 35 160 Q80 175 125 160 Q135 130 115 65 Z" fill="#4c1d95" />
-
-          <!-- Corpo / Túnica ou Armadura -->
           <rect id="svg-body-armor" x="55" y="65" width="50" height="75" rx="10" fill="#1e1b4b" stroke="#6366f1" stroke-width="2" />
-
-          <!-- Cinto / Detalhe em Ouro -->
           <rect x="52" y="105" width="56" height="8" rx="3" fill="#fbbf24" />
           <circle cx="80" cy="109" r="6" fill="#f59e0b" stroke="#fff" stroke-width="1.5" />
-
-          <!-- Ombros / Hombreras -->
           <circle cx="48" cy="72" r="12" fill="#312e81" stroke="#fbbf24" stroke-width="1.5" />
           <circle cx="112" cy="72" r="12" fill="#312e81" stroke="#fbbf24" stroke-width="1.5" />
-
-          <!-- Cabeça / Rosto -->
           <circle cx="80" cy="42" r="18" fill="#fed7aa" />
-
-          <!-- Olhos Expressivos -->
           <circle cx="73" cy="41" r="2.5" fill="#0f172a" />
           <circle cx="87" cy="41" r="2.5" fill="#0f172a" />
-
-          <!-- Elmo / Capuz Dinâmico -->
           <path id="svg-headgear" d="M60 40 Q80 12 100 40 Q105 52 98 56 Q80 50 62 56 Z" fill="#6d28d9" />
-
-          <!-- Arma na Mão Direita (Cajado ou Espada) -->
           <g id="svg-weapon-group" transform="translate(112, 45)">
-            <!-- Cajado Mágico -->
             <line x1="0" y1="0" x2="15" y2="105" stroke="#78350f" stroke-width="4" stroke-linecap="round" />
             <circle cx="0" cy="0" r="10" fill="#38bdf8" filter="drop-shadow(0 0 8px #38bdf8)" />
-            <circle cx="0" cy="0" r="5" fill="#ffffff" />
+            <circle cx="0" cy="0" r="4" fill="#ffffff" />
           </g>
         </svg>
       </div>
 
-      <!-- Barra de XP -->
       <div class="side-xp-section">
         <div class="side-xp-labels">
           <span>XP para o Nível <span id="side-next-lvl">2</span></span>
@@ -1082,20 +1218,58 @@
         </div>
       </div>
 
-      <!-- Slots de Equipamento Equipados -->
-      <div class="side-gear-slots" id="side-gear-container">
-        <!-- Injetado dinamicamente via JS -->
-      </div>
+      <div class="side-gear-slots" id="side-gear-container"></div>
+
+      <button class="btn-swap-class-side" onclick="openClassModal()">
+        <span>⚔️</span> Trocar Classe & Carreira
+      </button>
     </div>
 
   </div>
 
-  <!-- MODAL DE ONBOARDING: ESCOLHA DA CLASSE -->
+  <!-- ============================================== -->
+  <!-- MODAL 1: ESCOLHA DO IDIOMA COM BANDEIRAS -->
+  <!-- ============================================== -->
+  <div class="language-selection-overlay" id="lang-modal">
+    <div style="font-size: 54px; margin-bottom: 8px;">🌍</div>
+    <div class="lang-selection-title">ESCOLHA SEU IDIOMA</div>
+    <div style="font-size: 13.5px; color: var(--text-muted); max-width: 360px;">
+      Qual idioma você deseja dominar para impulsionar sua carreira?
+    </div>
+
+    <div class="lang-cards-container">
+      <!-- Opção 1: Inglês -->
+      <div class="lang-card selected" id="card-lang-en" onclick="selectLangOption('en')">
+        <div class="lang-flag">🇺🇸</div>
+        <div class="lang-info">
+          <h3>Inglês (English)</h3>
+          <p>O idioma global dos negócios, tecnologia e mercado internacional.</p>
+        </div>
+      </div>
+
+      <!-- Opção 2: Alemão -->
+      <div class="lang-card" id="card-lang-de" onclick="selectLangOption('de')">
+        <div class="lang-flag">🇩🇪</div>
+        <div class="lang-info">
+          <h3>Alemão (Deutsch)</h3>
+          <p>A maior potência econômica e tecnológica da Europa (Alemanha, Suíça e Áustria).</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-main-action" style="width: 100%; max-width: 380px;" onclick="confirmLanguageSelection()">
+      Avançar para a Classe
+    </button>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL 2: ESCOLHA DA CLASSE (ONBOARDING) -->
+  <!-- ============================================== -->
   <div class="class-selection-overlay" id="class-modal">
     <div style="font-size: 54px; margin-bottom: 8px;">🛡️</div>
     <div class="class-selection-title">CRIE SEU PERSONAGEM</div>
     <div style="font-size: 13.5px; color: var(--text-muted); max-width: 360px;">
-      Escolha como você quer evoluir seu inglês no trabalho:
+      Escolha como você quer evoluir na sua carreira:
     </div>
 
     <div class="class-cards-container">
@@ -1119,7 +1293,7 @@
         <div style="font-size: 34px;">⚖️</div>
         <div>
           <h3 style="font-size: 16px; font-weight:800; color:#fff;">Paladino do Direito</h3>
-          <p style="font-size: 12px; color:var(--text-muted);">Especialista em contratos internacionais, compliance, cláusulas e justiça.</p>
+          <p style="font-size: 12px; color:var(--text-muted);">Especialista em contratos internacionais, compliance, cláusulas e termos jurídicos.</p>
         </div>
       </div>
     </div>
@@ -1193,9 +1367,9 @@
     }
 
     // ========================================================
-    // CURRÍCULO DE AULAS COM ITENS
+    // CURRÍCULO EM INGLÊS (ENGLISH CURRICULUM)
     // ========================================================
-    const curriculum = [
+    const curriculumEN = [
       {
         id: 1,
         module: 1,
@@ -1468,7 +1642,6 @@
           }
         ]
       },
-      // MÓDULO 4 (DIREITO & JURÍDICO - PALADINO)
       {
         id: 9,
         module: 4,
@@ -1540,39 +1713,436 @@
     ];
 
     // ========================================================
-    // ESTADO DO USUÁRIO
+    // CURRÍCULO EM ALEMÃO (DEUTSCH CURRICULUM)
+    // ========================================================
+    const curriculumDE = [
+      {
+        id: 1,
+        module: 1,
+        title: "Persönliche Vorstellung",
+        category: "Erste Schritte",
+        icon: "👋",
+        pos: "pos-center",
+        rewardItem: { icon: "🗡️", name: "Klinge der Rede", slot: "Waffe" },
+        exercises: [
+          {
+            type: "word-order",
+            prompt: "Monte a frase em alemão:",
+            source: "Eu sou um desenvolvedor de software.",
+            correct: ["Ich", "bin", "ein", "Softwareentwickler"],
+            pool: ["Ich", "bin", "ein", "Softwareentwickler", "arbeite", "mit", "Programm"]
+          },
+          {
+            type: "choice",
+            prompt: "Como você diz que é um prazer conhecer todos em alemão?",
+            options: [
+              "Freut mich, Sie alle kennenzulernen.",
+              "Ich bin hier für Arbeit.",
+              "Ich habe Zweifel über Team."
+            ],
+            correct: 0
+          },
+          {
+            type: "speak",
+            prompt: "Fale a saudação formal em alemão:",
+            target: "Guten Tag, freut mich sehr.",
+            trans: "Bom dia, muito prazer."
+          }
+        ]
+      },
+      {
+        id: 2,
+        module: 1,
+        title: "Meeting-Eröffnung",
+        category: "Kommunikation",
+        icon: "☕",
+        pos: "pos-right",
+        rewardItem: { icon: "📿", name: "Amulett der Geläufigkeit", slot: "Accessoire" },
+        exercises: [
+          {
+            type: "word-order",
+            prompt: "Monte a frase de agradecimento em alemão:",
+            source: "Muito obrigado pelo seu tempo hoje.",
+            correct: ["Vielen", "Dank", "für", "Ihre", "Zeit", "heute"],
+            pool: ["Vielen", "Dank", "für", "Ihre", "Zeit", "heute", "zu", "geben", "Meeting"]
+          },
+          {
+            type: "choice",
+            prompt: "Como você diz educadamente 'Eu concordo com você' em alemão?",
+            options: [
+              "Ich stimme Ihnen zu.",
+              "Ich bin zustimmen mit dir.",
+              "Ich habe deine Meinung."
+            ],
+            correct: 0
+          },
+          {
+            type: "speak",
+            prompt: "Peça para repetir educadamente em alemão:",
+            target: "Könnten Sie das bitte wiederholen?",
+            trans: "Você poderia repetir isso, por favor?"
+          }
+        ]
+      },
+      {
+        id: 3,
+        module: 2,
+        title: "Daily Standup (IT)",
+        category: "💻 IT & Dev",
+        icon: "💻",
+        pos: "pos-center",
+        rewardItem: { icon: "🛡️", name: "Deploy-Schild", slot: "Rüstung" },
+        exercises: [
+          {
+            type: "word-order",
+            prompt: "Monte a atualização de Daily em alemão:",
+            source: "Ontem trabalhei na migração do banco de dados.",
+            correct: ["Gestern", "habe", "ich", "an", "der", "Datenbankmigration", "gearbeitet"],
+            pool: ["Gestern", "habe", "ich", "an", "der", "Datenbankmigration", "gearbeitet", "gemacht", "Code"]
+          },
+          {
+            type: "choice",
+            prompt: "Como avisar na Daily que você não tem nenhum impedimento?",
+            options: [
+              "Ich habe heute keine Blocker.",
+              "Ich habe keine Zweifel.",
+              "Ich halte nicht an."
+            ],
+            correct: 0
+          },
+          {
+            type: "speak",
+            prompt: "Fale no microfone em alemão:",
+            target: "Ich arbeite derzeit an Fehlerbehebungen.",
+            trans: "Estou trabalhando atualmente na correção de erros (bugs)."
+          }
+        ]
+      },
+      {
+        id: 4,
+        module: 2,
+        title: "Pull Requests & Bugs",
+        category: "💻 IT & Dev",
+        icon: "🔀",
+        pos: "pos-left",
+        rewardItem: { icon: "👑", name: "Architektenkrone", slot: "Helm" },
+        exercises: [
+          {
+            type: "word-order",
+            prompt: "Monte a frase técnica em alemão:",
+            source: "Abri um pull request hoje de manhã.",
+            correct: ["Ich", "habe", "heute", "Morgen", "einen", "Pull", "Request", "eröffnet"],
+            pool: ["Ich", "habe", "heute", "Morgen", "einen", "Pull", "Request", "eröffnet", "gemacht", "hoch"]
+          },
+          {
+            type: "choice",
+            prompt: "Como dizer 'O servidor está gerando um erro' em alemão?",
+            options: [
+              "Der Server wirft einen Fehler.",
+              "Der Server gibt Fehler.",
+              "Der Server macht Problem."
+            ],
+            correct: 0
+          },
+          {
+            type: "speak",
+            prompt: "Fale a clássica frase de programador em alemão:",
+            target: "Auf meinem Rechner funktioniert es einwandfrei.",
+            trans: "Na minha máquina funciona perfeitamente."
+          }
+        ]
+      },
+      {
+        id: 5,
+        module: 2,
+        title: "Fristen & Blocker",
+        category: "💻 IT & Dev",
+        icon: "⏱️",
+        pos: "pos-center",
+        rewardItem: { icon: "💍", name: "Refactor-Ring", slot: "Accessoire" },
+        exercises: [
+          {
+            type: "word-order",
+            prompt: "Monte a frase em alemão:",
+            source: "Estou travado por um problema na API.",
+            correct: ["Ich", "werde", "durch", "ein", "API", "Problem", "blockiert"],
+            pool: ["Ich", "werde", "durch", "ein", "API", "Problem", "blockiert", "habe", "Zweifel"]
+          },
+          {
+            type: "choice",
+            prompt: "Como sugerir uma chamada rápida para debugar em alemão?",
+            options: [
+              "Lassen Sie uns kurz telefonieren.",
+              "Machen wir ein langes Treffen.",
+              "Treten wir in den Anruf ein."
+            ],
+            correct: 0
+          },
+          {
+            type: "speak",
+            prompt: "Fale no microfone a estimativa:",
+            target: "Diese Aufgabe dauert zwei Tage.",
+            trans: "Essa tarefa levará dois dias."
+          }
+        ]
+      },
+      {
+        id: 6,
+        module: 3,
+        title: "B2B-Bedarfsanalyse",
+        category: "📈 Vertrieb (Sales)",
+        icon: "🔍",
+        pos: "pos-right",
+        rewardItem: { icon: "📜", name: "Verhandlungspapyrus", slot: "Schriftrolle" },
+        exercises: [
+          {
+            type: "word-order",
+            prompt: "Monte a pergunta de gargalo em alemão:",
+            source: "Quais são os maiores gargalos no seu processo?",
+            correct: ["Was", "sind", "die", "größten", "Engpässe", "in", "Ihrem", "Prozess"],
+            pool: ["Was", "sind", "die", "größten", "Engpässe", "in", "Ihrem", "Prozess", "Probleme", "haben"]
+          },
+          {
+            type: "choice",
+            prompt: "Como perguntar sobre o cronograma de decisão do cliente em alemão?",
+            options: [
+              "Wie sieht Ihr Zeitplan für die Entscheidung aus?",
+              "Wann kaufen Sie das jetzt?",
+              "Was ist Ihre Endstunde?"
+            ],
+            correct: 0
+          },
+          {
+            type: "speak",
+            prompt: "Fale com tom comercial em alemão:",
+            target: "Wie kann unsere Plattform helfen?",
+            trans: "Como a nossa plataforma pode ajudar?"
+          }
+        ]
+      },
+      {
+        id: 7,
+        module: 3,
+        title: "Produktdemo & Mehrwert",
+        category: "📈 Vertrieb (Sales)",
+        icon: "🚀",
+        pos: "pos-center",
+        rewardItem: { icon: "⚔️", name: "Gladius des Abschlusses", slot: "Waffe" },
+        exercises: [
+          {
+            type: "word-order",
+            prompt: "Monte a frase de impacto em alemão:",
+            source: "Nossa plataforma reduz o tempo de entrega pela metade.",
+            correct: ["Unsere", "Plattform", "halbiert", "die", "Lieferzeit"],
+            pool: ["Unsere", "Plattform", "halbiert", "die", "Lieferzeit", "macht", "schneller", "im"]
+          },
+          {
+            type: "choice",
+            prompt: "Como dizer formalmente que enviará a proposta por e-mail em alemão?",
+            options: [
+              "Ich werde Ihnen das Angebot zusenden.",
+              "Ich werde das Angebot passen.",
+              "Ich gebe Ihnen den Brief."
+            ],
+            correct: 0
+          },
+          {
+            type: "speak",
+            prompt: "Fale no microfone o ganho de tempo:",
+            target: "Das spart vierzig Stunden im Monat.",
+            trans: "Isso economiza quarenta horas por mês."
+          }
+        ]
+      },
+      {
+        id: 8,
+        module: 3,
+        title: "Vertragsabschluss",
+        category: "📈 Vertrieb (Sales)",
+        icon: "🤝",
+        pos: "pos-left",
+        rewardItem: { icon: "🏆", name: "Kelch des Sieges", slot: "Reliquie" },
+        exercises: [
+          {
+            type: "word-order",
+            prompt: "Monte a frase de fechamento em alemão:",
+            source: "Estamos prontos para fechar o contrato hoje.",
+            correct: ["Wir", "sind", "bereit", "den", "Vertrag", "heute", "abzuschließen"],
+            pool: ["Wir", "sind", "bereit", "den", "Vertrag", "heute", "abzuschließen", "machen", "Business"]
+          },
+          {
+            type: "choice",
+            prompt: "Como contornar uma objeção de orçamento em alemão?",
+            options: [
+              "Ich verstehe Ihre Budgetbeschränkungen.",
+              "Ich sehe, Sie haben kein Geld.",
+              "Ihr Budget ist zu klein."
+            ],
+            correct: 0
+          },
+          {
+            type: "speak",
+            prompt: "Fale no microfone a parceria em alemão:",
+            target: "Wir freuen uns auf die Zusammenarbeit.",
+            trans: "Estamos muito animados com a nossa cooperação/parceria."
+          }
+        ]
+      },
+      {
+        id: 9,
+        module: 4,
+        title: "Verträge & Klauseln",
+        category: "⚖️ Recht (Jura)",
+        icon: "📜",
+        pos: "pos-center",
+        rewardItem: { icon: "🔨", name: "Richterhammer", slot: "Waffe" },
+        exercises: [
+          {
+            type: "word-order",
+            prompt: "Monte a cláusula jurídica em alemão:",
+            source: "De acordo com os termos do acordo de confidencialidade.",
+            correct: ["Gemäß", "den", "Bedingungen", "der", "Vertraulichkeitsvereinbarung"],
+            pool: ["Gemäß", "den", "Bedingungen", "der", "Vertraulichkeitsvereinbarung", "unter", "Gesetz", "Zweifel"]
+          },
+          {
+            type: "choice",
+            prompt: "Qual termo jurídico em alemão significa 'quebra de contrato'?",
+            options: [
+              "Vertragsbruch.",
+              "Vertrag brechen.",
+              "Vertragsfehler."
+            ],
+            correct: 0
+          },
+          {
+            type: "speak",
+            prompt: "Fale a validade jurídica em alemão:",
+            target: "Diese Vereinbarung ist rechtsverbindlich.",
+            trans: "Este acordo é juridicamente vinculativo."
+          }
+        ]
+      },
+      {
+        id: 10,
+        module: 4,
+        title: "Compliance & Schiedsverfahren",
+        category: "⚖️ Recht (Jura)",
+        icon: "⚖️",
+        pos: "pos-right",
+        rewardItem: { icon: "⚖️", name: "Waage der Gerechtigkeit", slot: "Reliquie" },
+        exercises: [
+          {
+            type: "word-order",
+            prompt: "Monte a resolução de disputas em alemão:",
+            source: "Ambas as partes concordam com um procedimento de arbitragem.",
+            correct: ["Beide", "Parteien", "vereinbaren", "ein", "Schiedsverfahren"],
+            pool: ["Beide", "Parteien", "vereinbaren", "ein", "Schiedsverfahren", "streiten", "Gesetz"]
+          },
+          {
+            type: "choice",
+            prompt: "Como você diz formalmente 'em conformidade com a lei aplicável' em alemão?",
+            options: [
+              "In Übereinstimmung mit geltendem Recht.",
+              "Folgend die guten Gesetze.",
+              "Assistieren dem Gericht."
+            ],
+            correct: 0
+          },
+          {
+            type: "speak",
+            prompt: "Fale a cláusula de isenção de responsabilidade em alemão:",
+            target: "Keine der Parteien haftet dafür.",
+            trans: "Nenhuma das partes será responsabilizada por isso."
+          }
+        ]
+      }
+    ];
+
+    // ========================================================
+    // ESTADO DO USUÁRIO & SELEÇÃO DE IDIOMA
     // ========================================================
     let userState = {
-      heroClass: null,
+      targetLanguage: null, // 'en' ou 'de'
+      heroClass: null,      // 'warrior', 'mage', 'paladin'
       level: 1,
       xp: 0,
       hearts: 5,
       unlockedLesson: 1
     };
 
+    let selectedLangTemp = 'en';
     let selectedClassTemp = 'warrior';
 
+    function getCurriculum() {
+      return userState.targetLanguage === 'de' ? curriculumDE : curriculumEN;
+    }
+
     function loadState() {
-      const saved = localStorage.getItem("english_rpg_side_state");
+      const saved = localStorage.getItem("polyglot_rpg_state");
       if (saved) {
         try {
           userState = JSON.parse(saved);
         } catch (e) {}
       }
 
-      if (!userState.heroClass) {
+      // Se não escolheu idioma ainda, abre modal de idioma primeiro!
+      if (!userState.targetLanguage) {
+        document.getElementById("lang-modal").style.display = "flex";
+      } else if (!userState.heroClass) {
         document.getElementById("class-modal").style.display = "flex";
       } else {
         updateSideHeroUI();
+        updateLanguageHeaderUI();
       }
       renderRoadmap();
     }
 
     function saveState() {
-      localStorage.setItem("english_rpg_side_state", JSON.stringify(userState));
+      localStorage.setItem("polyglot_rpg_state", JSON.stringify(userState));
       updateSideHeroUI();
+      updateLanguageHeaderUI();
     }
 
+    // Modal de Idioma
+    function selectLangOption(lang) {
+      selectedLangTemp = lang;
+      playSound('click');
+      document.getElementById("card-lang-en").classList.toggle("selected", lang === 'en');
+      document.getElementById("card-lang-de").classList.toggle("selected", lang === 'de');
+    }
+
+    function confirmLanguageSelection() {
+      playSound('click');
+      userState.targetLanguage = selectedLangTemp;
+      document.getElementById("lang-modal").style.display = "none";
+
+      // Se ainda não escolheu classe, vai para a escolha da classe
+      if (!userState.heroClass) {
+        document.getElementById("class-modal").style.display = "flex";
+      } else {
+        saveState();
+        renderRoadmap();
+      }
+    }
+
+    function openLanguageModal() {
+      playSound('click');
+      selectedLangTemp = userState.targetLanguage || 'en';
+      document.getElementById("card-lang-en").classList.toggle("selected", selectedLangTemp === 'en');
+      document.getElementById("card-lang-de").classList.toggle("selected", selectedLangTemp === 'de');
+      document.getElementById("lang-modal").style.display = "flex";
+    }
+
+    function updateLanguageHeaderUI() {
+      const btn = document.getElementById("header-lang-btn");
+      if (userState.targetLanguage === 'de') {
+        btn.innerHTML = `<span>🇩🇪</span> Deutsch`;
+      } else {
+        btn.innerHTML = `<span>🇺🇸</span> English`;
+      }
+    }
+
+    // Modal de Classe
     function selectClassOption(cls) {
       selectedClassTemp = cls;
       playSound('click');
@@ -1588,6 +2158,7 @@
       userState.xp = 0;
       saveState();
       document.getElementById("class-modal").style.display = "none";
+      renderRoadmap();
     }
 
     function openClassModal() {
@@ -1599,8 +2170,35 @@
       document.getElementById("class-modal").style.display = "flex";
     }
 
+    function switchClassAndFilter(cls) {
+      playSound('click');
+      document.querySelectorAll('.career-pill').forEach(p => p.className = 'career-pill');
+
+      if (cls === 'all') {
+        const pillAll = document.getElementById('pill-all');
+        if (pillAll) pillAll.classList.add('active-all');
+        document.getElementById('roadmap-view').scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+
+      userState.heroClass = cls;
+      saveState();
+
+      const pill = document.getElementById(`pill-${cls}`);
+      if (pill) pill.classList.add(`active-${cls}`);
+
+      let targetPath = null;
+      if (cls === 'mage') targetPath = document.getElementById('lessons-path-m2');
+      else if (cls === 'warrior') targetPath = document.getElementById('lessons-path-m3');
+      else if (cls === 'paladin') targetPath = document.getElementById('lessons-path-m4');
+
+      if (targetPath && targetPath.previousElementSibling) {
+        targetPath.previousElementSibling.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
     // ========================================================
-    // ATUALIZAÇÃO DA COLUNA DO HERÓI (LADO DIREITO)
+    // ATUALIZAÇÃO DO HERÓI (LADO DIREITO)
     // ========================================================
     function updateSideHeroUI() {
       const cls = userState.heroClass;
@@ -1611,7 +2209,7 @@
         className = "Mago Dev";
         classIcon = "🧙‍♂️";
       } else if (cls === 'paladin') {
-        className = "Paladino da Lei";
+        className = "Paladino Jurídico";
         classIcon = "⚖️";
       }
 
@@ -1620,13 +2218,11 @@
       document.getElementById("user-xp").textContent = `${userState.xp} XP`;
       document.getElementById("user-hearts").textContent = userState.hearts;
 
-      // Barra de XP Lateral
       const xpCurrentLevel = userState.xp % 100;
       document.getElementById("side-xp-count").textContent = `${xpCurrentLevel} / 100`;
       document.getElementById("side-next-lvl").textContent = userState.level + 1;
       document.getElementById("side-xp-bar").style.width = `${xpCurrentLevel}%`;
 
-      // Atualiza Cores e SVG do Herói
       const cape = document.getElementById("svg-cape");
       const armor = document.getElementById("svg-body-armor");
       const headgear = document.getElementById("svg-headgear");
@@ -1638,19 +2234,17 @@
         armor.setAttribute("stroke", "#a855f7");
         headgear.setAttribute("fill", "#7c3aed");
 
-        // Cajado Mágico
         weaponGroup.innerHTML = `
           <line x1="0" y1="0" x2="15" y2="105" stroke="#78350f" stroke-width="4" stroke-linecap="round" />
           <circle cx="0" cy="0" r="10" fill="#38bdf8" filter="drop-shadow(0 0 8px #38bdf8)" />
           <circle cx="0" cy="0" r="4" fill="#ffffff" />
         `;
       } else if (cls === 'paladin') {
-        cape.setAttribute("fill", "#1d4ed8"); // Capa azul real
-        armor.setAttribute("fill", "#f8fafc"); // Armadura de prata polida
+        cape.setAttribute("fill", "#1d4ed8");
+        armor.setAttribute("fill", "#f8fafc");
         armor.setAttribute("stroke", "#94a3b8");
-        headgear.setAttribute("fill", "#3b82f6"); // Elmo de prata alado com azul
+        headgear.setAttribute("fill", "#3b82f6");
 
-        // Martelo do Juiz / Balança da Justiça
         weaponGroup.innerHTML = `
           <line x1="0" y1="0" x2="8" y2="85" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" />
           <rect x="-14" y="0" width="28" height="14" rx="3" fill="#fbbf24" stroke="#d97706" stroke-width="2" />
@@ -1662,7 +2256,6 @@
         armor.setAttribute("stroke", "#f59e0b");
         headgear.setAttribute("fill", "#d97706");
 
-        // Espada Dourada
         weaponGroup.innerHTML = `
           <line x1="0" y1="0" x2="10" y2="90" stroke="#f59e0b" stroke-width="5" stroke-linecap="round" />
           <line x1="-8" y1="70" x2="15" y2="70" stroke="#fbbf24" stroke-width="4" stroke-linecap="round" />
@@ -1670,15 +2263,19 @@
         `;
       }
 
-      // Renderiza Slots de Itens
+      document.querySelectorAll('.career-pill').forEach(p => p.className = 'career-pill');
+      const activePill = document.getElementById(`pill-${cls}`);
+      if (activePill) activePill.classList.add(`active-${cls}`);
+
       renderSideGearSlots();
     }
 
     function renderSideGearSlots() {
       const container = document.getElementById("side-gear-container");
       container.innerHTML = "";
+      const currentCurriculum = getCurriculum();
 
-      curriculum.slice(0, 4).forEach((lesson) => {
+      currentCurriculum.slice(0, 4).forEach((lesson) => {
         const item = lesson.rewardItem;
         const isUnlocked = lesson.id < userState.unlockedLesson;
 
@@ -1697,20 +2294,37 @@
 
     function animateHeroClick() {
       playSound('click');
-      let phrases = [
-        "Knowledge is your best weapon!",
-        "Let's practice your pronunciation today!",
-        "Every lesson makes you more fluent!",
-        "Your English is leveling up fast!"
-      ];
+      const isGerman = userState.targetLanguage === 'de';
 
-      if (userState.heroClass === 'paladin') {
+      let phrases = [];
+      if (isGerman) {
         phrases = [
-          "Pursuant to the terms of the agreement!",
-          "Justice, clarity, and precision in every clause!",
-          "Let's review the contract terms!",
-          "Ensure full compliance with regulations!"
+          "Wissen ist deine mächtigste Waffe!",
+          "Üben wir heute deine deutsche Aussprache!",
+          "Jede Lektion macht dich fließender!",
+          "Dein Level steigt unaufhaltsam!"
         ];
+        if (userState.heroClass === 'paladin') {
+          phrases = [
+            "Gemäß den Bedingungen der Vereinbarung!",
+            "Recht und Ordnung in jeder Klausel!",
+            "Volle Compliance mit geltendem Recht!"
+          ];
+        }
+      } else {
+        phrases = [
+          "Knowledge is your best weapon!",
+          "Let's practice your pronunciation today!",
+          "Every lesson makes you more fluent!",
+          "Your English is leveling up fast!"
+        ];
+        if (userState.heroClass === 'paladin') {
+          phrases = [
+            "Pursuant to the terms of the agreement!",
+            "Justice, clarity, and precision in every clause!",
+            "Ensure full compliance with regulations!"
+          ];
+        }
       }
 
       const randomMsg = phrases[Math.floor(Math.random() * phrases.length)];
@@ -1719,7 +2333,7 @@
 
       window.speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(randomMsg);
-      u.lang = 'en-US';
+      u.lang = isGerman ? 'de-DE' : 'en-US';
       window.speechSynthesis.speak(u);
     }
 
@@ -1737,7 +2351,9 @@
       m3.innerHTML = "";
       if (m4) m4.innerHTML = "";
 
-      curriculum.forEach((lesson) => {
+      const currentCurriculum = getCurriculum();
+
+      currentCurriculum.forEach((lesson) => {
         const isCompleted = lesson.id < userState.unlockedLesson;
         const isCurrent = lesson.id === userState.unlockedLesson;
 
@@ -1782,7 +2398,8 @@
       if (id > userState.unlockedLesson) return;
       playSound('click');
 
-      currentLesson = curriculum.find(l => l.id === id);
+      const currentCurriculum = getCurriculum();
+      currentLesson = currentCurriculum.find(l => l.id === id);
       currentExerciseIdx = 0;
 
       document.getElementById("roadmap-view").style.display = "none";
@@ -1819,17 +2436,17 @@
 
     function renderWordOrderExercise(ex, mount) {
       selectedWords = [];
-      const targetEnglish = ex.correct.join(" ");
+      const targetPhrase = ex.correct.join(" ");
 
       mount.innerHTML = `
         <div class="exercise-prompt">${ex.prompt}</div>
         <div class="teacher-speech-box">
-          <div class="teacher-avatar-circle">${userState.heroClass === 'mage' ? '🧙‍♂️' : '⚔️'}</div>
+          <div class="teacher-avatar-circle">${userState.heroClass === 'mage' ? '🧙‍♂️' : (userState.heroClass === 'paladin' ? '⚖️' : '⚔️')}</div>
           <div class="speech-bubble" style="display:flex; justify-content:space-between; width:100%; align-items:center;">
             <span>"${ex.source}"</span>
             <div style="display:flex; gap:6px; flex-shrink:0;">
-              <button class="btn-listen-bubble" onclick="speakTarget('${targetEnglish.replace(/'/g, "\\'")}', 1.0)" title="Ouvir a frase em inglês">🔊</button>
-              <button class="btn-listen-bubble btn-slow" onclick="speakTarget('${targetEnglish.replace(/'/g, "\\'")}', 0.75)" title="Ouvir devagar">0.75x</button>
+              <button class="btn-listen-bubble" onclick="speakTarget('${targetPhrase.replace(/'/g, "\\'")}', 1.0)" title="Ouvir normal">🔊</button>
+              <button class="btn-listen-bubble btn-slow" onclick="speakTarget('${targetPhrase.replace(/'/g, "\\'")}', 0.75)" title="Ouvir devagar">0.75x</button>
             </div>
           </div>
         </div>
@@ -1922,7 +2539,7 @@
       mount.innerHTML = `
         <div class="exercise-prompt">${ex.prompt}</div>
         <div class="teacher-speech-box">
-          <div class="teacher-avatar-circle">${userState.heroClass === 'mage' ? '🧙‍♂️' : '⚔️'}</div>
+          <div class="teacher-avatar-circle">${userState.heroClass === 'mage' ? '🧙‍♂️' : (userState.heroClass === 'paladin' ? '⚖️' : '⚔️')}</div>
           <div class="speech-bubble" style="display:flex; justify-content:space-between; width:100%; align-items:center;">
             <span>"${ex.target}"</span>
             <div style="display:flex; gap:6px; flex-shrink:0;">
@@ -1939,7 +2556,7 @@
             🎙️
           </button>
           <div id="mic-status-text" style="font-size:13px; color:var(--text-muted);">
-            Toque para falar em inglês
+            Toque para falar
           </div>
         </div>
       `;
@@ -1948,11 +2565,11 @@
     function speakTarget(text, rate = 1.0) {
       window.speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(text);
-      u.lang = 'en-US';
+      u.lang = userState.targetLanguage === 'de' ? 'de-DE' : 'en-US';
       u.rate = rate;
 
       const voices = window.speechSynthesis.getVoices();
-      const preferred = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Samantha')));
+      const preferred = voices.find(v => v.lang.startsWith(userState.targetLanguage === 'de' ? 'de' : 'en'));
       if (preferred) u.voice = preferred;
 
       window.speechSynthesis.speak(u);
@@ -1969,7 +2586,7 @@
       const statusText = document.getElementById("mic-status-text");
 
       const rec = new SpeechRec();
-      rec.lang = 'en-US';
+      rec.lang = userState.targetLanguage === 'de' ? 'de-DE' : 'en-US';
       rec.onstart = () => {
         micBtn.classList.add("recording");
         statusText.textContent = "Ouvindo você... Fale agora!";
@@ -2113,7 +2730,7 @@
       renderRoadmap();
     }
 
-    // Inicialização
+    // Início
     loadState();
   </script>
 </body>
