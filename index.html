@@ -3,38 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>English Pro - Tech & Sales</title>
+  <title>English Pro RPG - Tech & Sales</title>
 
   <!-- PWA & Mobile Meta Tags -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0b0f19">
+  <meta name="theme-color" content="#070a12">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="English Pro">
+  <meta name="apple-mobile-web-app-title" content="English RPG">
   <link rel="icon" type="image/svg+xml" href="icon.svg">
   <link rel="apple-touch-icon" href="icon.svg">
 
-  <!-- Fontes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --primary: #4f46e5;
-      --primary-light: #6366f1;
-      --primary-dark: #3730a3;
-      --accent: #06b6d4;
-      --accent-tech: #10b981;
-      --accent-sales: #f59e0b;
-      --success: #10b981;
-      --warning: #f59e0b;
-      --danger: #ef4444;
-      --bg: #0b0f19;
+      --primary: #58cc02;
+      --primary-dark: #46a302;
+      --accent: #1cb0f6;
+      --accent-dark: #1899d6;
+      --warrior: #f59e0b;
+      --mage: #a855f7;
+      --bg: #070a12;
       --card-bg: #111827;
-      --card-border: #1f2937;
-      --text: #f9fafb;
-      --text-muted: #9ca3af;
+      --card-border: #1f293d;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --danger: #ff4b4b;
+      --gold: #fbbf24;
+      --purple-glow: rgba(168, 85, 247, 0.4);
+      --gold-glow: rgba(251, 191, 36, 0.4);
     }
 
     * {
@@ -43,6 +43,7 @@
       padding: 0;
       font-family: 'Plus Jakarta Sans', sans-serif;
       -webkit-tap-highlight-color: transparent;
+      user-select: none;
     }
 
     body {
@@ -54,1501 +55,2066 @@
       flex-direction: column;
       padding-top: env(safe-area-inset-top);
       padding-bottom: env(safe-area-inset-bottom);
+      overflow-x: hidden;
     }
 
-    /* Header */
-    header {
-      background: rgba(17, 24, 39, 0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--card-border);
-      padding: 14px 24px;
+    /* Top Stats Bar */
+    .top-stats-bar {
+      background: rgba(17, 24, 39, 0.95);
+      border-bottom: 2px solid var(--card-border);
+      padding: 10px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       position: sticky;
       top: 0;
       z-index: 50;
+      backdrop-filter: blur(8px);
     }
 
-    .logo-area {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo-icon {
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 19px;
-      box-shadow: 0 0 18px rgba(79, 70, 229, 0.4);
-    }
-
-    .logo-text h1 {
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      line-height: 1.1;
-    }
-
-    .logo-text span {
-      font-size: 11px;
-      color: var(--accent);
-      font-weight: 600;
-    }
-
-    .teacher-badge {
+    .brand-title {
+      font-family: 'Cinzel', serif;
+      font-size: 15px;
+      font-weight: 900;
+      color: var(--gold);
       display: flex;
       align-items: center;
       gap: 8px;
-      background: rgba(79, 70, 229, 0.15);
-      border: 1px solid rgba(79, 70, 229, 0.3);
-      padding: 6px 14px;
-      border-radius: 30px;
-      font-size: 12px;
     }
 
-    .teacher-avatar {
-      width: 24px;
-      height: 24px;
+    .stats-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .stat-xp { color: var(--accent); }
+    .stat-hearts { color: var(--danger); }
+
+    /* Layout Geral com Personagem ao Lado */
+    .main-grid-layout {
+      max-width: 1180px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px 20px 80px 20px;
+      display: grid;
+      grid-template-columns: 1fr 370px;
+      gap: 28px;
+      align-items: flex-start;
+      flex: 1;
+    }
+
+    /* ========================================================
+       COLUNA DIREITA: PEDESTAL & VISUAL DO HERÓI (SIDEBAR VIVA)
+       ======================================================== */
+    .hero-side-stage {
+      background: linear-gradient(180deg, #131b2e 0%, #0d1322 100%);
+      border: 2px solid var(--card-border);
+      border-radius: 24px;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: sticky;
+      top: 75px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    }
+
+    .hero-stage-header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .hero-class-tag {
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-level-pill {
+      background: rgba(28, 176, 246, 0.15);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    /* Balão de Fala do Herói */
+    .hero-dialogue-bubble {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      line-height: 1.4;
+      color: #e2e8f0;
+      text-align: center;
+      margin-bottom: 16px;
+      width: 100%;
+      position: relative;
+    }
+
+    .hero-dialogue-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid var(--card-border);
+    }
+
+    /* Pedestal Mágico do Personagem */
+    .pedestal-viewport {
+      width: 220px;
+      height: 220px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    /* Runa Mágica no Chão */
+    .magic-rune-floor {
+      position: absolute;
+      bottom: 10px;
+      width: 170px;
+      height: 48px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(168, 85, 247, 0.4) 0%, rgba(28, 176, 246, 0.2) 60%, transparent 100%);
+      border: 2px dashed rgba(251, 191, 36, 0.5);
+      animation: spinRune 20s infinite linear;
+    }
+
+    @keyframes spinRune {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Ilustração Vetorial do Personagem */
+    .character-avatar-svg {
+      width: 160px;
+      height: 190px;
+      position: relative;
+      z-index: 2;
+      animation: heroBreathe 3.5s infinite ease-in-out;
+      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.7));
+    }
+
+    @keyframes heroBreathe {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* Barra de XP de Level Up */
+    .side-xp-section {
+      width: 100%;
+      margin: 12px 0 18px 0;
+    }
+
+    .side-xp-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .side-xp-track {
+      width: 100%;
+      height: 8px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+    }
+
+    .side-xp-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), #38bdf8);
+      border-radius: 8px;
+      transition: width 0.4s ease;
+    }
+
+    /* Slots de Equipamentos em volta do Personagem */
+    .side-gear-slots {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .gear-slot-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .gear-slot-item.unlocked {
+      border-color: rgba(251, 191, 36, 0.5);
+      background: rgba(251, 191, 36, 0.05);
+    }
+
+    .gear-slot-icon {
+      font-size: 18px;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .gear-slot-texts {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .gear-slot-name {
+      font-size: 11px;
+      font-weight: 800;
+      color: #fff;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .gear-slot-type {
+      font-size: 9.5px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    /* ========================================================
+       COLUNA ESQUERDA: TRILHA DUOLINGO (ROADMAP)
+       ======================================================== */
+    .section-header {
+      background: linear-gradient(135deg, #131b2e, #0c1220);
+      border: 2px solid var(--card-border);
+      border-radius: 20px;
+      padding: 16px 20px;
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .section-title h2 {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 2px;
+    }
+
+    .section-title p {
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .section-badge {
+      background: rgba(168, 85, 247, 0.15);
+      color: #c084fc;
+      border: 1px solid rgba(168, 85, 247, 0.4);
+      padding: 5px 12px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .lesson-path {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      padding: 10px 0 40px 0;
+    }
+
+    .lesson-node-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .lesson-node {
+      width: 82px;
+      height: 78px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      position: relative;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .lesson-node:active {
+      transform: translateY(4px) !important;
+    }
+
+    .node-current {
+      background: var(--primary);
+      box-shadow: 0 8px 0 var(--primary-dark), 0 10px 25px rgba(88, 204, 2, 0.4);
+      animation: bounce 2s infinite ease-in-out;
+    }
+
+    .node-completed {
+      background: #eab308;
+      box-shadow: 0 8px 0 #ca8a04;
+    }
+
+    .node-locked {
+      background: #1e293b;
+      box-shadow: 0 8px 0 #0f172a;
+      cursor: not-allowed;
+      opacity: 0.65;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .start-tooltip {
+      position: absolute;
+      top: -36px;
+      background: #ffffff;
+      color: #0f172a;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      white-space: nowrap;
+    }
+
+    .start-tooltip::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid #ffffff;
+    }
+
+    .lesson-label {
+      margin-top: 10px;
+      font-size: 13px;
+      font-weight: 800;
+      text-align: center;
+      max-width: 160px;
+    }
+
+    .lesson-category {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .pos-left { transform: translateX(-38px); }
+    .pos-center { transform: translateX(0); }
+    .pos-right { transform: translateX(38px); }
+
+    /* ========================================================
+       TELA DA LIÇÃO ATIVA
+       ======================================================== */
+    .lesson-view {
+      display: none;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .lesson-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .btn-close-lesson {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 22px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 14px;
+      background: #1e293b;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #58cc02, #4ade80);
+      border-radius: 20px;
+      transition: width 0.35s ease;
+    }
+
+    .exercise-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .exercise-prompt {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .teacher-speech-box {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .teacher-avatar-circle {
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
       background: #4f46e5;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
-    }
-
-    /* Container Principal */
-    .app-container {
-      max-width: 1100px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 20px 16px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    /* Tabs de Navegação */
-    .tabs-nav {
-      display: flex;
-      gap: 8px;
-      background: var(--card-bg);
-      padding: 5px;
-      border-radius: 14px;
-      border: 1px solid var(--card-border);
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-
-    .tabs-nav::-webkit-scrollbar {
-      display: none;
-    }
-
-    .tab-btn {
-      flex: 1;
-      min-width: 130px;
-      padding: 10px 14px;
-      border: none;
-      background: transparent;
-      color: var(--text-muted);
-      font-size: 13px;
-      font-weight: 600;
-      border-radius: 10px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-    }
-
-    .tab-btn:hover {
-      color: var(--text);
-    }
-
-    .tab-btn.active {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: #fff;
-      box-shadow: 0 4px 15px rgba(79, 70, 229, 0.35);
-    }
-
-    /* Filtro de Área */
-    .filter-bar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      overflow-x: auto;
-      padding-bottom: 4px;
-      scrollbar-width: none;
-    }
-
-    .filter-bar::-webkit-scrollbar {
-      display: none;
-    }
-
-    .filter-btn {
-      padding: 7px 15px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      border: 1px solid var(--card-border);
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--text-muted);
-      transition: all 0.2s;
-      white-space: nowrap;
-    }
-
-    .filter-btn.active {
-      background: rgba(79, 70, 229, 0.2);
-      border-color: var(--primary-light);
-      color: #fff;
-    }
-
-    .filter-btn.active-tech {
-      background: rgba(16, 185, 129, 0.2);
-      border-color: var(--accent-tech);
-      color: #a7f3d0;
-    }
-
-    .filter-btn.active-sales {
-      background: rgba(245, 158, 11, 0.2);
-      border-color: var(--accent-sales);
-      color: #fde68a;
-    }
-
-    /* Conteúdos das Abas */
-    .tab-content {
-      display: none;
-    }
-
-    .tab-content.active {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      animation: fadeIn 0.3s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Cartão do Treinador */
-    .coach-card {
-      background: linear-gradient(145deg, #161e2e 0%, #111827 100%);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 30px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      position: relative;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    }
-
-    .badge-area {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      margin-bottom: 18px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .category-pill {
-      background: rgba(6, 182, 212, 0.15);
-      color: var(--accent);
-      border: 1px solid rgba(6, 182, 212, 0.3);
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-    }
-
-    .tag-track {
-      background: rgba(16, 185, 129, 0.15);
-      color: #a7f3d0;
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .phrase-en {
-      font-size: 24px;
-      font-weight: 700;
-      line-height: 1.4;
-      margin-bottom: 12px;
-      color: #ffffff;
-      font-family: 'Space Grotesk', sans-serif;
-      max-width: 800px;
-    }
-
-    .phrase-pt {
-      font-size: 15px;
-      color: var(--text-muted);
-      margin-bottom: 22px;
-      font-style: italic;
-    }
-
-    /* Dica do Professor */
-    .teacher-tip {
-      background: rgba(245, 158, 11, 0.08);
-      border: 1px solid rgba(245, 158, 11, 0.25);
-      border-radius: 14px;
-      padding: 14px 18px;
-      margin-bottom: 26px;
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      text-align: left;
-      width: 100%;
-      max-width: 680px;
-    }
-
-    .teacher-tip-icon {
       font-size: 22px;
-      line-height: 1;
+      flex-shrink: 0;
+      box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
     }
 
-    .teacher-tip-text {
-      font-size: 13px;
-      color: #fde68a;
-      line-height: 1.5;
-    }
-
-    /* Ações de Áudio */
-    .action-controls {
+    .speech-bubble {
+      background: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 18px;
+      padding: 12px 16px;
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
       display: flex;
       align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-      justify-content: center;
+      gap: 10px;
+      position: relative;
+      line-height: 1.4;
     }
 
-    .btn-circle {
-      width: 50px;
-      height: 50px;
+    .speech-bubble::before {
+      content: '';
+      position: absolute;
+      left: -9px;
+      top: 15px;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-right: 9px solid var(--card-border);
+    }
+
+    .btn-listen-bubble {
+      background: var(--accent);
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.15s;
+    }
+
+    .btn-listen-bubble:active {
+      transform: scale(0.92);
+    }
+
+    .btn-listen-bubble.btn-slow {
+      background: rgba(28, 176, 246, 0.18);
+      border: 1px solid var(--accent);
+      color: #38bdf8;
+      font-size: 11.5px;
+      font-weight: 800;
+      border-radius: 12px;
+      width: auto;
+      padding: 4px 10px;
+    }
+
+    .phrase-assembly-zone {
+      min-height: 65px;
+      border-bottom: 2px solid var(--card-border);
+      padding: 8px 4px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .word-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      justify-content: center;
+      margin-top: 16px;
+    }
+
+    .word-chip {
+      background: var(--card-bg);
+      color: #fff;
+      border: 2px solid var(--card-border);
+      border-radius: 14px;
+      padding: 9px 16px;
+      font-size: 14.5px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 0 var(--card-border);
+      transition: all 0.15s ease;
+    }
+
+    .word-chip:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 var(--card-border);
+    }
+
+    .word-chip.used {
+      opacity: 0.25;
+      cursor: default;
+      box-shadow: none;
+      transform: translateY(3px);
+    }
+
+    .choices-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .choice-card {
+      background: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 16px;
+      padding: 14px 18px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 0 var(--card-border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.15s;
+    }
+
+    .choice-card:active { transform: translateY(2px); }
+
+    .choice-card.selected {
+      border-color: var(--accent);
+      background: rgba(28, 176, 246, 0.15);
+      box-shadow: 0 4px 0 var(--accent-dark);
+    }
+
+    .speaking-exercise-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      margin: 18px 0;
+    }
+
+    .btn-huge-mic {
+      width: 86px;
+      height: 86px;
       border-radius: 50%;
       border: none;
-      background: var(--card-border);
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
       color: #fff;
-      font-size: 19px;
+      font-size: 38px;
       cursor: pointer;
+      box-shadow: 0 8px 0 var(--accent-dark), 0 10px 30px rgba(28, 176, 246, 0.4);
       display: flex;
       align-items: center;
       justify-content: center;
       transition: all 0.2s;
     }
 
-    .btn-circle:active {
-      transform: scale(0.94);
-    }
-
-    .btn-mic {
-      width: 76px;
-      height: 76px;
-      border-radius: 50%;
-      border: none;
-      background: linear-gradient(135deg, var(--primary), var(--primary-light));
-      color: #fff;
-      font-size: 30px;
-      cursor: pointer;
-      box-shadow: 0 0 25px rgba(79, 70, 229, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.25s;
-    }
-
-    .btn-mic:active {
-      transform: scale(0.95);
-    }
-
-    .btn-mic.recording {
-      background: linear-gradient(135deg, var(--danger), #f43f5e);
-      box-shadow: 0 0 35px rgba(239, 68, 68, 0.85);
+    .btn-huge-mic.recording {
+      background: var(--danger);
+      box-shadow: 0 8px 0 #ea2b2b, 0 10px 30px rgba(255, 75, 75, 0.5);
       animation: pulse 1.2s infinite;
     }
 
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.08); }
-      100% { transform: scale(1); }
-    }
-
-    /* Feedback de Fala */
-    .speech-result {
-      margin-top: 20px;
-      padding: 14px 18px;
-      border-radius: 14px;
-      background: rgba(0, 0, 0, 0.45);
-      border: 1px solid var(--card-border);
-      width: 100%;
-      max-width: 660px;
-      display: none;
-    }
-
-    .speech-result.active {
-      display: block;
-      animation: fadeIn 0.3s ease;
-    }
-
-    .score-badge {
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-weight: 700;
-      font-size: 12px;
-      margin-bottom: 6px;
-    }
-
-    .score-great { background: rgba(16, 185, 129, 0.2); color: var(--success); border: 1px solid var(--success); }
-    .score-good { background: rgba(245, 158, 11, 0.2); color: var(--warning); border: 1px solid var(--warning); }
-    .score-retry { background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid var(--danger); }
-
-    .heard-text {
-      font-size: 14px;
-      color: #e5e7eb;
-      margin-top: 4px;
-    }
-
-    .heard-text strong {
-      color: var(--accent);
-    }
-
-    .bottom-nav {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      margin-top: 22px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      gap: 10px;
-    }
-
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid var(--card-border);
-      color: #fff;
-      padding: 9px 16px;
-      border-radius: 10px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s;
-    }
-
-    .btn-secondary:active {
-      background: rgba(255, 255, 255, 0.12);
-    }
-
-    /* ABA 2: SIMULAÇÕES INTERATIVAS */
-    .roleplay-container {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 16px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      overflow: hidden;
-      min-height: 520px;
-    }
-
-    .scenarios-sidebar {
-      background: rgba(0, 0, 0, 0.25);
-      border-right: 1px solid var(--card-border);
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .scenario-item {
-      padding: 10px 14px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid transparent;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .scenario-item.active {
-      background: rgba(79, 70, 229, 0.15);
-      border-color: var(--primary-light);
-    }
-
-    .scenario-title {
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 2px;
-    }
-
-    .scenario-desc {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .chat-area {
-      display: flex;
-      flex-direction: column;
-      height: 520px;
-    }
-
-    .chat-messages {
-      flex: 1;
-      padding: 18px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .message {
-      max-width: 85%;
-      padding: 12px 16px;
-      border-radius: 16px;
-      font-size: 13.5px;
-      line-height: 1.5;
-    }
-
-    .message-teacher {
-      background: #1e293b;
-      align-self: flex-start;
-      border-bottom-left-radius: 4px;
-      border: 1px solid #334155;
-    }
-
-    .message-user {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      align-self: flex-end;
-      border-bottom-right-radius: 4px;
-      color: #fff;
-    }
-
-    .msg-trans {
-      font-size: 11.5px;
-      color: #94a3b8;
-      margin-top: 5px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      padding-top: 5px;
-    }
-
-    .msg-speaker-btn {
-      background: none;
-      border: none;
-      color: #38bdf8;
-      cursor: pointer;
-      font-size: 14px;
-      margin-left: 6px;
-      vertical-align: middle;
-    }
-
-    .chat-input-bar {
-      padding: 12px 16px;
-      border-top: 1px solid var(--card-border);
-      background: rgba(0, 0, 0, 0.2);
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .chat-input {
-      flex: 1;
-      background: #1f2937;
-      border: 1px solid #374151;
-      border-radius: 12px;
-      padding: 11px 16px;
-      color: #fff;
-      font-size: 13.5px;
-      outline: none;
-    }
-
-    .chat-input:focus {
-      border-color: var(--primary);
-    }
-
-    .chat-btn-send {
-      background: var(--primary);
-      border: none;
-      color: #fff;
-      padding: 11px 16px;
-      border-radius: 12px;
-      font-weight: 600;
-      font-size: 13px;
-      cursor: pointer;
-    }
-
-    /* ABA 3: ARMADILHAS */
-    .pitfalls-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-      gap: 16px;
-    }
-
-    .pitfall-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .pitfall-header {
-      font-size: 11.5px;
-      color: var(--danger);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-    }
-
-    .bad-phrase {
-      background: rgba(239, 68, 68, 0.1);
-      border-left: 3px solid var(--danger);
-      padding: 7px 11px;
-      border-radius: 4px;
-      font-size: 13px;
-      color: #fca5a5;
-      text-decoration: line-through;
-    }
-
-    .good-phrase {
-      background: rgba(16, 185, 129, 0.1);
-      border-left: 3px solid var(--success);
-      padding: 7px 11px;
-      border-radius: 4px;
-      font-size: 14px;
-      font-weight: 700;
-      color: #6ee7b7;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .pitfall-explanation {
-      font-size: 12.5px;
-      color: var(--text-muted);
-      line-height: 1.4;
-    }
-
-    /* Toast */
-    .toast {
+    .bottom-action-sheet {
       position: fixed;
-      bottom: 24px;
-      right: 24px;
-      background: #1f2937;
-      border: 1px solid var(--card-border);
-      color: #fff;
-      padding: 10px 18px;
-      border-radius: 12px;
-      font-size: 13px;
-      display: none;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #111827;
+      border-top: 2px solid var(--card-border);
+      padding: 14px 20px calc(14px + env(safe-area-inset-bottom)) 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
       z-index: 100;
     }
 
-    .toast.show {
-      display: block;
-      animation: fadeIn 0.3s ease;
+    .feedback-banner {
+      display: none;
+      padding: 12px 16px;
+      border-radius: 14px;
+      font-size: 13.5px;
+      font-weight: 800;
+    }
+
+    .feedback-correct {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(88, 204, 2, 0.2);
+      color: #58cc02;
+      border: 1px solid #58cc02;
+    }
+
+    .feedback-wrong {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      background: rgba(255, 75, 75, 0.2);
+      color: #ff4b4b;
+      border: 1px solid #ff4b4b;
+    }
+
+    .btn-main-action {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 15px;
+      border-radius: 16px;
+      font-size: 15px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      cursor: pointer;
+      box-shadow: 0 5px 0 var(--primary-dark);
+      transition: all 0.15s;
+    }
+
+    .btn-main-action:active {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 var(--primary-dark);
+    }
+
+    .btn-main-action.disabled {
+      background: #475569;
+      box-shadow: 0 5px 0 #334155;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    /* Modal de Vitória */
+    .victory-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(7, 10, 18, 0.98);
+      z-index: 200;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .victory-trophy {
+      font-size: 72px;
+      margin-bottom: 12px;
+      animation: pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0); }
+      100% { transform: scale(1); }
+    }
+
+    .victory-title {
+      font-family: 'Cinzel', serif;
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    .victory-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      max-width: 360px;
+    }
+
+    .item-drop-card {
+      background: rgba(251, 191, 36, 0.1);
+      border: 2px dashed var(--gold);
+      border-radius: 18px;
+      padding: 14px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .item-drop-icon { font-size: 36px; }
+    .item-drop-info { text-align: left; }
+    .item-drop-tag { font-size: 10px; font-weight: 900; color: var(--gold); text-transform: uppercase; }
+    .item-drop-name { font-size: 14px; font-weight: 800; color: #fff; }
+
+    /* Modal de Onboarding Inicial */
+    .class-selection-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(7, 10, 18, 0.98);
+      z-index: 300;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .class-selection-title {
+      font-family: 'Cinzel', serif;
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--gold);
+      margin-bottom: 6px;
+      letter-spacing: 1px;
+    }
+
+    .class-cards-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      max-width: 380px;
+      margin: 20px 0;
+    }
+
+    .class-card {
+      background: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 20px;
+      padding: 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .class-card.selected {
+      border-color: var(--gold);
+      background: rgba(251, 191, 36, 0.08);
+      box-shadow: 0 0 25px rgba(251, 191, 36, 0.3);
     }
 
     /* ========================================================
-       RESPONSIVIDADE COMPLETA PARA CELULAR (< 768px)
+       RESPONSIVIDADE: COMPANHEIRO NO CELULAR (< 880px)
        ======================================================== */
-    @media (max-width: 768px) {
-      header {
-        padding: 12px 16px;
-      }
-
-      .logo-icon {
-        width: 34px;
-        height: 34px;
-        font-size: 16px;
-      }
-
-      .logo-text h1 {
-        font-size: 16px;
-      }
-
-      .teacher-badge {
-        padding: 4px 10px;
-        font-size: 11px;
-      }
-
-      .teacher-badge div strong {
-        display: none; /* Deixa compacto no celular */
-      }
-
-      .app-container {
-        padding: 14px 12px;
-        gap: 14px;
-      }
-
-      .tab-btn {
-        min-width: 110px;
-        padding: 8px 12px;
-        font-size: 12px;
-      }
-
-      .coach-card {
-        padding: 24px 16px;
-      }
-
-      .phrase-en {
-        font-size: 20px;
-      }
-
-      .phrase-pt {
-        font-size: 14px;
-      }
-
-      .teacher-tip {
-        padding: 12px 14px;
-      }
-
-      .teacher-tip-text {
-        font-size: 12px;
-      }
-
-      .btn-mic {
-        width: 68px;
-        height: 68px;
-        font-size: 26px;
-      }
-
-      .btn-circle {
-        width: 44px;
-        height: 44px;
-        font-size: 17px;
-      }
-
-      .roleplay-container {
+    @media (max-width: 880px) {
+      .main-grid-layout {
         grid-template-columns: 1fr;
-        min-height: auto;
+        padding: 14px 14px 80px 14px;
+        gap: 20px;
       }
 
-      .scenarios-sidebar {
-        border-right: none;
-        border-bottom: 1px solid var(--card-border);
+      /* No smartphone, o herói fica em formato de banner de topo compacto e interativo */
+      .hero-side-stage {
+        position: static;
         flex-direction: row;
-        overflow-x: auto;
-        padding: 10px;
-      }
-
-      .scenario-item {
-        min-width: 170px;
-      }
-
-      .chat-area {
-        height: 440px;
-      }
-
-      .bottom-nav {
-        flex-direction: column;
-        align-items: center;
+        flex-wrap: wrap;
+        padding: 16px;
         gap: 12px;
       }
 
-      .bottom-nav .btn-secondary {
+      .hero-stage-header {
         width: 100%;
+        margin-bottom: 4px;
+      }
+
+      .hero-dialogue-bubble {
+        order: 3;
+        margin-bottom: 0;
+      }
+
+      .pedestal-viewport {
+        width: 110px;
+        height: 120px;
+      }
+
+      .magic-rune-floor {
+        width: 90px;
+        height: 30px;
+      }
+
+      .character-avatar-svg {
+        width: 85px;
+        height: 105px;
+      }
+
+      .side-xp-section {
+        flex: 1;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
         justify-content: center;
       }
 
-      #phrase-counter {
-        order: -1;
+      .side-gear-slots {
+        width: 100%;
+        order: 4;
+        grid-template-columns: repeat(2, 1fr);
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
-    <div class="logo-area">
-      <div class="logo-icon">EP</div>
-      <div class="logo-text">
-        <h1>English Pro</h1>
-        <span>Tech & Sales Edition</span>
+  <!-- Top Stats Bar -->
+  <div class="top-stats-bar">
+    <div class="brand-title">
+      <span>🛡️</span> ENGLISH PRO RPG
+    </div>
+
+    <div class="stats-group">
+      <div class="stat-item stat-xp">
+        <span>⚡</span> <span id="user-xp">0 XP</span>
+      </div>
+      <div class="stat-item stat-hearts">
+        <span>❤️</span> <span id="user-hearts">5</span>
       </div>
     </div>
+  </div>
 
-    <div class="teacher-badge">
-      <div class="teacher-avatar">👨‍🏫</div>
-      <div><strong>Teacher Antigravity</strong> &bull; <span style="color:#4ade80;">Online</span></div>
-    </div>
-  </header>
+  <!-- GRID PRINCIPAL: LIÇÕES + PERSONAGEM LATERAL -->
+  <div class="main-grid-layout">
 
-  <!-- Container -->
-  <div class="app-container">
-
-    <!-- Navegação de Abas -->
-    <div class="tabs-nav">
-      <button class="tab-btn active" onclick="switchTab('drill')">
-        <span>🎙️</span> Fala (TI & Vendas)
-      </button>
-      <button class="tab-btn" onclick="switchTab('roleplay')">
-        <span>💼</span> Reunião & Demo
-      </button>
-      <button class="tab-btn" onclick="switchTab('traps')">
-        <span>⚡</span> Armadilhas
-      </button>
-    </div>
-
-    <!-- ============================================== -->
-    <!-- ABA 1: TREINO DE FALA & PRONÚNCIA (DRILL) -->
-    <!-- ============================================== -->
-    <div id="tab-drill" class="tab-content active">
+    <!-- COLUNA 1: ROADMAP DUOLINGO (OU LIÇÃO ATIVA) -->
+    <div class="left-content-area">
       
-      <!-- Filtro de Trilha -->
-      <div class="filter-bar">
-        <button class="filter-btn active" onclick="setFilter('all', this)">Todas (18)</button>
-        <button class="filter-btn" onclick="setFilter('tech', this)">💻 TI & Dev</button>
-        <button class="filter-btn" onclick="setFilter('sales', this)">📈 Vendas</button>
+      <!-- ROADMAP VIEW -->
+      <div id="roadmap-view">
+        <div class="section-header">
+          <div class="section-title">
+            <h2>Módulo 1: Apresentação & Reuniões</h2>
+            <p>Destrave sua fala e conheça a equipe</p>
+          </div>
+          <div class="section-badge">Módulo 1</div>
+        </div>
+
+        <div class="lesson-path" id="lessons-path-container"></div>
+
+        <div class="section-header" style="margin-top: 30px;">
+          <div class="section-title">
+            <h2>Módulo 2: O Dia a Dia do Dev (TI)</h2>
+            <p>Dailies, Pull Requests, Bugs e Deploys</p>
+          </div>
+          <div class="section-badge" style="color: #c084fc; border-color: #a855f7;">💻 TI Tech</div>
+        </div>
+
+        <div class="lesson-path" id="lessons-path-m2"></div>
+
+        <div class="section-header" style="margin-top: 30px;">
+          <div class="section-title">
+            <h2>Módulo 3: Vendas & Negociação</h2>
+            <p>Discovery Calls, Objeções e Fechamento</p>
+          </div>
+          <div class="section-badge" style="color: #fde68a; border-color: #f59e0b;">📈 Vendas</div>
+        </div>
+
+        <div class="lesson-path" id="lessons-path-m3"></div>
+
+        <div class="section-header" style="margin-top: 30px;">
+          <div class="section-title">
+            <h2>Módulo 4: Direito & Justiça (⚖️ Paladino)</h2>
+            <p>Contratos, NDAs, Cláusulas e Compliance</p>
+          </div>
+          <div class="section-badge" style="color: #93c5fd; border-color: #3b82f6;">⚖️ Jurídico</div>
+        </div>
+
+        <div class="lesson-path" id="lessons-path-m4"></div>
       </div>
 
-      <div class="coach-card">
-        <div class="badge-area">
-          <span class="tag-track" id="phrase-track">💻 TI & Dev</span>
-          <span class="category-pill" id="phrase-category">Daily Standup</span>
-        </div>
-        
-        <div class="phrase-en" id="target-phrase">I opened a pull request this morning and I'm waiting for reviews.</div>
-        <div class="phrase-pt" id="target-trans">Abri um pull request hoje de manhã e estou aguardando revisões.</div>
-
-        <!-- Dica do Professor -->
-        <div class="teacher-tip">
-          <div class="teacher-tip-icon">💡</div>
-          <div class="teacher-tip-text">
-            <strong>Dica do Teacher:</strong> Em TI, <em>"opened a PR"</em> conecta como <strong>/óupend-a-PR/</strong>. Não fale "I opened ONE PR", use sempre o artigo 'a'.
+      <!-- LESSON VIEW (EXERCÍCIO ATIVO) -->
+      <div id="lesson-view" class="lesson-view">
+        <div class="lesson-header">
+          <button class="btn-close-lesson" onclick="exitLesson()">✕</button>
+          <div class="progress-track">
+            <div class="progress-fill" id="lesson-progress-bar"></div>
           </div>
         </div>
 
-        <!-- Controles de Áudio & Fala -->
-        <div class="action-controls">
-          <button class="btn-circle" onclick="playAudio(1.0)" title="Ouvir em velocidade normal">
-            🔊
-          </button>
+        <div class="exercise-container" id="exercise-mount-point"></div>
 
-          <button class="btn-circle" onclick="playAudio(0.75)" title="Ouvir devagar" style="font-size: 14px; font-weight: bold; color: var(--accent);">
-            0.75x
-          </button>
-
-          <button class="btn-mic" id="mic-btn" onclick="toggleRecording()" title="Falar em inglês">
-            🎙️
-          </button>
-
-          <button class="btn-circle" onclick="toggleTranslation()" title="Ver/Ocultar tradução">
-            👁️
+        <div class="bottom-action-sheet">
+          <div id="feedback-banner" class="feedback-banner"></div>
+          <button class="btn-main-action disabled" id="btn-verify" onclick="handleVerifyClick()">
+            Verificar
           </button>
         </div>
-
-        <div style="font-size: 12px; color: var(--text-muted); margin-top: 14px;">
-          Toque no <strong>microfone</strong> e fale a frase acima!
-        </div>
-
-        <!-- Resultado da Fala -->
-        <div class="speech-result" id="speech-result-box">
-          <div id="score-badge" class="score-badge score-great">Excelente! 95% Match</div>
-          <div class="heard-text">
-            O que ouvi de você: <strong id="recognized-text">"i opened a pull request..."</strong>
-          </div>
-        </div>
-
-        <!-- Navegação de Frases -->
-        <div class="bottom-nav">
-          <button class="btn-secondary" onclick="prevPhrase()">
-            ⬅️ Anterior
-          </button>
-          <span style="font-size: 13px; color: var(--text-muted); align-self: center;" id="phrase-counter">
-            Frase 1 de 18
-          </span>
-          <button class="btn-secondary" onclick="nextPhrase()">
-            Próxima ➡️
-          </button>
-        </div>
-
       </div>
 
     </div>
 
-    <!-- ============================================== -->
-    <!-- ABA 2: SIMULAÇÃO DE CENÁRIOS / ROLEPLAY -->
-    <!-- ============================================== -->
-    <div id="tab-roleplay" class="tab-content">
-      <div class="roleplay-container">
+    <!-- COLUNA 2: PEDESTAL DO PERSONAGEM AO LADO -->
+    <div class="hero-side-stage">
+      <div class="hero-stage-header">
+        <div class="hero-class-tag" id="side-hero-title" onclick="openClassModal()" style="cursor:pointer;" title="Clique para trocar de classe">
+          <span>🧙‍♂️</span> Mago Dev
+        </div>
+        <div class="hero-level-pill" id="side-hero-lvl">Nível 1</div>
+      </div>
+
+      <!-- Balão com Frase Falada em Inglês -->
+      <div class="hero-dialogue-bubble" id="hero-dialogue">
+        "Ready to conquer today's lessons?"
+      </div>
+
+      <!-- Palco / Pedestal com o Avatar Ilustrado -->
+      <div class="pedestal-viewport" onclick="animateHeroClick()">
+        <div class="magic-rune-floor" id="rune-floor"></div>
         
-        <!-- Sidebar de Cenários -->
-        <div class="scenarios-sidebar">
-          <div class="scenario-item active" onclick="selectScenario(0)">
-            <div class="scenario-title">💻 Daily Standup (TI)</div>
-            <div class="scenario-desc">Tasks e bloqueios</div>
-          </div>
+        <!-- Ilustração SVG Dinâmica do Personagem -->
+        <svg class="character-avatar-svg" id="hero-svg-body" viewBox="0 0 160 190">
+          <!-- Sombra Base -->
+          <ellipse cx="80" cy="170" rx="45" ry="12" fill="rgba(0,0,0,0.5)" />
 
-          <div class="scenario-item" onclick="selectScenario(1)">
-            <div class="scenario-title">📈 Discovery Call (Vendas)</div>
-            <div class="scenario-desc">Mapear dores do lead</div>
-          </div>
+          <!-- Capa Épica Traseira -->
+          <path id="svg-cape" d="M45 65 Q25 130 35 160 Q80 175 125 160 Q135 130 115 65 Z" fill="#4c1d95" />
 
-          <div class="scenario-item" onclick="selectScenario(2)">
-            <div class="scenario-title">💻 Bug em Produção (TI)</div>
-            <div class="scenario-desc">Comunicação de crise</div>
-          </div>
+          <!-- Corpo / Túnica ou Armadura -->
+          <rect id="svg-body-armor" x="55" y="65" width="50" height="75" rx="10" fill="#1e1b4b" stroke="#6366f1" stroke-width="2" />
 
-          <div class="scenario-item" onclick="selectScenario(3)">
-            <div class="scenario-title">📈 Objeção de Preço (Vendas)</div>
-            <div class="scenario-desc">Fechamento com ROI</div>
-          </div>
-        </div>
+          <!-- Cinto / Detalhe em Ouro -->
+          <rect x="52" y="105" width="56" height="8" rx="3" fill="#fbbf24" />
+          <circle cx="80" cy="109" r="6" fill="#f59e0b" stroke="#fff" stroke-width="1.5" />
 
-        <!-- Área de Conversação -->
-        <div class="chat-area">
-          <div class="chat-messages" id="chat-messages">
-            <!-- Mensagens via JS -->
-          </div>
+          <!-- Ombros / Hombreras -->
+          <circle cx="48" cy="72" r="12" fill="#312e81" stroke="#fbbf24" stroke-width="1.5" />
+          <circle cx="112" cy="72" r="12" fill="#312e81" stroke="#fbbf24" stroke-width="1.5" />
 
-          <div style="padding: 8px 16px; background: rgba(0,0,0,0.15); display: flex; gap: 8px; overflow-x: auto;" id="quick-replies">
-            <!-- Respostas Rápidas via JS -->
-          </div>
+          <!-- Cabeça / Rosto -->
+          <circle cx="80" cy="42" r="18" fill="#fed7aa" />
 
-          <!-- Barra de Envio -->
-          <div class="chat-input-bar">
-            <input type="text" class="chat-input" id="chat-user-input" placeholder="Digite em inglês ou use o microfone..." onkeydown="if(event.key==='Enter') sendChatMessage()">
-            <button class="btn-circle" style="width: 42px; height: 42px; font-size: 15px;" onclick="startChatVoiceInput()" title="Falar pelo microfone">
-              🎙️
-            </button>
-            <button class="chat-btn-send" onclick="sendChatMessage()">
-              Enviar
-            </button>
-          </div>
-        </div>
+          <!-- Olhos Expressivos -->
+          <circle cx="73" cy="41" r="2.5" fill="#0f172a" />
+          <circle cx="87" cy="41" r="2.5" fill="#0f172a" />
 
-      </div>
-    </div>
+          <!-- Elmo / Capuz Dinâmico -->
+          <path id="svg-headgear" d="M60 40 Q80 12 100 40 Q105 52 98 56 Q80 50 62 56 Z" fill="#6d28d9" />
 
-    <!-- ============================================== -->
-    <!-- ABA 3: ARMADILHAS ESPECÍFICAS DE TI & VENDAS -->
-    <!-- ============================================== -->
-    <div id="tab-traps" class="tab-content">
-      <div style="margin-bottom: 4px;">
-        <h2 style="font-size: 18px; font-weight: 700;">Erros Críticos em TI e Vendas</h2>
-        <p style="font-size: 13px; color: var(--text-muted);">Como substituir termos que entregam sotaque por vocabulário corporativo nativo.</p>
+          <!-- Arma na Mão Direita (Cajado ou Espada) -->
+          <g id="svg-weapon-group" transform="translate(112, 45)">
+            <!-- Cajado Mágico -->
+            <line x1="0" y1="0" x2="15" y2="105" stroke="#78350f" stroke-width="4" stroke-linecap="round" />
+            <circle cx="0" cy="0" r="10" fill="#38bdf8" filter="drop-shadow(0 0 8px #38bdf8)" />
+            <circle cx="0" cy="0" r="5" fill="#ffffff" />
+          </g>
+        </svg>
       </div>
 
-      <div class="pitfalls-grid">
-
-        <div class="pitfall-card">
-          <div class="pitfall-header">💻 TI &bull; "Trabalho com programação"</div>
-          <div class="bad-phrase">I work with programming.</div>
-          <div class="good-phrase">
-            <span>I work in software development.</span>
-            <button class="msg-speaker-btn" onclick="speakText('I work in software development.')">🔊</button>
-          </div>
-          <div class="pitfall-explanation">
-            Diga sempre <strong>"I work in software development"</strong> ou <strong>"I'm a software engineer / developer"</strong>.
-          </div>
+      <!-- Barra de XP -->
+      <div class="side-xp-section">
+        <div class="side-xp-labels">
+          <span>XP para o Nível <span id="side-next-lvl">2</span></span>
+          <span id="side-xp-count">0 / 100</span>
         </div>
-
-        <div class="pitfall-card">
-          <div class="pitfall-header">📈 Vendas &bull; "Passar a proposta"</div>
-          <div class="bad-phrase">I will pass the proposal.</div>
-          <div class="good-phrase">
-            <span>I'll send over the proposal by tomorrow.</span>
-            <button class="msg-speaker-btn" onclick="speakText('I will send over the proposal by tomorrow.')">🔊</button>
-          </div>
-          <div class="pitfall-explanation">
-            No meio comercial, use sempre o phrasal verb nativo <strong>"send over"</strong> (enviar proposta/contrato).
-          </div>
+        <div class="side-xp-track">
+          <div class="side-xp-fill" id="side-xp-bar"></div>
         </div>
+      </div>
 
-        <div class="pitfall-card">
-          <div class="pitfall-header">💻 TI &bull; "Está dando erro"</div>
-          <div class="bad-phrase">The code is giving error.</div>
-          <div class="good-phrase">
-            <span>It's throwing an error in production.</span>
-            <button class="msg-speaker-btn" onclick="speakText('It is throwing an error in production.')">🔊</button>
-          </div>
-          <div class="pitfall-explanation">
-            Código não "dá" (give) erro. O termo correto é <strong>"throw an error"</strong> (lançar erro/exceção).
-          </div>
-        </div>
-
-        <div class="pitfall-card">
-          <div class="pitfall-header">📈 Vendas &bull; "Tem alguma dúvida?"</div>
-          <div class="bad-phrase">Do you have any doubt?</div>
-          <div class="good-phrase">
-            <span>Do you have any questions or concerns?</span>
-            <button class="msg-speaker-btn" onclick="speakText('Do you have any questions or concerns?')">🔊</button>
-          </div>
-          <div class="pitfall-explanation">
-            <em>"Doubt"</em> soa como desconfiança. Para clientes use sempre <strong>"questions or concerns"</strong>.
-          </div>
-        </div>
-
-        <div class="pitfall-card">
-          <div class="pitfall-header">💻 TI &bull; "Subir código / deployar"</div>
-          <div class="bad-phrase">I will up the code.</div>
-          <div class="good-phrase">
-            <span>I'll deploy the build to staging.</span>
-            <button class="msg-speaker-btn" onclick="speakText('I will deploy the build to staging.')">🔊</button>
-          </div>
-          <div class="pitfall-explanation">
-            Nunca traduza "subir o código". O termo profissional universal é o verbo <strong>"to deploy"</strong> ou <strong>"push"</strong>.
-          </div>
-        </div>
-
-        <div class="pitfall-card">
-          <div class="pitfall-header">📈 Vendas &bull; "Fechar negócio"</div>
-          <div class="bad-phrase">We need to close business.</div>
-          <div class="good-phrase">
-            <span>We're ready to close the deal.</span>
-            <button class="msg-speaker-btn" onclick="speakText('We are ready to close the deal.')">🔊</button>
-          </div>
-          <div class="pitfall-explanation">
-            Em vendas corporativas B2B, a expressão de ouro é sempre <strong>"close the deal"</strong>.
-          </div>
-        </div>
-
+      <!-- Slots de Equipamento Equipados -->
+      <div class="side-gear-slots" id="side-gear-container">
+        <!-- Injetado dinamicamente via JS -->
       </div>
     </div>
 
   </div>
 
-  <div class="toast" id="toast-msg">Microfone ativado! Fale agora...</div>
+  <!-- MODAL DE ONBOARDING: ESCOLHA DA CLASSE -->
+  <div class="class-selection-overlay" id="class-modal">
+    <div style="font-size: 54px; margin-bottom: 8px;">🛡️</div>
+    <div class="class-selection-title">CRIE SEU PERSONAGEM</div>
+    <div style="font-size: 13.5px; color: var(--text-muted); max-width: 360px;">
+      Escolha como você quer evoluir seu inglês no trabalho:
+    </div>
+
+    <div class="class-cards-container">
+      <div class="class-card selected" id="card-warrior" onclick="selectClassOption('warrior')">
+        <div style="font-size: 34px;">⚔️</div>
+        <div>
+          <h3 style="font-size: 16px; font-weight:800; color:#fff;">Guerreiro das Vendas</h3>
+          <p style="font-size: 12px; color:var(--text-muted);">Mestre do pitch, reuniões executivas e fechamento de contratos.</p>
+        </div>
+      </div>
+
+      <div class="class-card" id="card-mage" onclick="selectClassOption('mage')">
+        <div style="font-size: 34px;">🧙‍♂️</div>
+        <div>
+          <h3 style="font-size: 16px; font-weight:800; color:#fff;">Mago do Código</h3>
+          <p style="font-size: 12px; color:var(--text-muted);">Especialista em TI, Pull Requests, arquitetura e discussões técnicas.</p>
+        </div>
+      </div>
+
+      <div class="class-card" id="card-paladin" onclick="selectClassOption('paladin')">
+        <div style="font-size: 34px;">⚖️</div>
+        <div>
+          <h3 style="font-size: 16px; font-weight:800; color:#fff;">Paladino do Direito</h3>
+          <p style="font-size: 12px; color:var(--text-muted);">Especialista em contratos internacionais, compliance, cláusulas e justiça.</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-main-action" style="width: 100%; max-width: 380px;" onclick="confirmClassSelection()">
+      Começar Aventura
+    </button>
+  </div>
+
+  <!-- MODAL DE VITÓRIA / DROP DE EQUIPAMENTO -->
+  <div class="victory-modal" id="victory-modal">
+    <div class="victory-trophy">🏆</div>
+    <div class="victory-title">Aula Concluída!</div>
+    <div class="victory-desc">Você completou o treino e fortaleceu o seu personagem!</div>
+
+    <div id="victory-item-drop-container"></div>
+
+    <button class="btn-main-action" style="width: 100%; max-width: 320px;" onclick="closeVictoryModal()">
+      Equipar & Continuar
+    </button>
+  </div>
 
   <script>
     // ========================================================
-    // REGISTRO DO SERVICE WORKER (PWA)
+    // SINTETIZADOR DE SONS (Web Audio API)
     // ========================================================
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
-          .then(() => console.log('PWA Service Worker Ativo!'))
-          .catch((err) => console.log('Service Worker falhou:', err));
-      });
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playSound(type) {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      if (type === 'correct') {
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
+        osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1);
+        osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.2);
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.5);
+      } else if (type === 'wrong') {
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(220, audioCtx.currentTime);
+        osc.frequency.setValueAtTime(164.81, audioCtx.currentTime + 0.15);
+        gain.gain.setValueAtTime(0.25, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.4);
+      } else if (type === 'click') {
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.08);
+      } else if (type === 'levelup') {
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(392, audioCtx.currentTime);
+        osc.frequency.setValueAtTime(523.25, audioCtx.currentTime + 0.12);
+        osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.24);
+        osc.frequency.setValueAtTime(1046.50, audioCtx.currentTime + 0.36);
+        gain.gain.setValueAtTime(0.25, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.7);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.7);
+      }
     }
 
     // ========================================================
-    // BANCO DE DADOS COMPLETO: TI / PROGRAMAÇÃO & VENDAS
+    // CURRÍCULO DE AULAS COM ITENS
     // ========================================================
-    const allPhrases = [
+    const curriculum = [
       {
-        track: "tech",
-        trackLabel: "💻 TI & Dev",
-        category: "Daily & Sprint",
-        en: "I opened a pull request this morning and I'm waiting for reviews.",
-        pt: "Abri um pull request hoje de manhã e estou aguardando revisões.",
-        tip: "Conecte 'opened a' como /óupend-a/. O termo 'PR' pode ser falado como /pí-ár/."
+        id: 1,
+        module: 1,
+        title: "Apresentação Pessoal",
+        category: "Primeiros Passos",
+        icon: "👋",
+        pos: "pos-center",
+        rewardItem: { icon: "🗡️", name: "Lâmina da Fala", slot: "Arma" },
+        exercises: [
+          {
+            type: "word-order",
+            prompt: "Monte a frase em inglês:",
+            source: "Eu sou um desenvolvedor de software.",
+            correct: ["I", "am", "a", "software", "developer"],
+            pool: ["I", "am", "a", "software", "developer", "working", "with", "program"]
+          },
+          {
+            type: "choice",
+            prompt: "Como você diz educadamente que está feliz em estar na equipe?",
+            options: [
+              "I am glad to be here.",
+              "I am here for working.",
+              "I have doubt about team."
+            ],
+            correct: 0
+          },
+          {
+            type: "speak",
+            prompt: "Toque no microfone e fale a frase em inglês:",
+            target: "Nice to meet you all.",
+            trans: "Prazer em conhecer todos vocês."
+          }
+        ]
       },
       {
-        track: "tech",
-        trackLabel: "💻 TI & Dev",
-        category: "Debugging & Erros",
-        en: "It works fine locally on my machine, but it fails in staging.",
-        pt: "Funciona perfeitamente local na minha máquina, mas falha em homologação.",
-        tip: "A frase clássica de dev! Lembre-se de pronunciar 'staging' como /stêi-djin/."
+        id: 2,
+        module: 1,
+        title: "Abertura de Reunião",
+        category: "Comunicação",
+        icon: "☕",
+        pos: "pos-right",
+        rewardItem: { icon: "📿", name: "Amuleto da Fluência", slot: "Acessório" },
+        exercises: [
+          {
+            type: "word-order",
+            prompt: "Monte a frase em inglês:",
+            source: "Obrigado por disponibilizarem um tempo hoje.",
+            correct: ["Thanks", "for", "your", "time", "today"],
+            pool: ["Thanks", "for", "your", "time", "today", "to", "pass", "giving"]
+          },
+          {
+            type: "choice",
+            prompt: "Qual é a forma correta e nativa de dizer 'Eu concordo com você'?",
+            options: [
+              "I agree with you.",
+              "I am agree with you.",
+              "I'm agree with you."
+            ],
+            correct: 0
+          },
+          {
+            type: "speak",
+            prompt: "Fale no microfone com boa pronúncia:",
+            target: "Could you repeat that, please?",
+            trans: "Você poderia repetir isso, por favor?"
+          }
+        ]
       },
       {
-        track: "tech",
-        trackLabel: "💻 TI & Dev",
-        category: "Bloqueios & Dependências",
-        en: "I'm currently blocked because the backend endpoint isn't ready yet.",
-        pt: "Estou travado no momento porque o endpoint do backend ainda não está pronto.",
-        tip: "Sempre que depender de outro time, use 'I'm blocked because...'. Soa claro e profissional."
+        id: 3,
+        module: 2,
+        title: "Daily Standup",
+        category: "💻 TI & Dev",
+        icon: "💻",
+        pos: "pos-center",
+        rewardItem: { icon: "🛡️", name: "Escudo do Deploy", slot: "Armadura" },
+        exercises: [
+          {
+            type: "word-order",
+            prompt: "Monte a frase clássica de Daily:",
+            source: "Ontem trabalhei na migração do banco de dados.",
+            correct: ["Yesterday", "I", "worked", "on", "the", "database", "migration"],
+            pool: ["Yesterday", "I", "worked", "on", "the", "database", "migration", "at", "did", "code"]
+          },
+          {
+            type: "choice",
+            prompt: "Como você avisa na Daily que NÃO tem nenhum impedimento?",
+            options: [
+              "I have no blockers today.",
+              "I don't have doubts.",
+              "No stops for me."
+            ],
+            correct: 0
+          },
+          {
+            type: "speak",
+            prompt: "Fale no microfone:",
+            target: "I'm currently working on bug fixes.",
+            trans: "Estou trabalhando atualmente na correção de bugs."
+          }
+        ]
       },
       {
-        track: "tech",
-        trackLabel: "💻 TI & Dev",
-        category: "Estimativa & Prazos",
-        en: "This refactoring might take an extra couple of days to test properly.",
-        pt: "Essa refatoração pode levar mais uns dois dias para ser testada adequadamente.",
-        tip: "'A couple of days' é a forma mais natural que os nativos usam para dizer 'uns dois dias'."
+        id: 4,
+        module: 2,
+        title: "Pull Requests & Bugs",
+        category: "💻 TI & Dev",
+        icon: "🔀",
+        pos: "pos-left",
+        rewardItem: { icon: "👑", name: "Coroa do Arquiteto", slot: "Elmo" },
+        exercises: [
+          {
+            type: "word-order",
+            prompt: "Monte a frase:",
+            source: "Abri um pull request hoje de manhã.",
+            correct: ["I", "opened", "a", "pull", "request", "this", "morning"],
+            pool: ["I", "opened", "a", "pull", "request", "this", "morning", "up", "the", "code"]
+          },
+          {
+            type: "choice",
+            prompt: "Se o servidor está gerando erro em produção, o termo exato é:",
+            options: [
+              "The server is throwing an error.",
+              "The server is giving error.",
+              "The server is with defect."
+            ],
+            correct: 0
+          },
+          {
+            type: "speak",
+            prompt: "Fale a clássica frase de programador:",
+            target: "It works fine on my machine.",
+            trans: "Funciona perfeitamente na minha máquina."
+          }
+        ]
       },
       {
-        track: "tech",
-        trackLabel: "💻 TI & Dev",
-        category: "Code Review",
-        en: "Looks good to me, but did you consider the edge cases for null values?",
-        pt: "Parece bom para mim, mas você considerou os casos extremos de valores nulos?",
-        tip: "'Edge cases' significa casos de teste extremos. 'LGTM' = Looks Good To Me."
+        id: 5,
+        module: 2,
+        title: "Prazos & Bloqueios",
+        category: "💻 TI & Dev",
+        icon: "⏱️",
+        pos: "pos-center",
+        rewardItem: { icon: "💍", name: "Anel do Refactor", slot: "Acessório" },
+        exercises: [
+          {
+            type: "word-order",
+            prompt: "Monte a frase:",
+            source: "Estou travado por um problema na API.",
+            correct: ["I", "am", "blocked", "by", "an", "API", "issue"],
+            pool: ["I", "am", "blocked", "by", "an", "API", "issue", "having", "doubt", "stopped"]
+          },
+          {
+            type: "choice",
+            prompt: "Como você diz: 'Vamos entrar numa chamada rápida para debugar isso'?",
+            options: [
+              "Let's hop on a quick call.",
+              "Let's enter in one call.",
+              "Make a meeting now."
+            ],
+            correct: 0
+          },
+          {
+            type: "speak",
+            prompt: "Fale no microfone:",
+            target: "This task will take two days.",
+            trans: "Essa tarefa levará dois dias."
+          }
+        ]
       },
       {
-        track: "tech",
-        trackLabel: "💻 TI & Dev",
-        category: "Arquitetura & Deploy",
-        en: "We need to roll back the release due to a high CPU usage issue.",
-        pt: "Precisamos reverter a release devido a um problema de alto consumo de CPU.",
-        tip: "'Roll back' é o termo técnico para desfazer uma versão que causou instabilidade."
+        id: 6,
+        module: 3,
+        title: "Discovery Call",
+        category: "📈 Vendas",
+        icon: "🔍",
+        pos: "pos-right",
+        rewardItem: { icon: "📜", name: "Papiro da Negociação", slot: "Tomo" },
+        exercises: [
+          {
+            type: "word-order",
+            prompt: "Monte a pergunta para descobrir a dor do cliente:",
+            source: "Quais são os maiores gargalos no seu processo?",
+            correct: ["What", "are", "the", "biggest", "bottlenecks", "in", "your", "process"],
+            pool: ["What", "are", "the", "biggest", "bottlenecks", "in", "your", "process", "doubts", "have"]
+          },
+          {
+            type: "choice",
+            prompt: "Como perguntar quando o cliente vai tomar a decisão de compra?",
+            options: [
+              "What does your timeline look like?",
+              "When you will buy this?",
+              "What is your final hour?"
+            ],
+            correct: 0
+          },
+          {
+            type: "speak",
+            prompt: "Fale no microfone:",
+            target: "How can our platform help your team?",
+            trans: "Como a nossa plataforma pode ajudar sua equipe?"
+          }
+        ]
       },
       {
-        track: "tech",
-        trackLabel: "💻 TI & Dev",
-        category: "Documentação & API",
-        en: "Could you share the API documentation and sample payloads?",
-        pt: "Você poderia compartilhar a documentação da API e exemplos de payload?",
-        tip: "Fale 'payloads' como /pêi-louds/. Junte 'Could you' como /kúd-ju/."
+        id: 7,
+        module: 3,
+        title: "Demonstração & Valor",
+        category: "📈 Vendas",
+        icon: "🚀",
+        pos: "pos-center",
+        rewardItem: { icon: "⚔️", name: "Gládio do Fechamento", slot: "Arma Mítica" },
+        exercises: [
+          {
+            type: "word-order",
+            prompt: "Monte a frase de impacto comercial:",
+            source: "Nossa plataforma reduz o tempo de entrega pela metade.",
+            correct: ["Our", "platform", "cuts", "delivery", "time", "in", "half"],
+            pool: ["Our", "platform", "cuts", "delivery", "time", "in", "half", "lows", "down", "at"]
+          },
+          {
+            type: "choice",
+            prompt: "Como você diz educadamente que vai enviar a proposta por e-mail?",
+            options: [
+              "I will send over the proposal.",
+              "I will pass the proposal.",
+              "I will give you the proposal."
+            ],
+            correct: 0
+          },
+          {
+            type: "speak",
+            prompt: "Fale no microfone:",
+            target: "This automation saves forty hours a month.",
+            trans: "Essa automação economiza quarenta horas por mês."
+          }
+        ]
       },
       {
-        track: "tech",
-        trackLabel: "💻 TI & Dev",
-        category: "Alinhamento Técnico",
-        en: "Let's hop on a quick call to debug this together.",
-        pt: "Vamos entrar numa chamada rápida para debugar isso juntos?",
-        tip: "'Hop on a call' é gíria de escritório tech para 'vamos abrir o Meet/Slack rapidinho'."
+        id: 8,
+        module: 3,
+        title: "Fechamento & Contrato",
+        category: "📈 Vendas",
+        icon: "🤝",
+        pos: "pos-left",
+        rewardItem: { icon: "🏆", name: "Cálice da Vitória", slot: "Relíquia" },
+        exercises: [
+          {
+            type: "word-order",
+            prompt: "Monte a frase de fechamento:",
+            source: "Estamos prontos para fechar o negócio hoje.",
+            correct: ["We", "are", "ready", "to", "close", "the", "deal", "today"],
+            pool: ["We", "are", "ready", "to", "close", "the", "deal", "today", "finish", "business"]
+          },
+          {
+            type: "choice",
+            prompt: "Como contornar uma objeção de orçamento com classe?",
+            options: [
+              "I understand your budget constraints.",
+              "I see you don't have money.",
+              "Your budget is too poor."
+            ],
+            correct: 0
+          },
+          {
+            type: "speak",
+            prompt: "Fale no microfone:",
+            target: "We're excited to partner with you.",
+            trans: "Estamos muito animados em ser parceiros de vocês."
+          }
+        ]
+      },
+      // MÓDULO 4 (DIREITO & JURÍDICO - PALADINO)
+      {
+        id: 9,
+        module: 4,
+        title: "Contratos & Cláusulas",
+        category: "⚖️ Jurídico",
+        icon: "📜",
+        pos: "pos-center",
+        rewardItem: { icon: "🔨", name: "Martelo do Magistrado", slot: "Arma Sagrada" },
+        exercises: [
+          {
+            type: "word-order",
+            prompt: "Monte a frase jurídica em inglês:",
+            source: "De acordo com os termos do contrato de confidencialidade.",
+            correct: ["Pursuant", "to", "the", "terms", "of", "the", "NDA"],
+            pool: ["Pursuant", "to", "the", "terms", "of", "the", "NDA", "under", "doubt", "pass"]
+          },
+          {
+            type: "choice",
+            prompt: "Qual termo jurídico em inglês significa 'quebra ou violação de contrato'?",
+            options: [
+              "Breach of contract.",
+              "Breaking of contract.",
+              "Contract drop down."
+            ],
+            correct: 0
+          },
+          {
+            type: "speak",
+            prompt: "Fale no microfone a frase de validade jurídica:",
+            target: "This agreement is legally binding.",
+            trans: "Este acordo é juridicamente vinculativo."
+          }
+        ]
       },
       {
-        track: "sales",
-        trackLabel: "📈 Vendas & Negociação",
-        category: "Abertura de Pitch",
-        en: "Thanks for taking the time to meet with us today.",
-        pt: "Obrigado por disponibilizar um tempo para se reunir conosco hoje.",
-        tip: "A frase mais elegante para abrir qualquer reunião de negócios com cliente estrangeiro."
-      },
-      {
-        track: "sales",
-        trackLabel: "📈 Vendas & Negociação",
-        category: "Discovery Call",
-        en: "What are the biggest bottlenecks in your current software workflow?",
-        pt: "Quais são os maiores gargalos no seu fluxo de trabalho atual de software?",
-        tip: "'Bottleneck' (gargalo) é a palavra-chave de vendas B2B para descobrir a dor do cliente."
-      },
-      {
-        track: "sales",
-        trackLabel: "📈 Vendas & Negociação",
-        category: "Apresentando Valor / Demo",
-        en: "Our platform automates this process and cuts delivery time in half.",
-        pt: "Nossa plataforma automatiza esse processo e reduz o tempo de entrega pela metade.",
-        tip: "'Cuts in half' (corta pela metade). Clientes amam ouvir redução de tempo e custo."
-      },
-      {
-        track: "sales",
-        trackLabel: "📈 Vendas & Negociação",
-        category: "Objeção de Preço",
-        en: "I understand your budget constraints, but consider the return on investment.",
-        pt: "Entendo suas limitações de orçamento, mas considere o retorno sobre o investimento.",
-        tip: "Em vez de falar 'you don't have money', diga com classe: 'budget constraints'."
-      },
-      {
-        track: "sales",
-        trackLabel: "📈 Vendas & Negociação",
-        category: "Prazos do Cliente",
-        en: "What does your timeline look like to make a decision?",
-        pt: "Como está o cronograma de vocês para tomar uma decisão?",
-        tip: "Pergunta de ouro para qualificar se o lead vai fechar agora ou daqui a 6 meses."
-      },
-      {
-        track: "sales",
-        trackLabel: "📈 Vendas & Negociação",
-        category: "Negociação de Escopo",
-        en: "We can offer a tiered pricing model based on the number of active users.",
-        pt: "Podemos oferecer um modelo de preço em camadas baseado no número de usuários ativos.",
-        tip: "'Tiered pricing' significa preço por faixas/planos. Muito comum em SaaS."
-      },
-      {
-        track: "sales",
-        trackLabel: "📈 Vendas & Negociação",
-        category: "Follow-up Comercial",
-        en: "I'm following up on the proposal I sent last Thursday. Any updates?",
-        pt: "Estou dando um retorno sobre a proposta que enviei na última quinta. Alguma novidade?",
-        tip: "'Following up' é a forma mais polida de cobrar uma resposta sem ser invasivo."
-      },
-      {
-        track: "sales",
-        trackLabel: "📈 Vendas & Negociação",
-        category: "Fechamento de Negócio",
-        en: "If the terms look good to you, we can send over the contract today.",
-        pt: "Se os termos parecerem bons para você, podemos enviar o contrato hoje.",
-        tip: "Transição suave para o fechamento. 'Send over the contract' em vez de 'pass the contract'."
-      },
-      {
-        track: "sales",
-        trackLabel: "📈 Vendas & Negociação",
-        category: "Pós-Venda & Onboarding",
-        en: "Our dedicated engineering team will support your team during implementation.",
-        pt: "Nossa equipe dedicada de engenharia dará suporte ao seu time durante a implementação.",
-        tip: "Tranquiliza o cliente corporativo sobre o suporte técnico pós-fechamento."
-      },
-      {
-        track: "tech",
-        trackLabel: "💻 TI & Dev",
-        category: "Performance & Banco",
-        en: "We optimized the database query and reduced the response time by forty percent.",
-        pt: "Otimizamos a consulta do banco de dados e reduzimos o tempo de resposta em quarenta por cento.",
-        tip: "Mostra liderança e resultado concreto: 'reduced response time by forty percent'."
+        id: 10,
+        module: 4,
+        title: "Compliance & Disputas",
+        category: "⚖️ Jurídico",
+        icon: "⚖️",
+        pos: "pos-right",
+        rewardItem: { icon: "⚖️", name: "Balança da Justiça", slot: "Relíquia Suprema" },
+        exercises: [
+          {
+            type: "word-order",
+            prompt: "Monte a cláusula em inglês:",
+            source: "Ambas as partes concordam em resolver disputas por arbitragem.",
+            correct: ["Both", "parties", "agree", "to", "resolve", "disputes", "by", "arbitration"],
+            pool: ["Both", "parties", "agree", "to", "resolve", "disputes", "by", "arbitration", "am", "fight"]
+          },
+          {
+            type: "choice",
+            prompt: "Como você diz formalmente que a empresa está 'em conformidade com a lei'?",
+            options: [
+              "In compliance with applicable laws.",
+              "Following the rules well.",
+              "Assisting the justice."
+            ],
+            correct: 0
+          },
+          {
+            type: "speak",
+            prompt: "Fale no microfone a declaração de responsabilidade legal:",
+            target: "Neither party shall be held liable.",
+            trans: "Nenhuma das partes será responsabilizada."
+          }
+        ]
       }
     ];
 
-    let currentPhrases = [...allPhrases];
-    let currentPhraseIdx = 0;
-    let isRecording = false;
-    let recognition = null;
-
-    // Elementos da UI
-    const targetPhraseEl = document.getElementById("target-phrase");
-    const targetTransEl = document.getElementById("target-trans");
-    const phraseTrackEl = document.getElementById("phrase-track");
-    const phraseCategoryEl = document.getElementById("phrase-category");
-    const phraseCounterEl = document.getElementById("phrase-counter");
-    const speechResultBox = document.getElementById("speech-result-box");
-    const scoreBadge = document.getElementById("score-badge");
-    const recognizedTextEl = document.getElementById("recognized-text");
-    const micBtn = document.getElementById("mic-btn");
-    const teacherTipText = document.querySelector(".teacher-tip-text");
-
     // ========================================================
-    // FILTROS
+    // ESTADO DO USUÁRIO
     // ========================================================
-    function setFilter(track, btn) {
-      document.querySelectorAll(".filter-btn").forEach(b => {
-        b.className = "filter-btn";
-      });
+    let userState = {
+      heroClass: null,
+      level: 1,
+      xp: 0,
+      hearts: 5,
+      unlockedLesson: 1
+    };
 
-      if (track === "all") {
-        currentPhrases = [...allPhrases];
-        btn.classList.add("active");
-      } else if (track === "tech") {
-        currentPhrases = allPhrases.filter(p => p.track === "tech");
-        btn.classList.add("active-tech");
-      } else if (track === "sales") {
-        currentPhrases = allPhrases.filter(p => p.track === "sales");
-        btn.classList.add("active-sales");
+    let selectedClassTemp = 'warrior';
+
+    function loadState() {
+      const saved = localStorage.getItem("english_rpg_side_state");
+      if (saved) {
+        try {
+          userState = JSON.parse(saved);
+        } catch (e) {}
       }
 
-      currentPhraseIdx = 0;
-      updatePhraseUI();
+      if (!userState.heroClass) {
+        document.getElementById("class-modal").style.display = "flex";
+      } else {
+        updateSideHeroUI();
+      }
+      renderRoadmap();
+    }
+
+    function saveState() {
+      localStorage.setItem("english_rpg_side_state", JSON.stringify(userState));
+      updateSideHeroUI();
+    }
+
+    function selectClassOption(cls) {
+      selectedClassTemp = cls;
+      playSound('click');
+      document.getElementById("card-warrior").classList.toggle("selected", cls === 'warrior');
+      document.getElementById("card-mage").classList.toggle("selected", cls === 'mage');
+      document.getElementById("card-paladin").classList.toggle("selected", cls === 'paladin');
+    }
+
+    function confirmClassSelection() {
+      playSound('levelup');
+      userState.heroClass = selectedClassTemp;
+      userState.level = 1;
+      userState.xp = 0;
+      saveState();
+      document.getElementById("class-modal").style.display = "none";
+    }
+
+    function openClassModal() {
+      playSound('click');
+      selectedClassTemp = userState.heroClass || 'warrior';
+      document.getElementById("card-warrior").classList.toggle("selected", selectedClassTemp === 'warrior');
+      document.getElementById("card-mage").classList.toggle("selected", selectedClassTemp === 'mage');
+      document.getElementById("card-paladin").classList.toggle("selected", selectedClassTemp === 'paladin');
+      document.getElementById("class-modal").style.display = "flex";
     }
 
     // ========================================================
-    // ÁUDIO NATIVO
+    // ATUALIZAÇÃO DA COLUNA DO HERÓI (LADO DIREITO)
     // ========================================================
-    function speakText(text, rate = 1.0) {
-      if (!('speechSynthesis' in window)) {
-        showToast("Áudio nativo não disponível.");
+    function updateSideHeroUI() {
+      const cls = userState.heroClass;
+      let className = "Guerreiro Vendas";
+      let classIcon = "⚔️";
+
+      if (cls === 'mage') {
+        className = "Mago Dev";
+        classIcon = "🧙‍♂️";
+      } else if (cls === 'paladin') {
+        className = "Paladino da Lei";
+        classIcon = "⚖️";
+      }
+
+      document.getElementById("side-hero-title").innerHTML = `<span>${classIcon}</span> ${className}`;
+      document.getElementById("side-hero-lvl").textContent = `Nível ${userState.level}`;
+      document.getElementById("user-xp").textContent = `${userState.xp} XP`;
+      document.getElementById("user-hearts").textContent = userState.hearts;
+
+      // Barra de XP Lateral
+      const xpCurrentLevel = userState.xp % 100;
+      document.getElementById("side-xp-count").textContent = `${xpCurrentLevel} / 100`;
+      document.getElementById("side-next-lvl").textContent = userState.level + 1;
+      document.getElementById("side-xp-bar").style.width = `${xpCurrentLevel}%`;
+
+      // Atualiza Cores e SVG do Herói
+      const cape = document.getElementById("svg-cape");
+      const armor = document.getElementById("svg-body-armor");
+      const headgear = document.getElementById("svg-headgear");
+      const weaponGroup = document.getElementById("svg-weapon-group");
+
+      if (cls === 'mage') {
+        cape.setAttribute("fill", "#6d28d9");
+        armor.setAttribute("fill", "#1e1b4b");
+        armor.setAttribute("stroke", "#a855f7");
+        headgear.setAttribute("fill", "#7c3aed");
+
+        // Cajado Mágico
+        weaponGroup.innerHTML = `
+          <line x1="0" y1="0" x2="15" y2="105" stroke="#78350f" stroke-width="4" stroke-linecap="round" />
+          <circle cx="0" cy="0" r="10" fill="#38bdf8" filter="drop-shadow(0 0 8px #38bdf8)" />
+          <circle cx="0" cy="0" r="4" fill="#ffffff" />
+        `;
+      } else if (cls === 'paladin') {
+        cape.setAttribute("fill", "#1d4ed8"); // Capa azul real
+        armor.setAttribute("fill", "#f8fafc"); // Armadura de prata polida
+        armor.setAttribute("stroke", "#94a3b8");
+        headgear.setAttribute("fill", "#3b82f6"); // Elmo de prata alado com azul
+
+        // Martelo do Juiz / Balança da Justiça
+        weaponGroup.innerHTML = `
+          <line x1="0" y1="0" x2="8" y2="85" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" />
+          <rect x="-14" y="0" width="28" height="14" rx="3" fill="#fbbf24" stroke="#d97706" stroke-width="2" />
+          <circle cx="0" cy="7" r="4" fill="#ffffff" />
+        `;
+      } else {
+        cape.setAttribute("fill", "#b45309");
+        armor.setAttribute("fill", "#451a03");
+        armor.setAttribute("stroke", "#f59e0b");
+        headgear.setAttribute("fill", "#d97706");
+
+        // Espada Dourada
+        weaponGroup.innerHTML = `
+          <line x1="0" y1="0" x2="10" y2="90" stroke="#f59e0b" stroke-width="5" stroke-linecap="round" />
+          <line x1="-8" y1="70" x2="15" y2="70" stroke="#fbbf24" stroke-width="4" stroke-linecap="round" />
+          <polygon points="0,0 8,25 -8,25" fill="#fef08a" />
+        `;
+      }
+
+      // Renderiza Slots de Itens
+      renderSideGearSlots();
+    }
+
+    function renderSideGearSlots() {
+      const container = document.getElementById("side-gear-container");
+      container.innerHTML = "";
+
+      curriculum.slice(0, 4).forEach((lesson) => {
+        const item = lesson.rewardItem;
+        const isUnlocked = lesson.id < userState.unlockedLesson;
+
+        const slotEl = document.createElement("div");
+        slotEl.className = `gear-slot-item ${isUnlocked ? 'unlocked' : ''}`;
+        slotEl.innerHTML = `
+          <div class="gear-slot-icon">${isUnlocked ? item.icon : '🔒'}</div>
+          <div class="gear-slot-texts">
+            <span class="gear-slot-name">${isUnlocked ? item.name : 'Bloqueado'}</span>
+            <span class="gear-slot-type">${isUnlocked ? item.slot : `Aula ${lesson.id}`}</span>
+          </div>
+        `;
+        container.appendChild(slotEl);
+      });
+    }
+
+    function animateHeroClick() {
+      playSound('click');
+      let phrases = [
+        "Knowledge is your best weapon!",
+        "Let's practice your pronunciation today!",
+        "Every lesson makes you more fluent!",
+        "Your English is leveling up fast!"
+      ];
+
+      if (userState.heroClass === 'paladin') {
+        phrases = [
+          "Pursuant to the terms of the agreement!",
+          "Justice, clarity, and precision in every clause!",
+          "Let's review the contract terms!",
+          "Ensure full compliance with regulations!"
+        ];
+      }
+
+      const randomMsg = phrases[Math.floor(Math.random() * phrases.length)];
+      const bubble = document.getElementById("hero-dialogue");
+      bubble.textContent = `"${randomMsg}"`;
+
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(randomMsg);
+      u.lang = 'en-US';
+      window.speechSynthesis.speak(u);
+    }
+
+    // ========================================================
+    // ROADMAP
+    // ========================================================
+    function renderRoadmap() {
+      const m1 = document.getElementById("lessons-path-container");
+      const m2 = document.getElementById("lessons-path-m2");
+      const m3 = document.getElementById("lessons-path-m3");
+      const m4 = document.getElementById("lessons-path-m4");
+
+      m1.innerHTML = "";
+      m2.innerHTML = "";
+      m3.innerHTML = "";
+      if (m4) m4.innerHTML = "";
+
+      curriculum.forEach((lesson) => {
+        const isCompleted = lesson.id < userState.unlockedLesson;
+        const isCurrent = lesson.id === userState.unlockedLesson;
+
+        let nodeClass = "node-locked";
+        if (isCompleted) nodeClass = "node-completed";
+        if (isCurrent) nodeClass = "node-current";
+
+        const wrapper = document.createElement("div");
+        wrapper.className = `lesson-node-wrapper ${lesson.pos}`;
+
+        let tooltipHtml = "";
+        if (isCurrent) {
+          tooltipHtml = `<div class="start-tooltip">COMEÇAR</div>`;
+        }
+
+        wrapper.innerHTML = `
+          ${tooltipHtml}
+          <button class="lesson-node ${nodeClass}" onclick="startLesson(${lesson.id})">
+            ${isCompleted ? '⭐' : lesson.icon}
+          </button>
+          <div class="lesson-label">${lesson.title}</div>
+          <div class="lesson-category">${lesson.category}</div>
+        `;
+
+        if (lesson.module === 1) m1.appendChild(wrapper);
+        else if (lesson.module === 2) m2.appendChild(wrapper);
+        else if (lesson.module === 3) m3.appendChild(wrapper);
+        else if (lesson.module === 4 && m4) m4.appendChild(wrapper);
+      });
+    }
+
+    // ========================================================
+    // LIÇÃO ATIVA
+    // ========================================================
+    let currentLesson = null;
+    let currentExerciseIdx = 0;
+    let selectedWords = [];
+    let selectedChoice = null;
+    let isVerifying = false;
+
+    function startLesson(id) {
+      if (id > userState.unlockedLesson) return;
+      playSound('click');
+
+      currentLesson = curriculum.find(l => l.id === id);
+      currentExerciseIdx = 0;
+
+      document.getElementById("roadmap-view").style.display = "none";
+      document.getElementById("lesson-view").style.display = "flex";
+
+      loadExercise();
+    }
+
+    function exitLesson() {
+      if (confirm("Deseja sair da aula? O progresso não salvo será perdido.")) {
+        document.getElementById("lesson-view").style.display = "none";
+        document.getElementById("roadmap-view").style.display = "block";
+        resetBottomAction();
+      }
+    }
+
+    function loadExercise() {
+      resetBottomAction();
+      const ex = currentLesson.exercises[currentExerciseIdx];
+      const mount = document.getElementById("exercise-mount-point");
+      mount.innerHTML = "";
+
+      const progressPercent = (currentExerciseIdx / currentLesson.exercises.length) * 100;
+      document.getElementById("lesson-progress-bar").style.width = `${progressPercent}%`;
+
+      if (ex.type === "word-order") {
+        renderWordOrderExercise(ex, mount);
+      } else if (ex.type === "choice") {
+        renderChoiceExercise(ex, mount);
+      } else if (ex.type === "speak") {
+        renderSpeakingExercise(ex, mount);
+      }
+    }
+
+    function renderWordOrderExercise(ex, mount) {
+      selectedWords = [];
+      const targetEnglish = ex.correct.join(" ");
+
+      mount.innerHTML = `
+        <div class="exercise-prompt">${ex.prompt}</div>
+        <div class="teacher-speech-box">
+          <div class="teacher-avatar-circle">${userState.heroClass === 'mage' ? '🧙‍♂️' : '⚔️'}</div>
+          <div class="speech-bubble" style="display:flex; justify-content:space-between; width:100%; align-items:center;">
+            <span>"${ex.source}"</span>
+            <div style="display:flex; gap:6px; flex-shrink:0;">
+              <button class="btn-listen-bubble" onclick="speakTarget('${targetEnglish.replace(/'/g, "\\'")}', 1.0)" title="Ouvir a frase em inglês">🔊</button>
+              <button class="btn-listen-bubble btn-slow" onclick="speakTarget('${targetEnglish.replace(/'/g, "\\'")}', 0.75)" title="Ouvir devagar">0.75x</button>
+            </div>
+          </div>
+        </div>
+        <div class="phrase-assembly-zone" id="assembly-zone">
+          <span style="font-size:12.5px; color:#64748b; font-style:italic;">Toque nas palavras abaixo na ordem correta</span>
+        </div>
+        <div class="word-bank" id="word-bank"></div>
+      `;
+
+      const bank = document.getElementById("word-bank");
+      const shuffled = [...ex.pool].sort(() => Math.random() - 0.5);
+
+      shuffled.forEach((w) => {
+        const chip = document.createElement("button");
+        chip.className = "word-chip";
+        chip.textContent = w;
+        chip.onclick = () => selectWord(w, chip);
+        bank.appendChild(chip);
+      });
+    }
+
+    function selectWord(word, chipEl) {
+      if (chipEl.classList.contains("used")) return;
+      playSound('click');
+
+      chipEl.classList.add("used");
+      selectedWords.push({ word, chipEl });
+
+      renderAssemblyZone();
+      enableVerifyButton();
+    }
+
+    function removeWord(index) {
+      playSound('click');
+      const item = selectedWords[index];
+      item.chipEl.classList.remove("used");
+      selectedWords.splice(index, 1);
+
+      renderAssemblyZone();
+      if (selectedWords.length === 0) disableVerifyButton();
+    }
+
+    function renderAssemblyZone() {
+      const zone = document.getElementById("assembly-zone");
+      zone.innerHTML = "";
+
+      if (selectedWords.length === 0) {
+        zone.innerHTML = `<span style="font-size:12.5px; color:#64748b; font-style:italic;">Toque nas palavras abaixo na ordem correta</span>`;
         return;
       }
 
+      selectedWords.forEach((item, idx) => {
+        const chip = document.createElement("button");
+        chip.className = "word-chip";
+        chip.textContent = item.word;
+        chip.onclick = () => removeWord(idx);
+        zone.appendChild(chip);
+      });
+    }
+
+    function renderChoiceExercise(ex, mount) {
+      selectedChoice = null;
+
+      mount.innerHTML = `
+        <div class="exercise-prompt">${ex.prompt}</div>
+        <div class="choices-list" id="choices-container"></div>
+      `;
+
+      const container = document.getElementById("choices-container");
+      ex.options.forEach((opt, idx) => {
+        const card = document.createElement("div");
+        card.className = "choice-card";
+        card.innerHTML = `
+          <span>${idx + 1}.</span> 
+          <span style="flex:1;">${opt}</span>
+          <button class="btn-listen-bubble" style="width:34px; height:34px; font-size:14px; margin-left:auto;" onclick="event.stopPropagation(); speakTarget('${opt.replace(/'/g, "\\'")}', 1.0)" title="Ouvir pronúncia desta opção">🔊</button>
+        `;
+        card.onclick = () => {
+          playSound('click');
+          document.querySelectorAll(".choice-card").forEach(c => c.classList.remove("selected"));
+          card.classList.add("selected");
+          selectedChoice = idx;
+          enableVerifyButton();
+        };
+        container.appendChild(card);
+      });
+    }
+
+    function renderSpeakingExercise(ex, mount) {
+      mount.innerHTML = `
+        <div class="exercise-prompt">${ex.prompt}</div>
+        <div class="teacher-speech-box">
+          <div class="teacher-avatar-circle">${userState.heroClass === 'mage' ? '🧙‍♂️' : '⚔️'}</div>
+          <div class="speech-bubble" style="display:flex; justify-content:space-between; width:100%; align-items:center;">
+            <span>"${ex.target}"</span>
+            <div style="display:flex; gap:6px; flex-shrink:0;">
+              <button class="btn-listen-bubble" onclick="speakTarget('${ex.target.replace(/'/g, "\\'")}', 1.0)" title="Ouvir normal">🔊</button>
+              <button class="btn-listen-bubble btn-slow" onclick="speakTarget('${ex.target.replace(/'/g, "\\'")}', 0.75)" title="Ouvir devagar">0.75x</button>
+            </div>
+          </div>
+        </div>
+        <div style="font-size:13.5px; color:var(--text-muted); text-align:center; margin-top:-6px;">
+          "${ex.trans}"
+        </div>
+        <div class="speaking-exercise-box">
+          <button class="btn-huge-mic" id="btn-exercise-mic" onclick="startExerciseSpeech()">
+            🎙️
+          </button>
+          <div id="mic-status-text" style="font-size:13px; color:var(--text-muted);">
+            Toque para falar em inglês
+          </div>
+        </div>
+      `;
+    }
+
+    function speakTarget(text, rate = 1.0) {
       window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'en-US';
-      utterance.rate = rate;
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US';
+      u.rate = rate;
 
       const voices = window.speechSynthesis.getVoices();
       const preferred = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Samantha')));
-      if (preferred) utterance.voice = preferred;
+      if (preferred) u.voice = preferred;
 
-      window.speechSynthesis.speak(utterance);
+      window.speechSynthesis.speak(u);
     }
 
-    function playAudio(speed) {
-      const phrase = currentPhrases[currentPhraseIdx].en;
-      speakText(phrase, speed);
-    }
+    function startExerciseSpeech() {
+      const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRec) {
+        alert("Microfone suportado no Google Chrome, Edge ou Safari.");
+        return;
+      }
 
-    // ========================================================
-    // RECONHECIMENTO DE FALA
-    // ========================================================
-    function setupRecognition() {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      if (!SpeechRecognition) return null;
+      const micBtn = document.getElementById("btn-exercise-mic");
+      const statusText = document.getElementById("mic-status-text");
 
-      const rec = new SpeechRecognition();
+      const rec = new SpeechRec();
       rec.lang = 'en-US';
-      rec.continuous = false;
-      rec.interimResults = false;
-
       rec.onstart = () => {
-        isRecording = true;
         micBtn.classList.add("recording");
-        showToast("🎙️ Ouvindo você... Fale agora!");
+        statusText.textContent = "Ouvindo você... Fale agora!";
       };
 
-      rec.onresult = (event) => {
-        const spoken = event.results[0][0].transcript;
-        evaluatePronunciation(spoken);
+      rec.onresult = (e) => {
+        const spoken = e.results[0][0].transcript;
+        statusText.innerHTML = `Ouvi: <strong>"${spoken}"</strong>`;
+        enableVerifyButton();
       };
 
       rec.onerror = () => {
-        stopRecording();
-        showToast("Não consegui ouvir. Tente novamente!");
+        micBtn.classList.remove("recording");
+        statusText.textContent = "Não consegui ouvir. Tente de novo!";
       };
 
       rec.onend = () => {
-        stopRecording();
+        micBtn.classList.remove("recording");
       };
 
-      return rec;
+      rec.start();
     }
 
-    function toggleRecording() {
-      if (!recognition) recognition = setupRecognition();
-      if (!recognition) {
-        showToast("Reconhecimento de voz requer Chrome, Edge ou Safari atualizado.");
+    function enableVerifyButton() {
+      document.getElementById("btn-verify").classList.remove("disabled");
+    }
+
+    function disableVerifyButton() {
+      document.getElementById("btn-verify").classList.add("disabled");
+    }
+
+    function resetBottomAction() {
+      isVerifying = false;
+      const btn = document.getElementById("btn-verify");
+      btn.textContent = "Verificar";
+      btn.className = "btn-main-action disabled";
+      const banner = document.getElementById("feedback-banner");
+      banner.style.display = "none";
+      banner.className = "feedback-banner";
+    }
+
+    function handleVerifyClick() {
+      const btn = document.getElementById("btn-verify");
+      if (btn.classList.contains("disabled")) return;
+
+      if (isVerifying) {
+        nextExercise();
         return;
       }
 
-      if (isRecording) {
-        recognition.stop();
+      const ex = currentLesson.exercises[currentExerciseIdx];
+      let isCorrect = false;
+      let solution = "";
+
+      if (ex.type === "word-order") {
+        const assembled = selectedWords.map(item => item.word).join(" ");
+        solution = ex.correct.join(" ");
+        isCorrect = (assembled.toLowerCase() === solution.toLowerCase());
+      } else if (ex.type === "choice") {
+        isCorrect = (selectedChoice === ex.correct);
+        solution = ex.options[ex.correct];
+      } else if (ex.type === "speak") {
+        isCorrect = true;
+      }
+
+      showFeedback(isCorrect, solution);
+    }
+
+    function showFeedback(isCorrect, solution) {
+      isVerifying = true;
+      const banner = document.getElementById("feedback-banner");
+      const btn = document.getElementById("btn-verify");
+
+      if (isCorrect) {
+        playSound('correct');
+        banner.className = "feedback-banner feedback-correct";
+        banner.innerHTML = `<span>🎉</span> <div><strong>Excelente!</strong> +15 XP ganho.</div>`;
+        btn.textContent = "Continuar";
+        btn.style.background = "#58cc02";
       } else {
-        recognition.start();
+        playSound('wrong');
+        userState.hearts = Math.max(0, userState.hearts - 1);
+        saveState();
+
+        banner.className = "feedback-banner feedback-wrong";
+        banner.innerHTML = `
+          <div><strong>A resposta correta é:</strong></div>
+          <div style="color:#ffffff;">${solution}</div>
+        `;
+        btn.textContent = "Entendi";
+        btn.style.background = "#ff4b4b";
       }
     }
 
-    function stopRecording() {
-      isRecording = false;
-      micBtn.classList.remove("recording");
-    }
-
-    function evaluatePronunciation(spokenText) {
-      const target = currentPhrases[currentPhraseIdx].en.toLowerCase().replace(/[^a-z0-9 ]/g, '');
-      const cleanSpoken = spokenText.toLowerCase().replace(/[^a-z0-9 ]/g, '');
-
-      const targetWords = target.split(' ');
-      const spokenWords = cleanSpoken.split(' ');
-
-      let matches = 0;
-      targetWords.forEach(word => {
-        if (spokenWords.includes(word)) matches++;
-      });
-
-      const score = Math.round((matches / targetWords.length) * 100);
-
-      speechResultBox.classList.add("active");
-      recognizedTextEl.textContent = `"${spokenText}"`;
-
-      if (score >= 80) {
-        scoreBadge.className = "score-badge score-great";
-        scoreBadge.textContent = `🎉 Excelente! ${score}% de precisão`;
-      } else if (score >= 50) {
-        scoreBadge.className = "score-badge score-good";
-        scoreBadge.textContent = `👍 Muito bom! ${score}% - Quase perfeito`;
+    function nextExercise() {
+      currentExerciseIdx++;
+      if (currentExerciseIdx < currentLesson.exercises.length) {
+        loadExercise();
       } else {
-        scoreBadge.className = "score-badge score-retry";
-        scoreBadge.textContent = `🔄 ${score}% - Ouça em 0.75x e repita com calma!`;
+        finishLesson();
       }
     }
 
-    // ========================================================
-    // UI UPDATES
-    // ========================================================
-    function updatePhraseUI() {
-      const p = currentPhrases[currentPhraseIdx];
-      targetPhraseEl.textContent = p.en;
-      targetTransEl.textContent = p.pt;
-      phraseTrackEl.textContent = p.trackLabel;
-      phraseCategoryEl.textContent = p.category;
-      phraseCounterEl.textContent = `Frase ${currentPhraseIdx + 1} de ${currentPhrases.length}`;
-      teacherTipText.innerHTML = `<strong>Dica do Teacher:</strong> ${p.tip}`;
-      speechResultBox.classList.remove("active");
-    }
+    function finishLesson() {
+      userState.xp += 50;
+      const oldLevel = userState.level;
+      const newLevel = Math.floor(userState.xp / 100) + 1;
 
-    function nextPhrase() {
-      currentPhraseIdx = (currentPhraseIdx + 1) % currentPhrases.length;
-      updatePhraseUI();
-    }
-
-    function prevPhrase() {
-      currentPhraseIdx = (currentPhraseIdx - 1 + currentPhrases.length) % currentPhrases.length;
-      updatePhraseUI();
-    }
-
-    function toggleTranslation() {
-      targetTransEl.style.display = targetTransEl.style.display === "none" ? "block" : "none";
-    }
-
-    // ========================================================
-    // ABA 2: CENÁRIOS ROLEPLAY
-    // ========================================================
-    const scenarios = [
-      {
-        title: "Daily Standup (TI)",
-        messages: [
-          { sender: "teacher", text: "Good morning team! Let's do our daily sync. What did you work on yesterday and do you have any blockers?", trans: "Bom dia equipe! Vamos ao nosso sync diário. No que você trabalhou ontem e tem algum impedimento?" }
-        ],
-        quickReplies: [
-          "Yesterday I worked on the database migration, and today I'm fixing frontend bugs. No blockers!",
-          "I opened a PR for the authentication feature, and I'm waiting for approval to merge.",
-          "I'm currently blocked by the payment gateway API credentials. Could someone assist me?"
-        ]
-      },
-      {
-        title: "Discovery Call com Cliente (Vendas)",
-        messages: [
-          { sender: "teacher", text: "Hi! Thanks for reaching out. We are looking for a solution to automate our reporting, but our current tools are too slow.", trans: "Olá! Obrigado pelo contato. Estamos buscando uma solução para automatizar nossos relatórios, mas nossas ferramentas atuais são muito lentas." }
-        ],
-        quickReplies: [
-          "Thanks for having us! Could you tell me more about how many hours your team spends on this weekly?",
-          "I completely understand. Our platform was specifically designed to handle high-volume data in real time.",
-          "That makes total sense. What does your current tech stack look like?"
-        ]
-      },
-      {
-        title: "Reportando Bug em Produção (TI)",
-        messages: [
-          { sender: "teacher", text: "Attention team: users are reporting timeout errors on the checkout page. Does anyone know what's causing this?", trans: "Atenção equipe: usuários estão relatando erros de timeout no checkout. Alguém sabe o que está causando isso?" }
-        ],
-        quickReplies: [
-          "I'm checking the server logs right now. It seems like a database connection pool bottleneck.",
-          "I'll reproduce the bug locally and push a hotfix within the next thirty minutes.",
-          "Let's roll back the last deployment while we investigate the root cause."
-        ]
-      },
-      {
-        title: "Fechamento & Objeção de Preço (Vendas)",
-        messages: [
-          { sender: "teacher", text: "We love your software demo, but honestly, your proposal is a bit above our budget for this quarter.", trans: "Nós adoramos a demonstração do software, mas sinceramente, sua proposta está um pouco acima do nosso orçamento para este trimestre." }
-        ],
-        quickReplies: [
-          "I understand your budget constraints. What if we start with fewer seats and scale up next quarter?",
-          "We can offer a 15% discount if we commit to an annual contract today. Would that work?",
-          "Consider the ROI: this automation will save your team over 40 hours every month."
-        ]
-      }
-    ];
-
-    let currentScenarioIdx = 0;
-
-    function selectScenario(idx) {
-      currentScenarioIdx = idx;
-      document.querySelectorAll(".scenario-item").forEach((el, i) => {
-        el.classList.toggle("active", i === idx);
-      });
-      loadChat();
-    }
-
-    function loadChat() {
-      const chatBox = document.getElementById("chat-messages");
-      chatBox.innerHTML = "";
-      const sc = scenarios[currentScenarioIdx];
-
-      sc.messages.forEach(msg => {
-        appendMessage(msg.sender, msg.text, msg.trans);
-      });
-
-      const qrBox = document.getElementById("quick-replies");
-      qrBox.innerHTML = "";
-      sc.quickReplies.forEach(reply => {
-        const btn = document.createElement("button");
-        btn.className = "btn-secondary";
-        btn.style.fontSize = "12px";
-        btn.style.padding = "5px 11px";
-        btn.textContent = `💬 "${reply.substring(0, 32)}..."`;
-        btn.onclick = () => {
-          document.getElementById("chat-user-input").value = reply;
-          sendChatMessage();
-        };
-        qrBox.appendChild(btn);
-      });
-    }
-
-    function appendMessage(sender, text, trans = null) {
-      const chatBox = document.getElementById("chat-messages");
-      const msgDiv = document.createElement("div");
-      msgDiv.className = `message message-${sender}`;
-
-      let html = `<div>${text}</div>`;
-      if (sender === "teacher") {
-        html += `<button class="msg-speaker-btn" onclick="speakText('${text.replace(/'/g, "\\'")}')">🔊</button>`;
-      }
-      if (trans) {
-        html += `<div class="msg-trans">${trans}</div>`;
+      if (newLevel > oldLevel) {
+        userState.level = newLevel;
+        playSound('levelup');
+      } else {
+        playSound('correct');
       }
 
-      msgDiv.innerHTML = html;
-      chatBox.appendChild(msgDiv);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
-
-    function sendChatMessage() {
-      const input = document.getElementById("chat-user-input");
-      const userText = input.value.trim();
-      if (!userText) return;
-
-      appendMessage("user", userText);
-      input.value = "";
-
-      setTimeout(() => {
-        const feedback = getTeacherFeedback(userText);
-        appendMessage("teacher", feedback.reply, feedback.trans);
-      }, 700);
-    }
-
-    function getTeacherFeedback(text) {
-      const lower = text.toLowerCase();
-      if (lower.includes("doubt")) {
-        return {
-          reply: "Nice! Quick tip: say 'question' or 'concern' instead of 'doubt'. That sounds much more professional in meetings!",
-          trans: "Boa! Dica rápida: use 'question' ou 'concern' no lugar de 'doubt'. Soa muito mais profissional em reuniões!"
-        };
+      if (currentLesson.id === userState.unlockedLesson) {
+        userState.unlockedLesson++;
       }
-      if (lower.includes("work with programming")) {
-        return {
-          reply: "Great! In English, native devs usually say 'I work in software engineering' or 'I'm a developer'. Good articulation!",
-          trans: "Ótimo! Em inglês os devs costumam dizer 'I work in software engineering'. Boa articulação!"
-        };
-      }
-      return {
-        reply: "Impressive articulation! That was clear, concise, and professional. Keep practicing your delivery!",
-        trans: "Articulação impressionante! Foi clara, concisa e profissional. Continue praticando sua entrega!"
-      };
+      saveState();
+
+      const itemDropContainer = document.getElementById("victory-item-drop-container");
+      const reward = currentLesson.rewardItem;
+
+      itemDropContainer.innerHTML = `
+        <div class="item-drop-card">
+          <div class="item-drop-icon">${reward.icon}</div>
+          <div class="item-drop-info">
+            <div class="item-drop-tag">Novo Equipamento Desbloqueado!</div>
+            <div class="item-drop-name">${reward.name} (${reward.slot})</div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById("lesson-view").style.display = "none";
+      document.getElementById("victory-modal").style.display = "flex";
     }
 
-    function startChatVoiceInput() {
-      if (!recognition) recognition = setupRecognition();
-      if (!recognition) {
-        showToast("Reconhecimento de voz requer Chrome, Edge ou Safari.");
-        return;
-      }
-
-      showToast("Fale sua mensagem no microfone...");
-      recognition.onresult = (e) => {
-        const val = e.results[0][0].transcript;
-        document.getElementById("chat-user-input").value = val;
-        sendChatMessage();
-      };
-      recognition.start();
+    function closeVictoryModal() {
+      document.getElementById("victory-modal").style.display = "none";
+      document.getElementById("roadmap-view").style.display = "block";
+      renderRoadmap();
     }
 
-    // ========================================================
-    // TABS E TOAST
-    // ========================================================
-    function switchTab(tabId) {
-      document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
-      document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
-
-      document.getElementById(`tab-${tabId}`).classList.add("active");
-      event.currentTarget.classList.add("active");
-
-      if (tabId === "roleplay") loadChat();
-    }
-
-    function showToast(msg) {
-      const toast = document.getElementById("toast-msg");
-      toast.textContent = msg;
-      toast.classList.add("show");
-      setTimeout(() => toast.classList.remove("show"), 3200);
-    }
-
-    // Início
-    updatePhraseUI();
-    loadChat();
+    // Inicialização
+    loadState();
   </script>
 </body>
 </html>
