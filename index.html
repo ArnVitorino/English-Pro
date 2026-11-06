@@ -34,6 +34,8 @@
       --text-muted: #94a3b8;
       --danger: #ff4b4b;
       --gold: #fbbf24;
+      --boss-red: #ef4444;
+      --boss-glow: rgba(239, 68, 68, 0.4);
     }
 
     * {
@@ -59,16 +61,17 @@
 
     /* Top Stats Bar */
     .top-stats-bar {
-      background: rgba(17, 24, 39, 0.95);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11, 15, 25, 0.95);
       border-bottom: 2px solid var(--card-border);
-      padding: 10px 20px;
+      backdrop-filter: blur(12px);
+      padding: 10px 18px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      backdrop-filter: blur(8px);
+      gap: 10px;
     }
 
     .brand-area {
@@ -84,14 +87,20 @@
       color: var(--gold);
       display: flex;
       align-items: center;
+      gap: 6px;
+    }
+
+    .header-pills-group {
+      display: flex;
+      align-items: center;
       gap: 8px;
     }
 
-    .btn-lang-switcher {
+    .btn-header-pill {
       background: rgba(255, 255, 255, 0.08);
       border: 1.5px solid var(--card-border);
       color: #fff;
-      padding: 4px 10px;
+      padding: 5px 12px;
       border-radius: 18px;
       font-size: 12px;
       font-weight: 800;
@@ -102,9 +111,14 @@
       transition: all 0.2s;
     }
 
-    .btn-lang-switcher:hover {
+    .btn-header-pill:hover {
       border-color: var(--gold);
+      transform: translateY(-1px);
     }
+
+    .btn-diff-easy { border-color: #22c55e; color: #4ade80; }
+    .btn-diff-medium { border-color: #f59e0b; color: #fbbf24; }
+    .btn-diff-hard { border-color: #ef4444; color: #f87171; }
 
     .stats-group {
       display: flex;
@@ -128,7 +142,7 @@
       max-width: 1180px;
       width: 100%;
       margin: 0 auto;
-      padding: 24px 20px 80px 20px;
+      padding: 20px 18px 80px 18px;
       display: grid;
       grid-template-columns: 1fr 370px;
       gap: 28px;
@@ -136,137 +150,195 @@
       flex: 1;
     }
 
-    /* ========================================================
-       MODAL 1: ESCOLHA DO IDIOMA (INGLÊS OU ALEMÃO)
-       ======================================================== */
-    .language-selection-overlay {
+    /* Modais Globais */
+    .modal-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       background: rgba(7, 10, 18, 0.98);
-      z-index: 400;
+      z-index: 500;
       display: none;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 24px;
+      backdrop-filter: blur(12px);
       text-align: center;
+      overflow-y: auto;
     }
 
-    .lang-selection-title {
-      font-family: 'Cinzel', serif;
-      font-size: 26px;
-      font-weight: 900;
-      color: var(--gold);
-      margin-bottom: 8px;
-      letter-spacing: 1px;
-    }
-
-    .lang-cards-container {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+    .modal-card-box {
+      max-width: 480px;
       width: 100%;
-      max-width: 380px;
-      margin: 24px 0;
-    }
-
-    .lang-card {
       background: var(--card-bg);
       border: 2px solid var(--card-border);
-      border-radius: 20px;
-      padding: 20px;
+      border-radius: 24px;
+      padding: 28px 24px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .modal-header-icon {
+      font-size: 52px;
+      margin-bottom: 2px;
+    }
+
+    .modal-title {
+      font-family: 'Cinzel', serif;
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--gold);
+      letter-spacing: 0.5px;
+    }
+
+    .modal-subtitle {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    /* Cards de Seleção */
+    .select-card-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 8px 0;
+    }
+
+    .select-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 2px solid var(--card-border);
+      border-radius: 18px;
+      padding: 14px 18px;
       display: flex;
       align-items: center;
       gap: 16px;
       cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
       text-align: left;
-      transition: all 0.2s;
     }
 
-    .lang-card:active {
-      transform: scale(0.97);
-    }
-
-    .lang-card.selected {
+    .select-card:hover {
       border-color: var(--gold);
-      background: rgba(251, 191, 36, 0.08);
-      box-shadow: 0 0 25px rgba(251, 191, 36, 0.3);
+      background: rgba(255, 255, 255, 0.06);
+      transform: translateY(-2px);
     }
 
-    .lang-flag {
-      font-size: 40px;
-      line-height: 1;
+    .select-card.selected {
+      border-color: var(--gold);
+      background: rgba(251, 191, 36, 0.12);
+      box-shadow: 0 0 20px rgba(251, 191, 36, 0.25);
     }
 
-    .lang-info h3 {
-      font-size: 17px;
+    .select-card-badge {
+      font-size: 32px;
+      flex-shrink: 0;
+    }
+
+    .select-card-title {
+      font-size: 15px;
       font-weight: 800;
       color: #fff;
       margin-bottom: 2px;
     }
 
-    .lang-info p {
+    .select-card-desc {
       font-size: 12px;
       color: var(--text-muted);
+      line-height: 1.35;
     }
 
-    /* ========================================================
-       MODAL 2: ESCOLHA DA CLASSE (ONBOARDING)
-       ======================================================== */
-    .class-selection-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(7, 10, 18, 0.98);
-      z-index: 300;
-      display: none;
-      flex-direction: column;
+    /* Balão de Mini-Prova no Lobby */
+    .lobby-quiz-balloon {
+      background: linear-gradient(135deg, rgba(28, 176, 246, 0.12), rgba(168, 85, 247, 0.15));
+      border: 2px solid var(--accent);
+      border-radius: 20px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: 0 8px 25px rgba(28, 176, 246, 0.2);
+      animation: floatBalloon 4s infinite ease-in-out;
+    }
+
+    @keyframes floatBalloon {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+
+    .balloon-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .balloon-icon {
+      font-size: 30px;
+      width: 48px;
+      height: 48px;
+      background: rgba(28, 176, 246, 0.2);
+      border-radius: 14px;
+      display: flex;
       align-items: center;
       justify-content: center;
-      padding: 24px;
-      text-align: center;
+      flex-shrink: 0;
     }
 
-    .class-selection-title {
-      font-family: 'Cinzel', serif;
-      font-size: 24px;
+    .balloon-badge {
+      font-size: 10px;
       font-weight: 900;
-      color: var(--gold);
-      margin-bottom: 6px;
-      letter-spacing: 1px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
     }
 
-    .class-cards-container {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      width: 100%;
-      max-width: 380px;
-      margin: 20px 0;
+    .balloon-title {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #fff;
+      margin: 2px 0;
     }
 
-    .class-card {
-      background: var(--card-bg);
-      border: 2px solid var(--card-border);
-      border-radius: 20px;
-      padding: 16px 18px;
+    .balloon-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.35;
+    }
+
+    .btn-start-quiz-lobby {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 14px;
+      font-size: 13px;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 4px 0 var(--accent-dark);
+      white-space: nowrap;
       display: flex;
       align-items: center;
-      gap: 14px;
-      cursor: pointer;
-      text-align: left;
-      transition: all 0.2s;
+      gap: 6px;
+      transition: all 0.15s;
+      flex-shrink: 0;
     }
 
-    .class-card.selected {
-      border-color: var(--gold);
-      background: rgba(251, 191, 36, 0.08);
-      box-shadow: 0 0 25px rgba(251, 191, 36, 0.3);
+    .btn-start-quiz-lobby:hover {
+      background: #38bdf8;
+      transform: translateY(-2px);
+    }
+
+    .btn-start-quiz-lobby:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 var(--accent-dark);
     }
 
     /* Barra Rápida de Carreiras */
@@ -274,75 +346,36 @@
       display: flex;
       gap: 8px;
       overflow-x: auto;
-      margin-bottom: 22px;
-      padding-bottom: 4px;
+      padding-bottom: 12px;
+      margin-bottom: 18px;
       scrollbar-width: none;
     }
     .career-switcher-bar::-webkit-scrollbar { display: none; }
 
     .career-pill {
-      background: var(--card-bg);
+      background: rgba(255, 255, 255, 0.05);
       border: 1.5px solid var(--card-border);
       color: var(--text-muted);
-      padding: 8px 15px;
+      padding: 7px 14px;
       border-radius: 20px;
       font-size: 12.5px;
-      font-weight: 700;
+      font-weight: 800;
       cursor: pointer;
       white-space: nowrap;
       transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 6px;
     }
+    .career-pill:hover { border-color: #fff; color: #fff; }
+    .career-pill.active-all { background: rgba(255, 255, 255, 0.15); border-color: #fff; color: #fff; }
+    .career-pill.active-mage { background: rgba(168, 85, 247, 0.2); border-color: var(--mage); color: #d8b4fe; }
+    .career-pill.active-warrior { background: rgba(245, 158, 11, 0.2); border-color: var(--warrior); color: #fde68a; }
+    .career-pill.active-paladin { background: rgba(59, 130, 246, 0.2); border-color: var(--paladin); color: #93c5fd; }
 
-    .career-pill.active-mage {
-      background: rgba(168, 85, 247, 0.18);
-      border-color: var(--mage);
-      color: #e9d5ff;
-      box-shadow: 0 0 15px rgba(168, 85, 247, 0.25);
-    }
-
-    .career-pill.active-warrior {
-      background: rgba(245, 158, 11, 0.18);
-      border-color: var(--warrior);
-      color: #fde68a;
-      box-shadow: 0 0 15px rgba(245, 158, 11, 0.25);
-    }
-
-    .career-pill.active-paladin {
-      background: rgba(59, 130, 246, 0.18);
-      border-color: #3b82f6;
-      color: #bfdbfe;
-      box-shadow: 0 0 15px rgba(59, 130, 246, 0.25);
-    }
-
-    .career-pill.active-all {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: #fff;
-      color: #fff;
-    }
-
-    .btn-change-class-header {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid var(--card-border);
-      color: #fff;
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: 11.5px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* Coluna Direita: Pedestal do Herói */
+    /* Palco Lateral do Herói */
     .hero-side-stage {
-      background: linear-gradient(180deg, #131b2e 0%, #0d1322 100%);
+      background: linear-gradient(180deg, #111827 0%, #0c1220 100%);
       border: 2px solid var(--card-border);
       border-radius: 24px;
-      padding: 24px 20px;
+      padding: 22px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -361,7 +394,7 @@
 
     .hero-class-tag {
       font-family: 'Cinzel', serif;
-      font-size: 13px;
+      font-size: 13.5px;
       font-weight: 900;
       color: var(--gold);
       display: flex;
@@ -405,8 +438,8 @@
     }
 
     .pedestal-viewport {
-      width: 220px;
-      height: 220px;
+      width: 200px;
+      height: 200px;
       position: relative;
       display: flex;
       align-items: center;
@@ -418,8 +451,8 @@
     .magic-rune-floor {
       position: absolute;
       bottom: 10px;
-      width: 170px;
-      height: 48px;
+      width: 160px;
+      height: 44px;
       border-radius: 50%;
       background: radial-gradient(ellipse at center, rgba(168, 85, 247, 0.4) 0%, rgba(28, 176, 246, 0.2) 60%, transparent 100%);
       border: 2px dashed rgba(251, 191, 36, 0.5);
@@ -432,8 +465,8 @@
     }
 
     .character-avatar-svg {
-      width: 160px;
-      height: 190px;
+      width: 150px;
+      height: 180px;
       position: relative;
       z-index: 2;
       animation: heroBreathe 3.5s infinite ease-in-out;
@@ -442,7 +475,7 @@
 
     @keyframes heroBreathe {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+      50% { transform: translateY(-7px); }
     }
 
     .side-xp-section {
@@ -454,25 +487,23 @@
       display: flex;
       justify-content: space-between;
       font-size: 11px;
+      font-weight: 800;
       color: var(--text-muted);
-      font-weight: 700;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
     .side-xp-track {
-      width: 100%;
       height: 8px;
-      background: rgba(0, 0, 0, 0.5);
-      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
       overflow: hidden;
-      border: 1px solid var(--card-border);
     }
 
     .side-xp-fill {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, var(--accent), #38bdf8);
-      border-radius: 8px;
+      background: linear-gradient(90deg, #1cb0f6, #00f2fe);
+      border-radius: 6px;
       transition: width 0.4s ease;
     }
 
@@ -484,8 +515,8 @@
     }
 
     .gear-slot-item {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--card-border);
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px dashed var(--card-border);
       border-radius: 12px;
       padding: 8px 10px;
       display: flex;
@@ -538,7 +569,7 @@
       color: #e2e8f0;
       padding: 9px 14px;
       border-radius: 14px;
-      font-size: 12.5px;
+      font-size: 12px;
       font-weight: 800;
       cursor: pointer;
       margin-top: 14px;
@@ -546,9 +577,14 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
+      transition: all 0.2s;
+    }
+    .btn-swap-class-side:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--gold);
     }
 
-    /* Trilha de Aulas */
+    /* Seções e Roadmap */
     .section-header {
       background: linear-gradient(135deg, #131b2e, #0c1220);
       border: 2px solid var(--card-border);
@@ -568,7 +604,7 @@
     }
 
     .section-title p {
-      font-size: 12.5px;
+      font-size: 12px;
       color: var(--text-muted);
     }
 
@@ -578,76 +614,117 @@
       border: 1px solid rgba(168, 85, 247, 0.4);
       padding: 5px 12px;
       border-radius: 12px;
-      font-size: 11px;
+      font-size: 11.5px;
       font-weight: 800;
-      text-transform: uppercase;
     }
 
     .lesson-path {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 32px;
-      padding: 10px 0 40px 0;
+      gap: 22px;
+      margin-bottom: 35px;
+      position: relative;
     }
 
     .lesson-node-wrapper {
-      position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
+      position: relative;
     }
 
+    .pos-center { transform: translateX(0); }
+    .pos-left { transform: translateX(-40px); }
+    .pos-right { transform: translateX(40px); }
+
     .lesson-node {
-      width: 82px;
-      height: 78px;
+      width: 72px;
+      height: 72px;
       border-radius: 50%;
       border: none;
-      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 30px;
+      font-size: 28px;
+      cursor: pointer;
       position: relative;
-      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 8px 0 rgba(0, 0, 0, 0.4);
+      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    .lesson-node:active { transform: translateY(4px) !important; }
-
-    .node-current {
-      background: var(--primary);
-      box-shadow: 0 8px 0 var(--primary-dark), 0 10px 25px rgba(88, 204, 2, 0.4);
-      animation: bounce 2s infinite ease-in-out;
+    .lesson-node:active {
+      transform: translateY(4px);
+      box-shadow: 0 4px 0 rgba(0, 0, 0, 0.4);
     }
 
     .node-completed {
-      background: #eab308;
-      box-shadow: 0 8px 0 #ca8a04;
+      background: var(--gold);
+      box-shadow: 0 8px 0 #b45309;
+      color: #78350f;
+    }
+
+    .node-current {
+      background: var(--primary);
+      box-shadow: 0 8px 0 var(--primary-dark);
+      color: #fff;
+      animation: pulseNode 2s infinite ease-in-out;
     }
 
     .node-locked {
       background: #1e293b;
       box-shadow: 0 8px 0 #0f172a;
+      color: #475569;
       cursor: not-allowed;
-      opacity: 0.65;
     }
 
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
+    /* Estilo Especial para Nó de Boss */
+    .node-boss {
+      width: 82px;
+      height: 82px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #b91c1c, #7f1d1d);
+      box-shadow: 0 8px 0 #450a0a, 0 0 25px rgba(239, 68, 68, 0.6);
+      border: 2px solid #f87171;
+      font-size: 36px;
+      animation: bossPulse 1.8s infinite ease-in-out;
+    }
+
+    @keyframes bossPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 8px 0 #450a0a, 0 0 20px rgba(239, 68, 68, 0.5); }
+      50% { transform: scale(1.06); box-shadow: 0 8px 0 #450a0a, 0 0 35px rgba(239, 68, 68, 0.85); }
+    }
+
+    .boss-badge-label {
+      position: absolute;
+      top: -12px;
+      background: #ef4444;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 900;
+      padding: 2px 8px;
+      border-radius: 10px;
+      letter-spacing: 1px;
+      border: 1px solid #fff;
+    }
+
+    @keyframes pulseNode {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
 
     .start-tooltip {
       position: absolute;
-      top: -36px;
-      background: #ffffff;
+      top: -38px;
+      background: #fff;
       color: #0f172a;
-      padding: 4px 12px;
-      border-radius: 12px;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 900;
-      letter-spacing: 0.5px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      padding: 5px 12px;
+      border-radius: 12px;
+      letter-spacing: 0.8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      animation: bounceTooltip 1.2s infinite ease-in-out;
       white-space: nowrap;
     }
 
@@ -659,32 +736,250 @@
       transform: translateX(-50%);
       border-left: 6px solid transparent;
       border-right: 6px solid transparent;
-      border-top: 6px solid #ffffff;
+      border-top: 6px solid #fff;
+    }
+
+    @keyframes bounceTooltip {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
     }
 
     .lesson-label {
-      margin-top: 10px;
+      margin-top: 8px;
       font-size: 13px;
       font-weight: 800;
+      color: #e2e8f0;
       text-align: center;
-      max-width: 160px;
+      max-width: 140px;
     }
 
     .lesson-category {
       font-size: 11px;
       color: var(--text-muted);
-      font-weight: 600;
+      text-align: center;
     }
 
-    .pos-left { transform: translateX(-38px); }
-    .pos-center { transform: translateX(0); }
-    .pos-right { transform: translateX(38px); }
+    /* ========================================================
+       TELA EXPLICATIVA DA AULA (DIDACTIC INTRO VIEW)
+       ======================================================== */
+    .lesson-intro-card {
+      background: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 24px;
+      padding: 26px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
 
-    /* Tela da Lição Ativa */
+    .intro-badge-didactic {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(28, 176, 246, 0.15);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      width: fit-content;
+    }
+
+    .intro-title {
+      font-family: 'Cinzel', serif;
+      font-size: 20px;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .intro-objective-box {
+      background: rgba(255, 255, 255, 0.04);
+      border-left: 4px solid var(--gold);
+      border-radius: 4px 12px 12px 4px;
+      padding: 12px 16px;
+      font-size: 13.5px;
+      color: #f1f5f9;
+      line-height: 1.5;
+    }
+
+    .intro-explanation-text {
+      font-size: 14px;
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    .intro-golden-rule {
+      background: linear-gradient(135deg, rgba(88, 204, 2, 0.1), rgba(28, 176, 246, 0.08));
+      border: 1.5px solid rgba(88, 204, 2, 0.35);
+      border-radius: 16px;
+      padding: 14px 18px;
+    }
+
+    .intro-golden-title {
+      font-size: 12px;
+      font-weight: 900;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .intro-golden-content {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.45;
+    }
+
+    .vocab-table-container {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .vocab-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 13px;
+    }
+
+    .vocab-target { font-weight: 800; color: #38bdf8; }
+    .vocab-native { color: #94a3b8; }
+
+    /* ========================================================
+       ARENA DO BOSS (BOSS BATTLE MODE)
+       ======================================================== */
+    .boss-arena-header {
+      background: linear-gradient(135deg, rgba(69, 10, 10, 0.95), rgba(24, 6, 6, 0.95));
+      border: 2px solid #ef4444;
+      border-radius: 20px;
+      padding: 18px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 10px 30px rgba(239, 68, 68, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .boss-profile-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .boss-avatar-box {
+      font-size: 44px;
+      width: 65px;
+      height: 65px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid #f87171;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      animation: bossFloat 3s infinite ease-in-out;
+    }
+
+    @keyframes bossFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    .boss-info-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .boss-tag-title {
+      font-size: 11px;
+      font-weight: 900;
+      color: #f87171;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .boss-name-title {
+      font-family: 'Cinzel', serif;
+      font-size: 17px;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .boss-hp-section {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .boss-hp-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11.5px;
+      font-weight: 900;
+      color: #fca5a5;
+    }
+
+    .boss-hp-track {
+      height: 14px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid #7f1d1d;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .boss-hp-fill {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, #ef4444, #f97316);
+      border-radius: 8px;
+      transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .boss-speech-bubble {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      border-radius: 12px;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: #fee2e2;
+      font-style: italic;
+    }
+
+    /* Tremedeira de dano */
+    .screen-shake {
+      animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+    }
+
+    @keyframes shake {
+      10%, 90% { transform: translate3d(-2px, 0, 0); }
+      20%, 80% { transform: translate3d(3px, 0, 0); }
+      30%, 50%, 70% { transform: translate3d(-5px, 0, 0); }
+      40%, 60% { transform: translate3d(5px, 0, 0); }
+    }
+
+    /* Lesson View (Exercício) */
     .lesson-view {
       display: none;
       flex-direction: column;
-      flex: 1;
+      min-height: 480px;
     }
 
     .lesson-header {
@@ -695,28 +990,29 @@
     }
 
     .btn-close-lesson {
-      background: none;
+      background: transparent;
       border: none;
       color: var(--text-muted);
-      font-size: 22px;
+      font-size: 20px;
       cursor: pointer;
-      font-weight: 700;
+      padding: 4px;
+      font-weight: 800;
     }
 
     .progress-track {
       flex: 1;
-      height: 14px;
-      background: #1e293b;
-      border-radius: 20px;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
       overflow: hidden;
     }
 
     .progress-fill {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, #58cc02, #4ade80);
-      border-radius: 20px;
-      transition: width 0.35s ease;
+      background: var(--primary);
+      border-radius: 10px;
+      transition: width 0.3s ease;
     }
 
     .exercise-container {
@@ -742,14 +1038,14 @@
     }
 
     .teacher-avatar-circle {
-      width: 46px;
-      height: 46px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       background: #4f46e5;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
+      font-size: 20px;
       flex-shrink: 0;
       box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
     }
@@ -759,43 +1055,13 @@
       border: 2px solid var(--card-border);
       border-radius: 18px;
       padding: 12px 16px;
-      font-size: 16.5px;
+      font-size: 16px;
       font-weight: 700;
       color: #fff;
       display: flex;
       align-items: center;
-      gap: 10px;
-      position: relative;
       line-height: 1.4;
-    }
-
-    .btn-listen-bubble {
-      background: var(--accent);
-      border: none;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      color: #fff;
-      font-size: 15px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: all 0.15s;
-    }
-
-    .btn-listen-bubble:active { transform: scale(0.92); }
-
-    .btn-listen-bubble.btn-slow {
-      background: rgba(28, 176, 246, 0.18);
-      border: 1px solid var(--accent);
-      color: #38bdf8;
-      font-size: 11.5px;
-      font-weight: 800;
-      border-radius: 12px;
-      width: auto;
-      padding: 4px 10px;
+      width: 100%;
     }
 
     .phrase-assembly-zone {
@@ -823,7 +1089,7 @@
       border: 2px solid var(--card-border);
       border-radius: 14px;
       padding: 9px 16px;
-      font-size: 14.5px;
+      font-size: 14px;
       font-weight: 700;
       cursor: pointer;
       box-shadow: 0 4px 0 var(--card-border);
@@ -857,90 +1123,121 @@
       font-size: 15px;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 4px 0 var(--card-border);
       display: flex;
       align-items: center;
       gap: 12px;
-      transition: all 0.15s;
+      transition: all 0.2s;
     }
 
-    .choice-card:active { transform: translateY(2px); }
+    .choice-card:hover {
+      border-color: var(--accent);
+      background: rgba(28, 176, 246, 0.05);
+    }
 
     .choice-card.selected {
       border-color: var(--accent);
       background: rgba(28, 176, 246, 0.15);
-      box-shadow: 0 4px 0 var(--accent-dark);
+      box-shadow: 0 0 15px rgba(28, 176, 246, 0.3);
     }
 
     .speaking-exercise-box {
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       gap: 18px;
-      margin: 18px 0;
+      padding: 30px 0;
     }
 
     .btn-huge-mic {
       width: 86px;
       height: 86px;
       border-radius: 50%;
+      background: var(--accent);
       border: none;
-      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-      color: #fff;
       font-size: 38px;
+      color: #fff;
       cursor: pointer;
-      box-shadow: 0 8px 0 var(--accent-dark), 0 10px 30px rgba(28, 176, 246, 0.4);
+      box-shadow: 0 8px 0 var(--accent-dark);
+      transition: all 0.2s;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.2s;
     }
 
     .btn-huge-mic.recording {
       background: var(--danger);
-      box-shadow: 0 8px 0 #ea2b2b, 0 10px 30px rgba(255, 75, 75, 0.5);
-      animation: pulse 1.2s infinite;
+      box-shadow: 0 8px 0 #b91c1c;
+      animation: pulseMic 1s infinite;
     }
 
+    @keyframes pulseMic {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
+    /* Bottom Action & Feedbacks */
     .bottom-action-sheet {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: #111827;
-      border-top: 2px solid var(--card-border);
-      padding: 14px 20px calc(14px + env(safe-area-inset-bottom)) 20px;
+      margin-top: auto;
+      padding-top: 20px;
       display: flex;
       flex-direction: column;
       gap: 12px;
-      z-index: 100;
     }
 
     .feedback-banner {
       display: none;
-      padding: 12px 16px;
-      border-radius: 14px;
-      font-size: 13.5px;
-      font-weight: 800;
+      border-radius: 16px;
+      padding: 16px 18px;
+      animation: slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     .feedback-correct {
+      background: rgba(88, 204, 2, 0.15);
+      color: #86efac;
+      border: 1.5px solid #22c55e;
       display: flex;
-      align-items: center;
+      flex-direction: column;
       gap: 10px;
-      background: rgba(88, 204, 2, 0.2);
-      color: #58cc02;
-      border: 1px solid #58cc02;
     }
 
     .feedback-wrong {
+      background: rgba(255, 75, 75, 0.15);
+      color: #fca5a5;
+      border: 1.5px solid #ef4444;
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      background: rgba(255, 75, 75, 0.2);
-      color: #ff4b4b;
-      border: 1px solid #ff4b4b;
+      gap: 8px;
     }
+
+    .feedback-audio-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .btn-feedback-audio {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 14px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-feedback-audio:hover { background: var(--accent-dark); }
+    .btn-feedback-audio.slow { background: rgba(255, 255, 255, 0.12); border: 1px solid var(--accent); }
 
     .btn-main-action {
       background: var(--primary);
@@ -977,7 +1274,7 @@
       width: 100%;
       height: 100%;
       background: rgba(7, 10, 18, 0.98);
-      z-index: 200;
+      z-index: 500;
       display: none;
       flex-direction: column;
       align-items: center;
@@ -1075,15 +1372,21 @@
       <div class="brand-title">
         <span>🛡️</span> POLYGLOT RPG
       </div>
-      <!-- Botão Rápido de Idioma -->
-      <button class="btn-lang-switcher" onclick="openLanguageModal()" id="header-lang-btn">
-        <span>🇺🇸</span> English
-      </button>
+      <div class="header-pills-group">
+        <!-- Idioma -->
+        <button class="btn-header-pill" onclick="openLanguageModal()" id="header-lang-btn">
+          <span>🇺🇸</span> English
+        </button>
+        <!-- Dificuldade -->
+        <button class="btn-header-pill btn-diff-easy" onclick="openDifficultyModal()" id="header-diff-btn">
+          <span>🟢</span> Fácil
+        </button>
+      </div>
     </div>
 
     <div class="stats-group">
-      <button class="btn-change-class-header" onclick="openClassModal()">
-        <span>🔄</span> Mudar Classe
+      <button class="btn-header-pill" onclick="openClassModal()">
+        <span>🔄</span> Classe
       </button>
       <div class="stat-item stat-xp">
         <span>⚡</span> <span id="user-xp">0 XP</span>
@@ -1097,12 +1400,28 @@
   <!-- GRID PRINCIPAL -->
   <div class="main-grid-layout">
 
-    <!-- COLUNA 1: ROADMAP DUOLINGO -->
+    <!-- COLUNA 1: ROADMAP DUOLINGO & AULAS -->
     <div class="left-content-area">
       
       <!-- ROADMAP VIEW -->
       <div id="roadmap-view">
-        <!-- BARRA RÁPIDA DE TROCA DE CLASSE -->
+
+        <!-- BALÃO DE MINI-PROVA NO LOBBY -->
+        <div class="lobby-quiz-balloon" id="lobby-quiz-balloon">
+          <div class="balloon-left">
+            <div class="balloon-icon">⚡</div>
+            <div>
+              <div class="balloon-badge">PROVA DE NIVELAMENTO</div>
+              <div class="balloon-title">Quer testar seu nível e ganhar XP bônus?</div>
+              <div class="balloon-desc">Responda a 3 perguntas rápidas para calibrar sua dificuldade e desbloquear recompensas!</div>
+            </div>
+          </div>
+          <button class="btn-start-quiz-lobby" onclick="startPlacementQuizFromLobby()">
+            <span>🎯</span> Fazer Mini-Prova
+          </button>
+        </div>
+
+        <!-- BARRA RÁPIDA DE CARREIRAS -->
         <div class="career-switcher-bar">
           <button class="career-pill active-all" id="pill-all" onclick="switchClassAndFilter('all')">📚 Todas as Aulas</button>
           <button class="career-pill" id="pill-mage" onclick="switchClassAndFilter('mage')">🧙‍♂️ TI / Dev (Mago)</button>
@@ -1110,53 +1429,101 @@
           <button class="career-pill" id="pill-paladin" onclick="switchClassAndFilter('paladin')">⚖️ Direito (Paladino)</button>
         </div>
 
-        <div class="section-header">
-          <div class="section-title">
-            <h2 id="mod1-title">Módulo 1: Apresentação & Reuniões</h2>
-            <p id="mod1-desc">Destrave sua fala e conheça a equipe</p>
+        <!-- MÓDULO 1: BASE CORPORATIVA GERAL -->
+        <div id="section-module-1" class="module-section-block">
+          <div class="section-header">
+            <div class="section-title">
+              <h2 id="mod1-title">Módulo 1: Apresentação & Reuniões</h2>
+              <p>Primeiros passos, apresentações corporativas e Boss Recrutador</p>
+            </div>
+            <div class="section-badge">🚀 Módulo 1 (Base)</div>
           </div>
-          <div class="section-badge">Módulo 1</div>
+          <div class="lesson-path" id="lessons-path-container"></div>
         </div>
 
-        <div class="lesson-path" id="lessons-path-container"></div>
-
-        <div class="section-header" style="margin-top: 30px;">
-          <div class="section-title">
-            <h2>Módulo 2: O Dia a Dia do Dev (TI)</h2>
-            <p>Dailies, Pull Requests, Bugs e Deploys</p>
+        <!-- MÓDULO 2: MAGO DO CÓDIGO (TI / DEV) -->
+        <div id="section-module-2" class="module-section-block">
+          <div class="section-header" style="margin-top: 30px;">
+            <div class="section-title">
+              <h2>Módulo 2: O Dia a Dia do Dev (🧙‍♂️ Mago TI)</h2>
+              <p>Dailies, Pull Requests, DevOps, Cloud e Boss Tech Lead</p>
+            </div>
+            <div class="section-badge" style="color: #c084fc; border-color: #a855f7;">💻 TI Tech (Mago)</div>
           </div>
-          <div class="section-badge" style="color: #c084fc; border-color: #a855f7;">💻 TI Tech</div>
+          <div class="lesson-path" id="lessons-path-m2"></div>
         </div>
 
-        <div class="lesson-path" id="lessons-path-m2"></div>
-
-        <div class="section-header" style="margin-top: 30px;">
-          <div class="section-title">
-            <h2>Módulo 3: Vendas & Negociação</h2>
-            <p>Discovery Calls, Objeções e Fechamento</p>
+        <!-- MÓDULO 3: GUERREIRO DAS VENDAS (B2B) -->
+        <div id="section-module-3" class="module-section-block">
+          <div class="section-header" style="margin-top: 30px;">
+            <div class="section-title">
+              <h2>Módulo 3: Vendas & Negociação (⚔️ Guerreiro)</h2>
+              <p>Discovery Calls, Objeções, Fechamento e Boss Comprador</p>
+            </div>
+            <div class="section-badge" style="color: #fde68a; border-color: #f59e0b;">📈 Vendas (Guerreiro)</div>
           </div>
-          <div class="section-badge" style="color: #fde68a; border-color: #f59e0b;">📈 Vendas</div>
+          <div class="lesson-path" id="lessons-path-m3"></div>
         </div>
 
-        <div class="lesson-path" id="lessons-path-m3"></div>
-
-        <div class="section-header" style="margin-top: 30px;">
-          <div class="section-title">
-            <h2>Módulo 4: Direito & Justiça (⚖️ Paladino)</h2>
-            <p>Contratos, NDAs, Cláusulas e Compliance</p>
+        <!-- MÓDULO 4: PALADINO DO DIREITO (CONTRATOS) -->
+        <div id="section-module-4" class="module-section-block">
+          <div class="section-header" style="margin-top: 30px;">
+            <div class="section-title">
+              <h2>Módulo 4: Direito & Justiça (⚖️ Paladino)</h2>
+              <p>Contratos, NDAs, Cláusulas, GDPR e Boss Juiz Internacional</p>
+            </div>
+            <div class="section-badge" style="color: #93c5fd; border-color: #3b82f6;">⚖️ Jurídico (Paladino)</div>
           </div>
-          <div class="section-badge" style="color: #93c5fd; border-color: #3b82f6;">⚖️ Jurídico</div>
+          <div class="lesson-path" id="lessons-path-m4"></div>
         </div>
-
-        <div class="lesson-path" id="lessons-path-m4"></div>
       </div>
 
-      <!-- LESSON VIEW (EXERCÍCIO ATIVO) -->
+      <!-- TELA EXPLICATIVA DA AULA (INTRO CARD) -->
+      <div id="lesson-intro-view" style="display:none;">
+        <div class="lesson-header">
+          <button class="btn-close-lesson" onclick="exitLesson()">✕</button>
+          <div style="font-size: 13.5px; font-weight:800; color:var(--text-muted);">GUIA DA AULA</div>
+        </div>
+
+        <div class="lesson-intro-card" id="intro-card-content">
+          <!-- Injetado dinamicamente -->
+        </div>
+
+        <div class="bottom-action-sheet">
+          <button class="btn-main-action" id="btn-start-exercises" onclick="proceedToExercises()">
+            Estou Pronto! Começar Treino ➔
+          </button>
+        </div>
+      </div>
+
+      <!-- LESSON VIEW (EXERCÍCIO ATIVO OU BOSS BATTLE) -->
       <div id="lesson-view" class="lesson-view">
         <div class="lesson-header">
           <button class="btn-close-lesson" onclick="exitLesson()">✕</button>
           <div class="progress-track">
             <div class="progress-fill" id="lesson-progress-bar"></div>
+          </div>
+        </div>
+
+        <!-- ARENA DO BOSS (SE A AULA FOR BOSS) -->
+        <div class="boss-arena-header" id="boss-arena-header" style="display:none;">
+          <div class="boss-profile-row">
+            <div class="boss-avatar-box" id="boss-avatar">👔</div>
+            <div class="boss-info-col">
+              <div class="boss-tag-title">⚔️ PROVA DE MÓDULO - CHEFE DE FASE</div>
+              <div class="boss-name-title" id="boss-name">Dr. Victor Voss</div>
+              <div class="boss-speech-bubble" id="boss-speech">"Vamos ver se você aguenta a pressão!"</div>
+            </div>
+          </div>
+
+          <div class="boss-hp-section">
+            <div class="boss-hp-labels">
+              <span>VIDA DO CHEFE (HP)</span>
+              <span id="boss-hp-text">100 / 100</span>
+            </div>
+            <div class="boss-hp-track">
+              <div class="boss-hp-fill" id="boss-hp-fill"></div>
+            </div>
           </div>
         </div>
 
@@ -1182,7 +1549,7 @@
       </div>
 
       <div class="hero-dialogue-bubble" id="hero-dialogue">
-        "Ready to conquer today's lessons?"
+        "Pronto para a batalha de hoje?"
       </div>
 
       <div class="pedestal-viewport" onclick="animateHeroClick()">
@@ -1230,84 +1597,200 @@
   <!-- ============================================== -->
   <!-- MODAL 1: ESCOLHA DO IDIOMA COM BANDEIRAS -->
   <!-- ============================================== -->
-  <div class="language-selection-overlay" id="lang-modal">
-    <div style="font-size: 54px; margin-bottom: 8px;">🌍</div>
-    <div class="lang-selection-title">ESCOLHA SEU IDIOMA</div>
-    <div style="font-size: 13.5px; color: var(--text-muted); max-width: 360px;">
-      Qual idioma você deseja dominar para impulsionar sua carreira?
-    </div>
+  <div class="modal-overlay" id="lang-modal">
+    <div class="modal-card-box">
+      <div class="modal-header-icon">🌍</div>
+      <div class="modal-title">ESCOLHA SEU IDIOMA</div>
+      <div class="modal-subtitle">Qual idioma você deseja dominar para alavancar sua carreira?</div>
 
-    <div class="lang-cards-container">
-      <!-- Opção 1: Inglês -->
-      <div class="lang-card selected" id="card-lang-en" onclick="selectLangOption('en')">
-        <div class="lang-flag">🇺🇸</div>
-        <div class="lang-info">
-          <h3>Inglês (English)</h3>
-          <p>O idioma global dos negócios, tecnologia e mercado internacional.</p>
+      <div class="select-card-list">
+        <!-- Inglês -->
+        <div class="select-card selected" id="card-lang-en" onclick="selectLangOption('en')">
+          <div class="select-card-badge">🇺🇸</div>
+          <div>
+            <div class="select-card-title">Inglês (English)</div>
+            <div class="select-card-desc">Língua global para negócios, tecnologia e mercado internacional.</div>
+          </div>
+        </div>
+
+        <!-- Alemão -->
+        <div class="select-card" id="card-lang-de" onclick="selectLangOption('de')">
+          <div class="select-card-badge">🇩🇪</div>
+          <div>
+            <div class="select-card-title">Alemão (Deutsch)</div>
+            <div class="select-card-desc">Maior potência econômica e tecnológica da Europa (Alemanha, Suíça e Áustria).</div>
+          </div>
         </div>
       </div>
 
-      <!-- Opção 2: Alemão -->
-      <div class="lang-card" id="card-lang-de" onclick="selectLangOption('de')">
-        <div class="lang-flag">🇩🇪</div>
-        <div class="lang-info">
-          <h3>Alemão (Deutsch)</h3>
-          <p>A maior potência econômica e tecnológica da Europa (Alemanha, Suíça e Áustria).</p>
-        </div>
-      </div>
+      <button class="btn-main-action" style="width: 100%;" onclick="confirmLanguageSelection()">
+        Avançar para o Nível ➔
+      </button>
     </div>
-
-    <button class="btn-main-action" style="width: 100%; max-width: 380px;" onclick="confirmLanguageSelection()">
-      Avançar para a Classe
-    </button>
   </div>
 
   <!-- ============================================== -->
-  <!-- MODAL 2: ESCOLHA DA CLASSE (ONBOARDING) -->
+  <!-- MODAL 2: TESTE DE NIVELAMENTO / ESCOLHA DE DIFICULDADE -->
   <!-- ============================================== -->
-  <div class="class-selection-overlay" id="class-modal">
-    <div style="font-size: 54px; margin-bottom: 8px;">🛡️</div>
-    <div class="class-selection-title">CRIE SEU PERSONAGEM</div>
-    <div style="font-size: 13.5px; color: var(--text-muted); max-width: 360px;">
-      Escolha como você quer evoluir na sua carreira:
+  <div class="modal-overlay" id="placement-modal">
+    <div class="modal-card-box" id="placement-view-select">
+      <div class="modal-header-icon">🎯</div>
+      <div class="modal-title">QUAL É O SEU NÍVEL?</div>
+      <div class="modal-subtitle">Escolha como prefere começar sua jornada de aprendizado:</div>
+
+      <div class="select-card-list">
+        <!-- Fácil / Iniciante -->
+        <div class="select-card selected" id="opt-diff-easy" onclick="selectPlacementMode('easy')">
+          <div class="select-card-badge">🌱</div>
+          <div>
+            <div class="select-card-title">Iniciante Total (Fácil)</div>
+            <div class="select-card-desc">Não tenho noção ou quero começar do zero absoluto com passos guiados.</div>
+          </div>
+        </div>
+
+        <!-- Médio / Intermediário -->
+        <div class="select-card" id="opt-diff-medium" onclick="selectPlacementMode('medium')">
+          <div class="select-card-badge">🟡</div>
+          <div>
+            <div class="select-card-title">Intermediário (Médio)</div>
+            <div class="select-card-desc">Já compreendo o básico e quero focar em reuniões corporativas e fluência real.</div>
+          </div>
+        </div>
+
+        <!-- Hard / Avançado -->
+        <div class="select-card" id="opt-diff-hard" onclick="selectPlacementMode('hard')">
+          <div class="select-card-badge">🔥</div>
+          <div>
+            <div class="select-card-title">Avançado / Nativo (Hard)</div>
+            <div class="select-card-desc">Quero vocabulário executivo, negociações sob pressão e bosses desafiadores.</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-main-action" style="width: 100%;" onclick="confirmPlacementChoice()">
+        Confirmar ➔
+      </button>
     </div>
 
-    <div class="class-cards-container">
-      <div class="class-card selected" id="card-warrior" onclick="selectClassOption('warrior')">
-        <div style="font-size: 34px;">⚔️</div>
-        <div>
-          <h3 style="font-size: 16px; font-weight:800; color:#fff;">Guerreiro das Vendas</h3>
-          <p style="font-size: 12px; color:var(--text-muted);">Mestre do pitch, reuniões executivas e fechamento de contratos.</p>
-        </div>
+    <!-- TELA DA MINI-PROVA (SE ESCOLHIDO 'QUIZ') -->
+    <div class="modal-card-box" id="placement-quiz-box" style="display:none;">
+      <div style="width:100%; display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-size:12px; font-weight:800; color:var(--gold);">TESTE DE NIVELAMENTO</span>
+        <span style="font-size:12px; color:var(--text-muted);" id="placement-step-text">Pergunta 1 de 3</span>
       </div>
 
-      <div class="class-card" id="card-mage" onclick="selectClassOption('mage')">
-        <div style="font-size: 34px;">🧙‍♂️</div>
-        <div>
-          <h3 style="font-size: 16px; font-weight:800; color:#fff;">Mago do Código</h3>
-          <p style="font-size: 12px; color:var(--text-muted);">Especialista em TI, Pull Requests, arquitetura e discussões técnicas.</p>
-        </div>
-      </div>
+      <div class="modal-title" id="placement-q-title" style="font-size:17px; margin-top:8px;"></div>
+      <div style="font-size:14px; color:#cbd5e1;" id="placement-q-prompt"></div>
 
-      <div class="class-card" id="card-paladin" onclick="selectClassOption('paladin')">
-        <div style="font-size: 34px;">⚖️</div>
-        <div>
-          <h3 style="font-size: 16px; font-weight:800; color:#fff;">Paladino do Direito</h3>
-          <p style="font-size: 12px; color:var(--text-muted);">Especialista em contratos internacionais, compliance, cláusulas e termos jurídicos.</p>
-        </div>
-      </div>
+      <div class="choices-list" id="placement-choices-mount" style="width:100%;"></div>
+
+      <button class="btn-main-action disabled" id="btn-placement-next" style="width: 100%; margin-top:10px;" onclick="handlePlacementAnswer()">
+        Próxima Pergunta
+      </button>
     </div>
 
-    <button class="btn-main-action" style="width: 100%; max-width: 380px;" onclick="confirmClassSelection()">
-      Começar Aventura
-    </button>
+    <!-- RESULTADO DA MINI-PROVA -->
+    <div class="modal-card-box" id="placement-result-box" style="display:none;">
+      <div class="modal-header-icon" id="placement-result-icon">🎉</div>
+      <div class="modal-title" id="placement-result-title">Nível Definido!</div>
+      <div class="modal-subtitle" id="placement-result-desc"></div>
+
+      <div style="background:rgba(255,255,255,0.05); border:1px solid var(--card-border); border-radius:16px; padding:16px; width:100%;">
+        <div style="font-size:12px; color:var(--text-muted); text-transform:uppercase;">Dificuldade Aplicada:</div>
+        <div style="font-size:18px; font-weight:900; color:var(--gold); margin-top:4px;" id="placement-result-badge">Médio (Intermediário)</div>
+      </div>
+
+      <button class="btn-main-action" style="width: 100%;" onclick="finishPlacementFlow()">
+        Avançar para a Classe ➔
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL 3: ESCOLHA DA CLASSE (RPG) -->
+  <!-- ============================================== -->
+  <div class="modal-overlay" id="class-modal">
+    <div class="modal-card-box">
+      <div class="modal-header-icon">🛡️</div>
+      <div class="modal-title">CRIE SEU PERSONAGEM</div>
+      <div class="modal-subtitle">Escolha sua vocação profissional no RPG:</div>
+
+      <div class="select-card-list">
+        <div class="select-card selected" id="card-warrior" onclick="selectClassOption('warrior')">
+          <div class="select-card-badge">⚔️</div>
+          <div>
+            <div class="select-card-title">Guerreiro das Vendas</div>
+            <div class="select-card-desc">Mestre do pitch, reuniões executivas e fechamento de contratos.</div>
+          </div>
+        </div>
+
+        <div class="select-card" id="card-mage" onclick="selectClassOption('mage')">
+          <div class="select-card-badge">🧙‍♂️</div>
+          <div>
+            <div class="select-card-title">Mago do Código</div>
+            <div class="select-card-desc">Especialista em TI, Pull Requests, arquitetura e discussões técnicas.</div>
+          </div>
+        </div>
+
+        <div class="select-card" id="card-paladin" onclick="selectClassOption('paladin')">
+          <div class="select-card-badge">⚖️</div>
+          <div>
+            <div class="select-card-title">Paladino do Direito</div>
+            <div class="select-card-desc">Especialista em contratos internacionais, compliance, cláusulas e NDAs.</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-main-action" style="width: 100%;" onclick="confirmClassSelection()">
+        Começar Aventura!
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL DE TROCA RÁPIDA DE DIFICULDADE (HEADER) -->
+  <div class="modal-overlay" id="diff-modal">
+    <div class="modal-card-box">
+      <div class="modal-header-icon">⚙️</div>
+      <div class="modal-title">AJUSTAR DIFICULDADE</div>
+      <div class="modal-subtitle">Você pode mudar sua experiência a qualquer momento:</div>
+
+      <div class="select-card-list">
+        <div class="select-card" id="diff-modal-easy" onclick="setDifficultyFast('easy')">
+          <div class="select-card-badge">🟢</div>
+          <div>
+            <div class="select-card-title">Fácil (Iniciante)</div>
+            <div class="select-card-desc">Passos bem guiados, dicas fonéticas e vocabulário sem pegadinhas.</div>
+          </div>
+        </div>
+
+        <div class="select-card" id="diff-modal-medium" onclick="setDifficultyFast('medium')">
+          <div class="select-card-badge">🟡</div>
+          <div>
+            <div class="select-card-title">Médio (Intermediário)</div>
+            <div class="select-card-desc">Frases corporativas reais, foco em conversação natural e fluência.</div>
+          </div>
+        </div>
+
+        <div class="select-card" id="diff-modal-hard" onclick="setDifficultyFast('hard')">
+          <div class="select-card-badge">🔴</div>
+          <div>
+            <div class="select-card-title">Hard (Fluente / Nativo)</div>
+            <div class="select-card-desc">Expressões idiomáticas avançadas, alta pressão e bosses impiedosos.</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-main-action" style="width: 100%;" onclick="document.getElementById('diff-modal').style.display='none'">
+        Fechar
+      </button>
+    </div>
   </div>
 
   <!-- MODAL DE VITÓRIA / DROP DE EQUIPAMENTO -->
   <div class="victory-modal" id="victory-modal">
-    <div class="victory-trophy">🏆</div>
-    <div class="victory-title">Aula Concluída!</div>
-    <div class="victory-desc">Você completou o treino e fortaleceu o seu personagem!</div>
+    <div class="victory-trophy" id="victory-trophy-icon">🏆</div>
+    <div class="victory-title" id="victory-title-text">Aula Concluída!</div>
+    <div class="victory-desc" id="victory-desc-text">Você completou o treino e fortaleceu o seu personagem!</div>
 
     <div id="victory-item-drop-container"></div>
 
@@ -1316,765 +1799,232 @@
     </button>
   </div>
 
+  <!-- Currículos Modulares Polyglot RPG -->
+  <script src="curriculum_en.js"></script>
+  <script src="curriculum_de.js"></script>
+
   <script>
     // ========================================================
     // SINTETIZADOR DE SONS (Web Audio API)
     // ========================================================
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    const audioCtx = AudioContextClass ? new AudioContextClass() : null;
 
     function playSound(type) {
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
+      try {
+        if (!audioCtx) return;
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
 
-      if (type === 'correct') {
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
-        osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1);
-        osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.2);
-        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.5);
-      } else if (type === 'wrong') {
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(220, audioCtx.currentTime);
-        osc.frequency.setValueAtTime(164.81, audioCtx.currentTime + 0.15);
-        gain.gain.setValueAtTime(0.25, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.4);
-      } else if (type === 'click') {
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(440, audioCtx.currentTime);
-        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.08);
-      } else if (type === 'levelup') {
-        osc.type = 'square';
-        osc.frequency.setValueAtTime(392, audioCtx.currentTime);
-        osc.frequency.setValueAtTime(523.25, audioCtx.currentTime + 0.12);
-        osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.24);
-        osc.frequency.setValueAtTime(1046.50, audioCtx.currentTime + 0.36);
-        gain.gain.setValueAtTime(0.25, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.7);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.7);
-      }
+        if (type === 'correct') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
+          osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1);
+          osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.2);
+          gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.5);
+        } else if (type === 'wrong') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(220, audioCtx.currentTime);
+          osc.frequency.setValueAtTime(164.81, audioCtx.currentTime + 0.15);
+          gain.gain.setValueAtTime(0.25, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.4);
+        } else if (type === 'click') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.08);
+        } else if (type === 'levelup') {
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(392, audioCtx.currentTime);
+          osc.frequency.setValueAtTime(523.25, audioCtx.currentTime + 0.12);
+          osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.24);
+          osc.frequency.setValueAtTime(1046.50, audioCtx.currentTime + 0.36);
+          gain.gain.setValueAtTime(0.25, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.7);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.7);
+        } else if (type === 'boss_hit') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.3);
+          gain.gain.setValueAtTime(0.35, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.3);
+        } else if (type === 'boss_attack') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(60, audioCtx.currentTime + 0.45);
+          gain.gain.setValueAtTime(0.4, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.45);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.45);
+        }
+      } catch(e) {}
     }
 
     // ========================================================
-    // CURRÍCULO EM INGLÊS (ENGLISH CURRICULUM)
+    // CURRÍCULOS EXECUTIVOS (INGLÊS & ALEMÃO)
+    // Carregados via curriculum_en.js e curriculum_de.js
     // ========================================================
-    const curriculumEN = [
-      {
-        id: 1,
-        module: 1,
-        title: "Apresentação Pessoal",
-        category: "Primeiros Passos",
-        icon: "👋",
-        pos: "pos-center",
-        rewardItem: { icon: "🗡️", name: "Lâmina da Fala", slot: "Arma" },
-        exercises: [
-          {
-            type: "word-order",
-            prompt: "Monte a frase em inglês:",
-            source: "Eu sou um desenvolvedor de software.",
-            correct: ["I", "am", "a", "software", "developer"],
-            pool: ["I", "am", "a", "software", "developer", "working", "with", "program"]
-          },
-          {
-            type: "choice",
-            prompt: "Como você diz educadamente que está feliz em estar na equipe?",
-            options: [
-              "I am glad to be here.",
-              "I am here for working.",
-              "I have doubt about team."
-            ],
-            correct: 0
-          },
-          {
-            type: "speak",
-            prompt: "Toque no microfone e fale a frase em inglês:",
-            target: "Nice to meet you all.",
-            trans: "Prazer em conhecer todos vocês."
-          }
-        ]
-      },
-      {
-        id: 2,
-        module: 1,
-        title: "Abertura de Reunião",
-        category: "Comunicação",
-        icon: "☕",
-        pos: "pos-right",
-        rewardItem: { icon: "📿", name: "Amuleto da Fluência", slot: "Acessório" },
-        exercises: [
-          {
-            type: "word-order",
-            prompt: "Monte a frase em inglês:",
-            source: "Obrigado por disponibilizarem um tempo hoje.",
-            correct: ["Thanks", "for", "your", "time", "today"],
-            pool: ["Thanks", "for", "your", "time", "today", "to", "pass", "giving"]
-          },
-          {
-            type: "choice",
-            prompt: "Qual é a forma correta e nativa de dizer 'Eu concordo com você'?",
-            options: [
-              "I agree with you.",
-              "I am agree with you.",
-              "I'm agree with you."
-            ],
-            correct: 0
-          },
-          {
-            type: "speak",
-            prompt: "Fale no microfone com boa pronúncia:",
-            target: "Could you repeat that, please?",
-            trans: "Você poderia repetir isso, por favor?"
-          }
-        ]
-      },
-      {
-        id: 3,
-        module: 2,
-        title: "Daily Standup",
-        category: "💻 TI & Dev",
-        icon: "💻",
-        pos: "pos-center",
-        rewardItem: { icon: "🛡️", name: "Escudo do Deploy", slot: "Armadura" },
-        exercises: [
-          {
-            type: "word-order",
-            prompt: "Monte a frase clássica de Daily:",
-            source: "Ontem trabalhei na migração do banco de dados.",
-            correct: ["Yesterday", "I", "worked", "on", "the", "database", "migration"],
-            pool: ["Yesterday", "I", "worked", "on", "the", "database", "migration", "at", "did", "code"]
-          },
-          {
-            type: "choice",
-            prompt: "Como você avisa na Daily que NÃO tem nenhum impedimento?",
-            options: [
-              "I have no blockers today.",
-              "I don't have doubts.",
-              "No stops for me."
-            ],
-            correct: 0
-          },
-          {
-            type: "speak",
-            prompt: "Fale no microfone:",
-            target: "I'm currently working on bug fixes.",
-            trans: "Estou trabalhando atualmente na correção de bugs."
-          }
-        ]
-      },
-      {
-        id: 4,
-        module: 2,
-        title: "Pull Requests & Bugs",
-        category: "💻 TI & Dev",
-        icon: "🔀",
-        pos: "pos-left",
-        rewardItem: { icon: "👑", name: "Coroa do Arquiteto", slot: "Elmo" },
-        exercises: [
-          {
-            type: "word-order",
-            prompt: "Monte a frase:",
-            source: "Abri um pull request hoje de manhã.",
-            correct: ["I", "opened", "a", "pull", "request", "this", "morning"],
-            pool: ["I", "opened", "a", "pull", "request", "this", "morning", "up", "the", "code"]
-          },
-          {
-            type: "choice",
-            prompt: "Se o servidor está gerando erro em produção, o termo exato é:",
-            options: [
-              "The server is throwing an error.",
-              "The server is giving error.",
-              "The server is with defect."
-            ],
-            correct: 0
-          },
-          {
-            type: "speak",
-            prompt: "Fale a clássica frase de programador:",
-            target: "It works fine on my machine.",
-            trans: "Funciona perfeitamente na minha máquina."
-          }
-        ]
-      },
-      {
-        id: 5,
-        module: 2,
-        title: "Prazos & Bloqueios",
-        category: "💻 TI & Dev",
-        icon: "⏱️",
-        pos: "pos-center",
-        rewardItem: { icon: "💍", name: "Anel do Refactor", slot: "Acessório" },
-        exercises: [
-          {
-            type: "word-order",
-            prompt: "Monte a frase:",
-            source: "Estou travado por um problema na API.",
-            correct: ["I", "am", "blocked", "by", "an", "API", "issue"],
-            pool: ["I", "am", "blocked", "by", "an", "API", "issue", "having", "doubt", "stopped"]
-          },
-          {
-            type: "choice",
-            prompt: "Como você diz: 'Vamos entrar numa chamada rápida para debugar isso'?",
-            options: [
-              "Let's hop on a quick call.",
-              "Let's enter in one call.",
-              "Make a meeting now."
-            ],
-            correct: 0
-          },
-          {
-            type: "speak",
-            prompt: "Fale no microfone:",
-            target: "This task will take two days.",
-            trans: "Essa tarefa levará dois dias."
-          }
-        ]
-      },
-      {
-        id: 6,
-        module: 3,
-        title: "Discovery Call",
-        category: "📈 Vendas",
-        icon: "🔍",
-        pos: "pos-right",
-        rewardItem: { icon: "📜", name: "Papiro da Negociação", slot: "Tomo" },
-        exercises: [
-          {
-            type: "word-order",
-            prompt: "Monte a pergunta para descobrir a dor do cliente:",
-            source: "Quais são os maiores gargalos no seu processo?",
-            correct: ["What", "are", "the", "biggest", "bottlenecks", "in", "your", "process"],
-            pool: ["What", "are", "the", "biggest", "bottlenecks", "in", "your", "process", "doubts", "have"]
-          },
-          {
-            type: "choice",
-            prompt: "Como perguntar quando o cliente vai tomar a decisão de compra?",
-            options: [
-              "What does your timeline look like?",
-              "When you will buy this?",
-              "What is your final hour?"
-            ],
-            correct: 0
-          },
-          {
-            type: "speak",
-            prompt: "Fale no microfone:",
-            target: "How can our platform help your team?",
-            trans: "Como a nossa plataforma pode ajudar sua equipe?"
-          }
-        ]
-      },
-      {
-        id: 7,
-        module: 3,
-        title: "Demonstração & Valor",
-        category: "📈 Vendas",
-        icon: "🚀",
-        pos: "pos-center",
-        rewardItem: { icon: "⚔️", name: "Gládio do Fechamento", slot: "Arma Mítica" },
-        exercises: [
-          {
-            type: "word-order",
-            prompt: "Monte a frase de impacto comercial:",
-            source: "Nossa plataforma reduz o tempo de entrega pela metade.",
-            correct: ["Our", "platform", "cuts", "delivery", "time", "in", "half"],
-            pool: ["Our", "platform", "cuts", "delivery", "time", "in", "half", "lows", "down", "at"]
-          },
-          {
-            type: "choice",
-            prompt: "Como você diz educadamente que vai enviar a proposta por e-mail?",
-            options: [
-              "I will send over the proposal.",
-              "I will pass the proposal.",
-              "I will give you the proposal."
-            ],
-            correct: 0
-          },
-          {
-            type: "speak",
-            prompt: "Fale no microfone:",
-            target: "This automation saves forty hours a month.",
-            trans: "Essa automação economiza quarenta horas por mês."
-          }
-        ]
-      },
-      {
-        id: 8,
-        module: 3,
-        title: "Fechamento & Contrato",
-        category: "📈 Vendas",
-        icon: "🤝",
-        pos: "pos-left",
-        rewardItem: { icon: "🏆", name: "Cálice da Vitória", slot: "Relíquia" },
-        exercises: [
-          {
-            type: "word-order",
-            prompt: "Monte a frase de fechamento:",
-            source: "Estamos prontos para fechar o negócio hoje.",
-            correct: ["We", "are", "ready", "to", "close", "the", "deal", "today"],
-            pool: ["We", "are", "ready", "to", "close", "the", "deal", "today", "finish", "business"]
-          },
-          {
-            type: "choice",
-            prompt: "Como contornar uma objeção de orçamento com classe?",
-            options: [
-              "I understand your budget constraints.",
-              "I see you don't have money.",
-              "Your budget is too poor."
-            ],
-            correct: 0
-          },
-          {
-            type: "speak",
-            prompt: "Fale no microfone:",
-            target: "We're excited to partner with you.",
-            trans: "Estamos muito animados em ser parceiros de vocês."
-          }
-        ]
-      },
-      {
-        id: 9,
-        module: 4,
-        title: "Contratos & Cláusulas",
-        category: "⚖️ Jurídico",
-        icon: "📜",
-        pos: "pos-center",
-        rewardItem: { icon: "🔨", name: "Martelo do Magistrado", slot: "Arma Sagrada" },
-        exercises: [
-          {
-            type: "word-order",
-            prompt: "Monte a frase jurídica em inglês:",
-            source: "De acordo com os termos do contrato de confidencialidade.",
-            correct: ["Pursuant", "to", "the", "terms", "of", "the", "NDA"],
-            pool: ["Pursuant", "to", "the", "terms", "of", "the", "NDA", "under", "doubt", "pass"]
-          },
-          {
-            type: "choice",
-            prompt: "Qual termo jurídico em inglês significa 'quebra ou violação de contrato'?",
-            options: [
-              "Breach of contract.",
-              "Breaking of contract.",
-              "Contract drop down."
-            ],
-            correct: 0
-          },
-          {
-            type: "speak",
-            prompt: "Fale no microfone a frase de validade jurídica:",
-            target: "This agreement is legally binding.",
-            trans: "Este acordo é juridicamente vinculativo."
-          }
-        ]
-      },
-      {
-        id: 10,
-        module: 4,
-        title: "Compliance & Disputas",
-        category: "⚖️ Jurídico",
-        icon: "⚖️",
-        pos: "pos-right",
-        rewardItem: { icon: "⚖️", name: "Balança da Justiça", slot: "Relíquia Suprema" },
-        exercises: [
-          {
-            type: "word-order",
-            prompt: "Monte a cláusula em inglês:",
-            source: "Ambas as partes concordam em resolver disputas por arbitragem.",
-            correct: ["Both", "parties", "agree", "to", "resolve", "disputes", "by", "arbitration"],
-            pool: ["Both", "parties", "agree", "to", "resolve", "disputes", "by", "arbitration", "am", "fight"]
-          },
-          {
-            type: "choice",
-            prompt: "Como você diz formalmente que a empresa está 'em conformidade com a lei'?",
-            options: [
-              "In compliance with applicable laws.",
-              "Following the rules well.",
-              "Assisting the justice."
-            ],
-            correct: 0
-          },
-          {
-            type: "speak",
-            prompt: "Fale no microfone a declaração de responsabilidade legal:",
-            target: "Neither party shall be held liable.",
-            trans: "Nenhuma das partes será responsabilizada."
-          }
-        ]
-      }
-    ];
 
     // ========================================================
-    // CURRÍCULO EM ALEMÃO (DEUTSCH CURRICULUM)
-    // ========================================================
-    const curriculumDE = [
-      {
-        id: 1,
-        module: 1,
-        title: "Persönliche Vorstellung",
-        category: "Erste Schritte",
-        icon: "👋",
-        pos: "pos-center",
-        rewardItem: { icon: "🗡️", name: "Klinge der Rede", slot: "Waffe" },
-        exercises: [
-          {
-            type: "word-order",
-            prompt: "Monte a frase em alemão:",
-            source: "Eu sou um desenvolvedor de software.",
-            correct: ["Ich", "bin", "ein", "Softwareentwickler"],
-            pool: ["Ich", "bin", "ein", "Softwareentwickler", "arbeite", "mit", "Programm"]
-          },
-          {
-            type: "choice",
-            prompt: "Como você diz que é um prazer conhecer todos em alemão?",
-            options: [
-              "Freut mich, Sie alle kennenzulernen.",
-              "Ich bin hier für Arbeit.",
-              "Ich habe Zweifel über Team."
-            ],
-            correct: 0
-          },
-          {
-            type: "speak",
-            prompt: "Fale a saudação formal em alemão:",
-            target: "Guten Tag, freut mich sehr.",
-            trans: "Bom dia, muito prazer."
-          }
-        ]
-      },
-      {
-        id: 2,
-        module: 1,
-        title: "Meeting-Eröffnung",
-        category: "Kommunikation",
-        icon: "☕",
-        pos: "pos-right",
-        rewardItem: { icon: "📿", name: "Amulett der Geläufigkeit", slot: "Accessoire" },
-        exercises: [
-          {
-            type: "word-order",
-            prompt: "Monte a frase de agradecimento em alemão:",
-            source: "Muito obrigado pelo seu tempo hoje.",
-            correct: ["Vielen", "Dank", "für", "Ihre", "Zeit", "heute"],
-            pool: ["Vielen", "Dank", "für", "Ihre", "Zeit", "heute", "zu", "geben", "Meeting"]
-          },
-          {
-            type: "choice",
-            prompt: "Como você diz educadamente 'Eu concordo com você' em alemão?",
-            options: [
-              "Ich stimme Ihnen zu.",
-              "Ich bin zustimmen mit dir.",
-              "Ich habe deine Meinung."
-            ],
-            correct: 0
-          },
-          {
-            type: "speak",
-            prompt: "Peça para repetir educadamente em alemão:",
-            target: "Könnten Sie das bitte wiederholen?",
-            trans: "Você poderia repetir isso, por favor?"
-          }
-        ]
-      },
-      {
-        id: 3,
-        module: 2,
-        title: "Daily Standup (IT)",
-        category: "💻 IT & Dev",
-        icon: "💻",
-        pos: "pos-center",
-        rewardItem: { icon: "🛡️", name: "Deploy-Schild", slot: "Rüstung" },
-        exercises: [
-          {
-            type: "word-order",
-            prompt: "Monte a atualização de Daily em alemão:",
-            source: "Ontem trabalhei na migração do banco de dados.",
-            correct: ["Gestern", "habe", "ich", "an", "der", "Datenbankmigration", "gearbeitet"],
-            pool: ["Gestern", "habe", "ich", "an", "der", "Datenbankmigration", "gearbeitet", "gemacht", "Code"]
-          },
-          {
-            type: "choice",
-            prompt: "Como avisar na Daily que você não tem nenhum impedimento?",
-            options: [
-              "Ich habe heute keine Blocker.",
-              "Ich habe keine Zweifel.",
-              "Ich halte nicht an."
-            ],
-            correct: 0
-          },
-          {
-            type: "speak",
-            prompt: "Fale no microfone em alemão:",
-            target: "Ich arbeite derzeit an Fehlerbehebungen.",
-            trans: "Estou trabalhando atualmente na correção de erros (bugs)."
-          }
-        ]
-      },
-      {
-        id: 4,
-        module: 2,
-        title: "Pull Requests & Bugs",
-        category: "💻 IT & Dev",
-        icon: "🔀",
-        pos: "pos-left",
-        rewardItem: { icon: "👑", name: "Architektenkrone", slot: "Helm" },
-        exercises: [
-          {
-            type: "word-order",
-            prompt: "Monte a frase técnica em alemão:",
-            source: "Abri um pull request hoje de manhã.",
-            correct: ["Ich", "habe", "heute", "Morgen", "einen", "Pull", "Request", "eröffnet"],
-            pool: ["Ich", "habe", "heute", "Morgen", "einen", "Pull", "Request", "eröffnet", "gemacht", "hoch"]
-          },
-          {
-            type: "choice",
-            prompt: "Como dizer 'O servidor está gerando um erro' em alemão?",
-            options: [
-              "Der Server wirft einen Fehler.",
-              "Der Server gibt Fehler.",
-              "Der Server macht Problem."
-            ],
-            correct: 0
-          },
-          {
-            type: "speak",
-            prompt: "Fale a clássica frase de programador em alemão:",
-            target: "Auf meinem Rechner funktioniert es einwandfrei.",
-            trans: "Na minha máquina funciona perfeitamente."
-          }
-        ]
-      },
-      {
-        id: 5,
-        module: 2,
-        title: "Fristen & Blocker",
-        category: "💻 IT & Dev",
-        icon: "⏱️",
-        pos: "pos-center",
-        rewardItem: { icon: "💍", name: "Refactor-Ring", slot: "Accessoire" },
-        exercises: [
-          {
-            type: "word-order",
-            prompt: "Monte a frase em alemão:",
-            source: "Estou travado por um problema na API.",
-            correct: ["Ich", "werde", "durch", "ein", "API", "Problem", "blockiert"],
-            pool: ["Ich", "werde", "durch", "ein", "API", "Problem", "blockiert", "habe", "Zweifel"]
-          },
-          {
-            type: "choice",
-            prompt: "Como sugerir uma chamada rápida para debugar em alemão?",
-            options: [
-              "Lassen Sie uns kurz telefonieren.",
-              "Machen wir ein langes Treffen.",
-              "Treten wir in den Anruf ein."
-            ],
-            correct: 0
-          },
-          {
-            type: "speak",
-            prompt: "Fale no microfone a estimativa:",
-            target: "Diese Aufgabe dauert zwei Tage.",
-            trans: "Essa tarefa levará dois dias."
-          }
-        ]
-      },
-      {
-        id: 6,
-        module: 3,
-        title: "B2B-Bedarfsanalyse",
-        category: "📈 Vertrieb (Sales)",
-        icon: "🔍",
-        pos: "pos-right",
-        rewardItem: { icon: "📜", name: "Verhandlungspapyrus", slot: "Schriftrolle" },
-        exercises: [
-          {
-            type: "word-order",
-            prompt: "Monte a pergunta de gargalo em alemão:",
-            source: "Quais são os maiores gargalos no seu processo?",
-            correct: ["Was", "sind", "die", "größten", "Engpässe", "in", "Ihrem", "Prozess"],
-            pool: ["Was", "sind", "die", "größten", "Engpässe", "in", "Ihrem", "Prozess", "Probleme", "haben"]
-          },
-          {
-            type: "choice",
-            prompt: "Como perguntar sobre o cronograma de decisão do cliente em alemão?",
-            options: [
-              "Wie sieht Ihr Zeitplan für die Entscheidung aus?",
-              "Wann kaufen Sie das jetzt?",
-              "Was ist Ihre Endstunde?"
-            ],
-            correct: 0
-          },
-          {
-            type: "speak",
-            prompt: "Fale com tom comercial em alemão:",
-            target: "Wie kann unsere Plattform helfen?",
-            trans: "Como a nossa plataforma pode ajudar?"
-          }
-        ]
-      },
-      {
-        id: 7,
-        module: 3,
-        title: "Produktdemo & Mehrwert",
-        category: "📈 Vertrieb (Sales)",
-        icon: "🚀",
-        pos: "pos-center",
-        rewardItem: { icon: "⚔️", name: "Gladius des Abschlusses", slot: "Waffe" },
-        exercises: [
-          {
-            type: "word-order",
-            prompt: "Monte a frase de impacto em alemão:",
-            source: "Nossa plataforma reduz o tempo de entrega pela metade.",
-            correct: ["Unsere", "Plattform", "halbiert", "die", "Lieferzeit"],
-            pool: ["Unsere", "Plattform", "halbiert", "die", "Lieferzeit", "macht", "schneller", "im"]
-          },
-          {
-            type: "choice",
-            prompt: "Como dizer formalmente que enviará a proposta por e-mail em alemão?",
-            options: [
-              "Ich werde Ihnen das Angebot zusenden.",
-              "Ich werde das Angebot passen.",
-              "Ich gebe Ihnen den Brief."
-            ],
-            correct: 0
-          },
-          {
-            type: "speak",
-            prompt: "Fale no microfone o ganho de tempo:",
-            target: "Das spart vierzig Stunden im Monat.",
-            trans: "Isso economiza quarenta horas por mês."
-          }
-        ]
-      },
-      {
-        id: 8,
-        module: 3,
-        title: "Vertragsabschluss",
-        category: "📈 Vertrieb (Sales)",
-        icon: "🤝",
-        pos: "pos-left",
-        rewardItem: { icon: "🏆", name: "Kelch des Sieges", slot: "Reliquie" },
-        exercises: [
-          {
-            type: "word-order",
-            prompt: "Monte a frase de fechamento em alemão:",
-            source: "Estamos prontos para fechar o contrato hoje.",
-            correct: ["Wir", "sind", "bereit", "den", "Vertrag", "heute", "abzuschließen"],
-            pool: ["Wir", "sind", "bereit", "den", "Vertrag", "heute", "abzuschließen", "machen", "Business"]
-          },
-          {
-            type: "choice",
-            prompt: "Como contornar uma objeção de orçamento em alemão?",
-            options: [
-              "Ich verstehe Ihre Budgetbeschränkungen.",
-              "Ich sehe, Sie haben kein Geld.",
-              "Ihr Budget ist zu klein."
-            ],
-            correct: 0
-          },
-          {
-            type: "speak",
-            prompt: "Fale no microfone a parceria em alemão:",
-            target: "Wir freuen uns auf die Zusammenarbeit.",
-            trans: "Estamos muito animados com a nossa cooperação/parceria."
-          }
-        ]
-      },
-      {
-        id: 9,
-        module: 4,
-        title: "Verträge & Klauseln",
-        category: "⚖️ Recht (Jura)",
-        icon: "📜",
-        pos: "pos-center",
-        rewardItem: { icon: "🔨", name: "Richterhammer", slot: "Waffe" },
-        exercises: [
-          {
-            type: "word-order",
-            prompt: "Monte a cláusula jurídica em alemão:",
-            source: "De acordo com os termos do acordo de confidencialidade.",
-            correct: ["Gemäß", "den", "Bedingungen", "der", "Vertraulichkeitsvereinbarung"],
-            pool: ["Gemäß", "den", "Bedingungen", "der", "Vertraulichkeitsvereinbarung", "unter", "Gesetz", "Zweifel"]
-          },
-          {
-            type: "choice",
-            prompt: "Qual termo jurídico em alemão significa 'quebra de contrato'?",
-            options: [
-              "Vertragsbruch.",
-              "Vertrag brechen.",
-              "Vertragsfehler."
-            ],
-            correct: 0
-          },
-          {
-            type: "speak",
-            prompt: "Fale a validade jurídica em alemão:",
-            target: "Diese Vereinbarung ist rechtsverbindlich.",
-            trans: "Este acordo é juridicamente vinculativo."
-          }
-        ]
-      },
-      {
-        id: 10,
-        module: 4,
-        title: "Compliance & Schiedsverfahren",
-        category: "⚖️ Recht (Jura)",
-        icon: "⚖️",
-        pos: "pos-right",
-        rewardItem: { icon: "⚖️", name: "Waage der Gerechtigkeit", slot: "Reliquie" },
-        exercises: [
-          {
-            type: "word-order",
-            prompt: "Monte a resolução de disputas em alemão:",
-            source: "Ambas as partes concordam com um procedimento de arbitragem.",
-            correct: ["Beide", "Parteien", "vereinbaren", "ein", "Schiedsverfahren"],
-            pool: ["Beide", "Parteien", "vereinbaren", "ein", "Schiedsverfahren", "streiten", "Gesetz"]
-          },
-          {
-            type: "choice",
-            prompt: "Como você diz formalmente 'em conformidade com a lei aplicável' em alemão?",
-            options: [
-              "In Übereinstimmung mit geltendem Recht.",
-              "Folgend die guten Gesetze.",
-              "Assistieren dem Gericht."
-            ],
-            correct: 0
-          },
-          {
-            type: "speak",
-            prompt: "Fale a cláusula de isenção de responsabilidade em alemão:",
-            target: "Keine der Parteien haftet dafür.",
-            trans: "Nenhuma das partes será responsabilizada por isso."
-          }
-        ]
-      }
-    ];
+    // PERGUNTAS DO TESTE DE NIVELAMENTO
 
     // ========================================================
-    // ESTADO DO USUÁRIO & SELEÇÃO DE IDIOMA
+    // PERGUNTAS DO TESTE DE NIVELAMENTO (PLACEMENT QUIZ)
+    // ========================================================
+    const placementQuestions = {
+      en: [
+        {
+          title: "Questão 1 (Básico / A1-A2)",
+          prompt: "Como você se apresenta educadamente em uma reunião de trabalho?",
+          options: [
+            "Hello, I am a software engineer and glad to be here.",
+            "I here engineer software.",
+            "Me name is working here today."
+          ],
+          correct: 0
+        },
+        {
+          title: "Questão 2 (Intermediário / B1-B2)",
+          prompt: "Como você avisa na Daily que terminou sua tarefa e não tem impedimentos?",
+          options: [
+            "Yesterday I deployed the feature and I have no blockers today.",
+            "I make finish task yesterday no problem.",
+            "Stop task because I am not blocked."
+          ],
+          correct: 0
+        },
+        {
+          title: "Questão 3 (Avançado / C1)",
+          prompt: "Como você responde a uma objeção de orçamento em uma negociação de alto nível?",
+          options: [
+            "Our solution will streamline your operations and deliver a 6-month ROI.",
+            "Please buy because my boss wants to sell.",
+            "Price is high because everything is high today."
+          ],
+          correct: 0
+        }
+      ],
+      de: [
+        {
+          title: "Frage 1 (Básico / A1-A2)",
+          prompt: "Como você se apresenta em uma empresa alemã?",
+          options: [
+            "Guten Tag, ich bin Softwareentwickler und freue mich auf die Zusammenarbeit.",
+            "Hallo ich bin ein Entwickler Mann.",
+            "Ich arbeite da hier."
+          ],
+          correct: 0
+        },
+        {
+          title: "Frage 2 (Intermediário / B1-B2)",
+          prompt: "Como você avisa que o bug em produção já foi testado e resolvido?",
+          options: [
+            "Der Bug wurde erfolgreich behoben und im Staging getestet.",
+            "Der Fehler ist tot jetzt.",
+            "Alles kaputt gestern aber heute gut."
+          ],
+          correct: 0
+        },
+        {
+          title: "Frage 3 (Avançado / C1)",
+          prompt: "Como você expressa conformidade com o código civil em uma negociação?",
+          options: [
+            "Alle Vertragsverpflichtungen wurden nach Treu und Glauben erfüllt.",
+            "Wir machen immer alles richtig.",
+            "Vertrag ist gut und Geld kommt."
+          ],
+          correct: 0
+        }
+      ]
+    };
+
+    // ========================================================
+    // ESTADO DO USUÁRIO & INICIALIZAÇÃO
     // ========================================================
     let userState = {
-      targetLanguage: null, // 'en' ou 'de'
-      heroClass: null,      // 'warrior', 'mage', 'paladin'
+      targetLanguage: null,
+      difficulty: 'easy',
+      placementCompleted: false,
+      heroClass: null,
       level: 1,
       xp: 0,
       hearts: 5,
-      unlockedLesson: 1
+      unlockedLesson: 1,
+      completedLessons: [],
+      inventory: []
     };
 
+    // Verificação de desbloqueio universal para classes e módulos
+    function isLessonUnlocked(id) {
+      // As primeiras aulas de cada trilha estão sempre abertas:
+      // Aula 1: Base Comum (Apresentação)
+      // Aula 7: Trilha do Mago TI (Daily Standup)
+      // Aula 14: Trilha do Guerreiro Vendas (Cold Outreach)
+      // Aula 21: Trilha do Paladino Direito (Contratos & NDAs)
+      if ([1, 7, 14, 21].includes(id)) return true;
+
+      // Se a própria aula já foi completada, está aberta para revisão
+      if (userState.completedLessons && userState.completedLessons.includes(id)) {
+        return true;
+      }
+
+      // Se a aula anterior desta trilha foi concluída, libera a próxima
+      if (userState.completedLessons && userState.completedLessons.includes(id - 1)) {
+        return true;
+      }
+
+      // Compatibilidade legada com unlockedLesson
+      if (userState.unlockedLesson && id <= userState.unlockedLesson) {
+        return true;
+      }
+
+      return false;
+    }
+
+    function isLessonCompleted(id) {
+      if (userState.completedLessons && userState.completedLessons.includes(id)) {
+        return true;
+      }
+      if (userState.unlockedLesson && id < userState.unlockedLesson) {
+        return true;
+      }
+      return false;
+    }
+
     let selectedLangTemp = 'en';
+    let selectedPlacementModeTemp = 'easy';
     let selectedClassTemp = 'warrior';
 
+    // Variáveis da Aula / Exercício
+    let currentLesson = null;
+    let currentExerciseIdx = 0;
+    let selectedWords = [];
+    let selectedChoice = null;
+    let isVerifying = false;
+    let currentBossHP = 100;
+
+    // Variáveis do Teste de Nivelamento
+    let placementCurrentIdx = 0;
+    let placementScore = 0;
+    let placementSelectedChoice = null;
+
     function getCurriculum() {
-      return userState.targetLanguage === 'de' ? curriculumDE : curriculumEN;
+      const de = (typeof curriculumDE !== 'undefined' && curriculumDE) || (typeof window !== 'undefined' && window.curriculumDE) || [];
+      const en = (typeof curriculumEN !== 'undefined' && curriculumEN) || (typeof window !== 'undefined' && window.curriculumEN) || [];
+      return userState.targetLanguage === 'de' ? de : en;
     }
 
     function loadState() {
@@ -2085,25 +2035,47 @@
         } catch (e) {}
       }
 
-      // Se não escolheu idioma ainda, abre modal de idioma primeiro!
+      // Fluxo de Onboarding sequencial:
+      // 1. Idioma -> 2. Nivelamento -> 3. Classe
       if (!userState.targetLanguage) {
         document.getElementById("lang-modal").style.display = "flex";
+      } else if (!userState.placementCompleted) {
+        openPlacementModal();
       } else if (!userState.heroClass) {
         document.getElementById("class-modal").style.display = "flex";
       } else {
         updateSideHeroUI();
         updateLanguageHeaderUI();
+        updateDifficultyHeaderUI();
       }
-      renderRoadmap();
+
+      // Garantir compatibilidade de progresso
+      if (!Array.isArray(userState.completedLessons)) {
+        userState.completedLessons = [];
+        if (userState.unlockedLesson > 1) {
+          for (let i = 1; i < userState.unlockedLesson; i++) {
+            userState.completedLessons.push(i);
+          }
+        }
+      }
+
+      if (userState.heroClass) {
+        switchClassAndFilter(userState.heroClass, false);
+      } else {
+        renderRoadmap();
+      }
     }
 
     function saveState() {
       localStorage.setItem("polyglot_rpg_state", JSON.stringify(userState));
       updateSideHeroUI();
       updateLanguageHeaderUI();
+      updateDifficultyHeaderUI();
     }
 
-    // Modal de Idioma
+    // ========================================================
+    // CONTROLES DE IDIOMA
+    // ========================================================
     function selectLangOption(lang) {
       selectedLangTemp = lang;
       playSound('click');
@@ -2116,8 +2088,9 @@
       userState.targetLanguage = selectedLangTemp;
       document.getElementById("lang-modal").style.display = "none";
 
-      // Se ainda não escolheu classe, vai para a escolha da classe
-      if (!userState.heroClass) {
+      if (!userState.placementCompleted) {
+        openPlacementModal();
+      } else if (!userState.heroClass) {
         document.getElementById("class-modal").style.display = "flex";
       } else {
         saveState();
@@ -2142,7 +2115,187 @@
       }
     }
 
-    // Modal de Classe
+    // ========================================================
+    // CONTROLES DE DIFICULDADE & TESTE DE NIVELAMENTO
+    // ========================================================
+    function openPlacementModal() {
+      selectedPlacementModeTemp = 'easy';
+      document.getElementById("placement-view-select").style.display = "flex";
+      document.getElementById("placement-quiz-box").style.display = "none";
+      document.getElementById("placement-result-box").style.display = "none";
+      document.getElementById("placement-modal").style.display = "flex";
+    }
+
+    function selectPlacementMode(mode) {
+      selectedPlacementModeTemp = mode;
+      playSound('click');
+      document.getElementById("opt-diff-easy").classList.toggle("selected", mode === 'easy');
+      document.getElementById("opt-diff-medium").classList.toggle("selected", mode === 'medium');
+      document.getElementById("opt-diff-hard").classList.toggle("selected", mode === 'hard');
+    }
+
+    function confirmPlacementChoice() {
+      playSound('click');
+      userState.difficulty = selectedPlacementModeTemp;
+      userState.placementCompleted = true;
+      saveState();
+      document.getElementById("placement-modal").style.display = "none";
+
+      if (!userState.heroClass) {
+        document.getElementById("class-modal").style.display = "flex";
+      } else {
+        renderRoadmap();
+      }
+    }
+
+    // Chamado pelo Balão dentro do Lobby do curso
+    function startPlacementQuizFromLobby() {
+      playSound('click');
+      document.getElementById("placement-view-select").style.display = "none";
+      document.getElementById("placement-result-box").style.display = "none";
+      document.getElementById("placement-quiz-box").style.display = "flex";
+      document.getElementById("placement-modal").style.display = "flex";
+      startPlacementQuiz();
+    }
+
+    function startPlacementQuiz() {
+      placementCurrentIdx = 0;
+      placementScore = 0;
+      document.getElementById("placement-view-select").style.display = "none";
+      document.getElementById("placement-quiz-box").style.display = "flex";
+      loadPlacementQuestion();
+    }
+
+    function loadPlacementQuestion() {
+      placementSelectedChoice = null;
+      const btn = document.getElementById("btn-placement-next");
+      btn.classList.add("disabled");
+
+      const lang = userState.targetLanguage || 'en';
+      const qList = placementQuestions[lang] || placementQuestions.en;
+      const q = qList[placementCurrentIdx];
+
+      document.getElementById("placement-step-text").textContent = `Pergunta ${placementCurrentIdx + 1} de ${qList.length}`;
+      document.getElementById("placement-q-title").textContent = q.title;
+      document.getElementById("placement-q-prompt").textContent = q.prompt;
+
+      const container = document.getElementById("placement-choices-mount");
+      container.innerHTML = "";
+
+      q.options.forEach((opt, idx) => {
+        const card = document.createElement("div");
+        card.className = "choice-card";
+        card.innerHTML = `<span>${idx + 1}.</span> <span style="flex:1;">${opt}</span>`;
+        card.onclick = () => {
+          playSound('click');
+          document.querySelectorAll("#placement-choices-mount .choice-card").forEach(c => c.classList.remove("selected"));
+          card.classList.add("selected");
+          placementSelectedChoice = idx;
+          btn.classList.remove("disabled");
+        };
+        container.appendChild(card);
+      });
+    }
+
+    function handlePlacementAnswer() {
+      const lang = userState.targetLanguage || 'en';
+      const qList = placementQuestions[lang] || placementQuestions.en;
+      const q = qList[placementCurrentIdx];
+
+      if (placementSelectedChoice === q.correct) {
+        placementScore++;
+        playSound('correct');
+      } else {
+        playSound('wrong');
+      }
+
+      placementCurrentIdx++;
+      if (placementCurrentIdx < qList.length) {
+        loadPlacementQuestion();
+      } else {
+        showPlacementResults();
+      }
+    }
+
+    function showPlacementResults() {
+      document.getElementById("placement-quiz-box").style.display = "none";
+      document.getElementById("placement-result-box").style.display = "flex";
+
+      let finalDiff = 'easy';
+      let title = "Nível Fácil (Iniciante)";
+      let icon = "🌱";
+      let desc = "Você está começando sua jornada. As aulas terão passos bem guiados e dicas de ouro.";
+
+      if (placementScore === 2) {
+        finalDiff = 'medium';
+        title = "Nível Médio (Intermediário)";
+        icon = "🟡";
+        desc = "Ótimo resultado! Você já compreende bem o contexto de trabalho e terá desafios corporativos reais.";
+        userState.xp = Math.max(userState.xp, 150);
+      } else if (placementScore === 3) {
+        finalDiff = 'hard';
+        title = "Nível Hard (Fluente / Nativo)";
+        icon = "🔥";
+        desc = "Excelente! Seu nível é avançado. Você terá diálogos executivos de alta pressão e provas de Bosses intensas.";
+        userState.xp = Math.max(userState.xp, 350);
+      }
+
+      userState.difficulty = finalDiff;
+      userState.placementCompleted = true;
+      saveState();
+
+      document.getElementById("placement-result-icon").textContent = icon;
+      document.getElementById("placement-result-badge").textContent = title;
+      document.getElementById("placement-result-desc").textContent = desc;
+      playSound('levelup');
+    }
+
+    function finishPlacementFlow() {
+      playSound('click');
+      document.getElementById("placement-modal").style.display = "none";
+      if (!userState.heroClass) {
+        document.getElementById("class-modal").style.display = "flex";
+      } else {
+        renderRoadmap();
+      }
+    }
+
+    function openDifficultyModal() {
+      playSound('click');
+      const diff = userState.difficulty || 'easy';
+      document.getElementById("diff-modal-easy").classList.toggle("selected", diff === 'easy');
+      document.getElementById("diff-modal-medium").classList.toggle("selected", diff === 'medium');
+      document.getElementById("diff-modal-hard").classList.toggle("selected", diff === 'hard');
+      document.getElementById("diff-modal").style.display = "flex";
+    }
+
+    function setDifficultyFast(diff) {
+      playSound('click');
+      userState.difficulty = diff;
+      saveState();
+      document.getElementById("diff-modal").style.display = "none";
+      updateDifficultyHeaderUI();
+      renderRoadmap();
+    }
+
+    function updateDifficultyHeaderUI() {
+      const btn = document.getElementById("header-diff-btn");
+      btn.className = "btn-header-pill";
+      if (userState.difficulty === 'hard') {
+        btn.classList.add("btn-diff-hard");
+        btn.innerHTML = `<span>🔴</span> Hard`;
+      } else if (userState.difficulty === 'medium') {
+        btn.classList.add("btn-diff-medium");
+        btn.innerHTML = `<span>🟡</span> Médio`;
+      } else {
+        btn.classList.add("btn-diff-easy");
+        btn.innerHTML = `<span>🟢</span> Fácil`;
+      }
+    }
+
+    // ========================================================
+    // CONTROLES DE CLASSE RPG
+    // ========================================================
     function selectClassOption(cls) {
       selectedClassTemp = cls;
       playSound('click');
@@ -2154,11 +2307,11 @@
     function confirmClassSelection() {
       playSound('levelup');
       userState.heroClass = selectedClassTemp;
-      userState.level = 1;
-      userState.xp = 0;
+      if (!userState.level) userState.level = 1;
+      if (typeof userState.xp !== 'number') userState.xp = 0;
       saveState();
       document.getElementById("class-modal").style.display = "none";
-      renderRoadmap();
+      switchClassAndFilter(selectedClassTemp, true);
     }
 
     function openClassModal() {
@@ -2170,14 +2323,23 @@
       document.getElementById("class-modal").style.display = "flex";
     }
 
-    function switchClassAndFilter(cls) {
-      playSound('click');
+    function switchClassAndFilter(cls, shouldScroll = true) {
+      if (shouldScroll) playSound('click');
       document.querySelectorAll('.career-pill').forEach(p => p.className = 'career-pill');
+
+      const s1 = document.getElementById('section-module-1');
+      const s2 = document.getElementById('section-module-2');
+      const s3 = document.getElementById('section-module-3');
+      const s4 = document.getElementById('section-module-4');
 
       if (cls === 'all') {
         const pillAll = document.getElementById('pill-all');
         if (pillAll) pillAll.classList.add('active-all');
-        document.getElementById('roadmap-view').scrollIntoView({ behavior: 'smooth' });
+        if (s1) s1.style.display = 'block';
+        if (s2) s2.style.display = 'block';
+        if (s3) s3.style.display = 'block';
+        if (s4) s4.style.display = 'block';
+        renderRoadmap();
         return;
       }
 
@@ -2187,18 +2349,28 @@
       const pill = document.getElementById(`pill-${cls}`);
       if (pill) pill.classList.add(`active-${cls}`);
 
-      let targetPath = null;
-      if (cls === 'mage') targetPath = document.getElementById('lessons-path-m2');
-      else if (cls === 'warrior') targetPath = document.getElementById('lessons-path-m3');
-      else if (cls === 'paladin') targetPath = document.getElementById('lessons-path-m4');
+      // Mostra o Módulo 1 (Base corporativa) e o módulo especializado da classe escolhida
+      if (s1) s1.style.display = 'block';
+      if (s2) s2.style.display = (cls === 'mage') ? 'block' : 'none';
+      if (s3) s3.style.display = (cls === 'warrior') ? 'block' : 'none';
+      if (s4) s4.style.display = (cls === 'paladin') ? 'block' : 'none';
 
-      if (targetPath && targetPath.previousElementSibling) {
-        targetPath.previousElementSibling.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      renderRoadmap();
+
+      if (shouldScroll) {
+        let target = null;
+        if (cls === 'mage') target = s2;
+        else if (cls === 'warrior') target = s3;
+        else if (cls === 'paladin') target = s4;
+
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       }
     }
 
     // ========================================================
-    // ATUALIZAÇÃO DO HERÓI (LADO DIREITO)
+    // PALCO DO HERÓI LATERAL
     // ========================================================
     function updateSideHeroUI() {
       const cls = userState.heroClass;
@@ -2209,7 +2381,7 @@
         className = "Mago Dev";
         classIcon = "🧙‍♂️";
       } else if (cls === 'paladin') {
-        className = "Paladino Jurídico";
+        className = "Paladino da Lei";
         classIcon = "⚖️";
       }
 
@@ -2218,127 +2390,109 @@
       document.getElementById("user-xp").textContent = `${userState.xp} XP`;
       document.getElementById("user-hearts").textContent = userState.hearts;
 
-      const xpCurrentLevel = userState.xp % 100;
-      document.getElementById("side-xp-count").textContent = `${xpCurrentLevel} / 100`;
-      document.getElementById("side-next-lvl").textContent = userState.level + 1;
-      document.getElementById("side-xp-bar").style.width = `${xpCurrentLevel}%`;
+      document.querySelectorAll('.career-pill').forEach(p => p.className = 'career-pill');
+      const activePill = document.getElementById(`pill-${cls}`);
+      if (activePill) activePill.classList.add(`active-${cls}`);
 
+      // Atualiza SVG do avatar
       const cape = document.getElementById("svg-cape");
       const armor = document.getElementById("svg-body-armor");
       const headgear = document.getElementById("svg-headgear");
       const weaponGroup = document.getElementById("svg-weapon-group");
 
-      if (cls === 'mage') {
-        cape.setAttribute("fill", "#6d28d9");
+      if (cls === 'warrior') {
+        cape.setAttribute("fill", "#b45309");
+        armor.setAttribute("fill", "#78350f");
+        armor.setAttribute("stroke", "#f59e0b");
+        headgear.setAttribute("fill", "#b45309");
+        weaponGroup.innerHTML = `
+          <line x1="0" y1="0" x2="10" y2="90" stroke="#f59e0b" stroke-width="5" stroke-linecap="round" />
+          <polygon points="5,-15 15,20 -5,20" fill="#fbbf24" />
+          <rect x="-8" y="20" width="26" height="6" rx="2" fill="#d97706" />
+        `;
+      } else if (cls === 'paladin') {
+        cape.setAttribute("fill", "#1e3a8a");
+        armor.setAttribute("fill", "#1e293b");
+        armor.setAttribute("stroke", "#3b82f6");
+        headgear.setAttribute("fill", "#1d4ed8");
+        weaponGroup.innerHTML = `
+          <line x1="0" y1="0" x2="0" y2="85" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" />
+          <rect x="-12" y="5" width="24" height="14" rx="3" fill="#60a5fa" />
+          <circle cx="0" cy="5" r="5" fill="#fbbf24" />
+        `;
+      } else {
+        // Mago
+        cape.setAttribute("fill", "#4c1d95");
         armor.setAttribute("fill", "#1e1b4b");
-        armor.setAttribute("stroke", "#a855f7");
-        headgear.setAttribute("fill", "#7c3aed");
-
+        armor.setAttribute("stroke", "#6366f1");
+        headgear.setAttribute("fill", "#6d28d9");
         weaponGroup.innerHTML = `
           <line x1="0" y1="0" x2="15" y2="105" stroke="#78350f" stroke-width="4" stroke-linecap="round" />
           <circle cx="0" cy="0" r="10" fill="#38bdf8" filter="drop-shadow(0 0 8px #38bdf8)" />
           <circle cx="0" cy="0" r="4" fill="#ffffff" />
         `;
-      } else if (cls === 'paladin') {
-        cape.setAttribute("fill", "#1d4ed8");
-        armor.setAttribute("fill", "#f8fafc");
-        armor.setAttribute("stroke", "#94a3b8");
-        headgear.setAttribute("fill", "#3b82f6");
-
-        weaponGroup.innerHTML = `
-          <line x1="0" y1="0" x2="8" y2="85" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" />
-          <rect x="-14" y="0" width="28" height="14" rx="3" fill="#fbbf24" stroke="#d97706" stroke-width="2" />
-          <circle cx="0" cy="7" r="4" fill="#ffffff" />
-        `;
-      } else {
-        cape.setAttribute("fill", "#b45309");
-        armor.setAttribute("fill", "#451a03");
-        armor.setAttribute("stroke", "#f59e0b");
-        headgear.setAttribute("fill", "#d97706");
-
-        weaponGroup.innerHTML = `
-          <line x1="0" y1="0" x2="10" y2="90" stroke="#f59e0b" stroke-width="5" stroke-linecap="round" />
-          <line x1="-8" y1="70" x2="15" y2="70" stroke="#fbbf24" stroke-width="4" stroke-linecap="round" />
-          <polygon points="0,0 8,25 -8,25" fill="#fef08a" />
-        `;
       }
 
-      document.querySelectorAll('.career-pill').forEach(p => p.className = 'career-pill');
-      const activePill = document.getElementById(`pill-${cls}`);
-      if (activePill) activePill.classList.add(`active-${cls}`);
+      // XP Bar
+      const currentLvlXP = (userState.level - 1) * 100;
+      const progressInLevel = Math.max(0, userState.xp - currentLvlXP);
+      const percent = Math.min(100, (progressInLevel / 100) * 100);
 
-      renderSideGearSlots();
-    }
+      document.getElementById("side-next-lvl").textContent = userState.level + 1;
+      document.getElementById("side-xp-count").textContent = `${progressInLevel} / 100`;
+      document.getElementById("side-xp-bar").style.width = `${percent}%`;
 
-    function renderSideGearSlots() {
-      const container = document.getElementById("side-gear-container");
-      container.innerHTML = "";
-      const currentCurriculum = getCurriculum();
+      // Slots de Equipamento
+      const slotsContainer = document.getElementById("side-gear-container");
+      slotsContainer.innerHTML = "";
 
-      currentCurriculum.slice(0, 4).forEach((lesson) => {
-        const item = lesson.rewardItem;
-        const isUnlocked = lesson.id < userState.unlockedLesson;
+      const gearSlots = [
+        { type: "Arma", defaultIcon: "⚔️", item: userState.inventory.find(i => i.slot === "Arma") },
+        { type: "Armadura", defaultIcon: "🛡️", item: userState.inventory.find(i => i.slot === "Armadura") },
+        { type: "Elmo", defaultIcon: "👑", item: userState.inventory.find(i => i.slot === "Elmo") },
+        { type: "Amuleto", defaultIcon: "💎", item: userState.inventory.find(i => i.slot === "Amuleto" || i.slot === "Acessório") }
+      ];
 
-        const slotEl = document.createElement("div");
-        slotEl.className = `gear-slot-item ${isUnlocked ? 'unlocked' : ''}`;
-        slotEl.innerHTML = `
-          <div class="gear-slot-icon">${isUnlocked ? item.icon : '🔒'}</div>
+      gearSlots.forEach((slot) => {
+        const div = document.createElement("div");
+        div.className = `gear-slot-item ${slot.item ? 'unlocked' : ''}`;
+        div.innerHTML = `
+          <div class="gear-slot-icon">${slot.item ? slot.item.icon : slot.defaultIcon}</div>
           <div class="gear-slot-texts">
-            <span class="gear-slot-name">${isUnlocked ? item.name : 'Bloqueado'}</span>
-            <span class="gear-slot-type">${isUnlocked ? item.slot : `Aula ${lesson.id}`}</span>
+            <span class="gear-slot-name">${slot.item ? slot.item.name : 'Vazio'}</span>
+            <span class="gear-slot-type">${slot.type}</span>
           </div>
         `;
-        container.appendChild(slotEl);
+        slotsContainer.appendChild(div);
       });
     }
 
     function animateHeroClick() {
       playSound('click');
+      const dialogue = document.getElementById("hero-dialogue");
       const isGerman = userState.targetLanguage === 'de';
 
-      let phrases = [];
-      if (isGerman) {
-        phrases = [
-          "Wissen ist deine mächtigste Waffe!",
-          "Üben wir heute deine deutsche Aussprache!",
-          "Jede Lektion macht dich fließender!",
-          "Dein Level steigt unaufhaltsam!"
-        ];
-        if (userState.heroClass === 'paladin') {
-          phrases = [
-            "Gemäß den Bedingungen der Vereinbarung!",
-            "Recht und Ordnung in jeder Klausel!",
-            "Volle Compliance mit geltendem Recht!"
-          ];
-        }
-      } else {
-        phrases = [
-          "Knowledge is your best weapon!",
-          "Let's practice your pronunciation today!",
-          "Every lesson makes you more fluent!",
-          "Your English is leveling up fast!"
-        ];
-        if (userState.heroClass === 'paladin') {
-          phrases = [
-            "Pursuant to the terms of the agreement!",
-            "Justice, clarity, and precision in every clause!",
-            "Ensure full compliance with regulations!"
-          ];
-        }
-      }
+      const quotesEN = [
+        "Let's practice daily! Consistency is key.",
+        "Your English is getting sharper every day!",
+        "Every lesson strengthens our battle power!",
+        "Ready for the next boss encounter?"
+      ];
 
-      const randomMsg = phrases[Math.floor(Math.random() * phrases.length)];
-      const bubble = document.getElementById("hero-dialogue");
-      bubble.textContent = `"${randomMsg}"`;
+      const quotesDE = [
+        "Übung macht den Meister! Auf geht's!",
+        "Dein Deutsch wird von Tag zu Tag besser!",
+        "Jede Lektion bringt uns dem Ziel näher!",
+        "Bereit für den nächsten Boss-Kampf?"
+      ];
 
-      window.speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(randomMsg);
-      u.lang = isGerman ? 'de-DE' : 'en-US';
-      window.speechSynthesis.speak(u);
+      const quotes = isGerman ? quotesDE : quotesEN;
+      const randomMsg = quotes[Math.floor(Math.random() * quotes.length)];
+      dialogue.textContent = `"${randomMsg}"`;
     }
 
     // ========================================================
-    // ROADMAP
+    // RENDERIZAÇÃO DO ROADMAP (DUOLINGO STYLE)
     // ========================================================
     function renderRoadmap() {
       const m1 = document.getElementById("lessons-path-container");
@@ -2346,76 +2500,165 @@
       const m3 = document.getElementById("lessons-path-m3");
       const m4 = document.getElementById("lessons-path-m4");
 
-      m1.innerHTML = "";
-      m2.innerHTML = "";
-      m3.innerHTML = "";
+      if (m1) m1.innerHTML = "";
+      if (m2) m2.innerHTML = "";
+      if (m3) m3.innerHTML = "";
       if (m4) m4.innerHTML = "";
 
       const currentCurriculum = getCurriculum();
+      const starters = [1, 7, 14, 21];
 
       currentCurriculum.forEach((lesson) => {
-        const isCompleted = lesson.id < userState.unlockedLesson;
-        const isCurrent = lesson.id === userState.unlockedLesson;
+        const completed = isLessonCompleted(lesson.id);
+        const unlocked = isLessonUnlocked(lesson.id);
 
         let nodeClass = "node-locked";
-        if (isCompleted) nodeClass = "node-completed";
-        if (isCurrent) nodeClass = "node-current";
+        if (completed) {
+          nodeClass = "node-completed";
+        } else if (unlocked) {
+          nodeClass = "node-current";
+        }
+
+        if (lesson.isBoss) {
+          nodeClass += " node-boss";
+        }
 
         const wrapper = document.createElement("div");
         wrapper.className = `lesson-node-wrapper ${lesson.pos}`;
 
+        // É a aula corrente da trilha (primeira desbloqueada que ainda não foi concluída)
+        const isCurrentActive = unlocked && !completed && (
+          starters.includes(lesson.id) ? !completed : isLessonCompleted(lesson.id - 1)
+        );
+
         let tooltipHtml = "";
-        if (isCurrent) {
-          tooltipHtml = `<div class="start-tooltip">COMEÇAR</div>`;
+        if (isCurrentActive) {
+          tooltipHtml = `<div class="start-tooltip">${lesson.isBoss ? 'LUTAR!' : 'COMEÇAR'}</div>`;
         }
+
+        let bossBadge = lesson.isBoss ? `<div class="boss-badge-label">BOSS</div>` : "";
 
         wrapper.innerHTML = `
           ${tooltipHtml}
+          ${bossBadge}
           <button class="lesson-node ${nodeClass}" onclick="startLesson(${lesson.id})">
-            ${isCompleted ? '⭐' : lesson.icon}
+            ${completed ? '⭐' : lesson.icon}
           </button>
           <div class="lesson-label">${lesson.title}</div>
           <div class="lesson-category">${lesson.category}</div>
         `;
 
-        if (lesson.module === 1) m1.appendChild(wrapper);
-        else if (lesson.module === 2) m2.appendChild(wrapper);
-        else if (lesson.module === 3) m3.appendChild(wrapper);
+        if (lesson.module === 1 && m1) m1.appendChild(wrapper);
+        else if (lesson.module === 2 && m2) m2.appendChild(wrapper);
+        else if (lesson.module === 3 && m3) m3.appendChild(wrapper);
         else if (lesson.module === 4 && m4) m4.appendChild(wrapper);
       });
     }
 
     // ========================================================
-    // LIÇÃO ATIVA
+    // TELA DIDÁTICA E INÍCIO DA AULA
     // ========================================================
-    let currentLesson = null;
-    let currentExerciseIdx = 0;
-    let selectedWords = [];
-    let selectedChoice = null;
-    let isVerifying = false;
-
     function startLesson(id) {
-      if (id > userState.unlockedLesson) return;
+      const curriculum = getCurriculum();
+      const lesson = curriculum.find(l => l.id === id);
+      if (!lesson) return;
+
+      // Impede abrir aulas bloqueadas
+      if (!isLessonUnlocked(lesson.id)) {
+        playSound('wrong');
+        return;
+      }
+
+      currentLesson = lesson;
+      currentExerciseIdx = 0;
       playSound('click');
 
-      const currentCurriculum = getCurriculum();
-      currentLesson = currentCurriculum.find(l => l.id === id);
-      currentExerciseIdx = 0;
-
+      // Abre a tela explicativa (Intro Guide) primeiro!
       document.getElementById("roadmap-view").style.display = "none";
+      document.getElementById("lesson-view").style.display = "none";
+      document.getElementById("lesson-intro-view").style.display = "block";
+
+      renderIntroGuide(lesson);
+    }
+
+    function renderIntroGuide(lesson) {
+      const container = document.getElementById("intro-card-content");
+      const guide = lesson.introGuide;
+
+      let vocabRowsHtml = "";
+      if (guide.keyVocab && guide.keyVocab.length > 0) {
+        vocabRowsHtml = guide.keyVocab.map(v => `
+          <div class="vocab-row">
+            <span class="vocab-target">${v.target}</span>
+            <span class="vocab-native">${v.native}</span>
+          </div>
+        `).join("");
+      }
+
+      container.innerHTML = `
+        <div class="intro-badge-didactic">${lesson.isBoss ? '⚔️ PROVA DO CHEFE' : '📖 AULA EXPLICATIVA & GUIA PRÁTICO'}</div>
+        <div class="intro-title">${guide.title}</div>
+        <div class="intro-objective-box">
+          <strong>Objetivo:</strong> ${guide.objective}
+        </div>
+        <div class="intro-explanation-text">
+          ${guide.explanation}
+        </div>
+        <div class="intro-golden-rule">
+          <div class="intro-golden-title">✨ REGRA DE OURO</div>
+          <div class="intro-golden-content">${guide.goldenRule}</div>
+        </div>
+        ${vocabRowsHtml ? `
+          <div style="font-size:12px; font-weight:900; color:var(--text-muted); text-transform:uppercase;">VOCABULÁRIO CHAVE</div>
+          <div class="vocab-table-container">${vocabRowsHtml}</div>
+        ` : ''}
+        <div style="font-size:12.5px; color:#94a3b8; font-style:italic; border-top:1px dashed var(--card-border); padding-top:10px;">
+          💼 <strong>Dica Corporativa:</strong> ${guide.corporateTip}
+        </div>
+      `;
+
+      const startBtn = document.getElementById("btn-start-exercises");
+      startBtn.textContent = lesson.isBoss ? "⚔️ ENTRAR NA ARENA DE BATALHA" : "Estou Pronto! Começar Treino ➔";
+    }
+
+    function proceedToExercises() {
+      playSound('click');
+      document.getElementById("lesson-intro-view").style.display = "none";
       document.getElementById("lesson-view").style.display = "flex";
+
+      if (currentLesson.isBoss) {
+        currentBossHP = 100;
+        document.getElementById("boss-arena-header").style.display = "flex";
+        updateBossUI();
+      } else {
+        document.getElementById("boss-arena-header").style.display = "none";
+      }
 
       loadExercise();
     }
 
-    function exitLesson() {
-      if (confirm("Deseja sair da aula? O progresso não salvo será perdido.")) {
-        document.getElementById("lesson-view").style.display = "none";
-        document.getElementById("roadmap-view").style.display = "block";
-        resetBottomAction();
-      }
+    function updateBossUI() {
+      if (!currentLesson.isBoss) return;
+      const bData = currentLesson.bossData;
+      document.getElementById("boss-avatar").textContent = bData.avatar;
+      document.getElementById("boss-name").textContent = bData.name;
+      document.getElementById("boss-speech").textContent = `"${bData.introPhrase}"`;
+      document.getElementById("boss-hp-text").textContent = `${currentBossHP} / 100`;
+      document.getElementById("boss-hp-fill").style.width = `${currentBossHP}%`;
     }
 
+    function exitLesson() {
+      playSound('click');
+      document.getElementById("lesson-intro-view").style.display = "none";
+      document.getElementById("lesson-view").style.display = "none";
+      document.getElementById("roadmap-view").style.display = "block";
+      renderRoadmap();
+    }
+
+    // ========================================================
+    // CARREGAMENTO E EXECUÇÃO DOS EXERCÍCIOS
+    // (ÁUDIO RETIRADO DAS PERGUNTAS, DISPONÍVEL APÓS ACERTO)
+    // ========================================================
     function loadExercise() {
       resetBottomAction();
       const ex = currentLesson.exercises[currentExerciseIdx];
@@ -2436,18 +2679,14 @@
 
     function renderWordOrderExercise(ex, mount) {
       selectedWords = [];
-      const targetPhrase = ex.correct.join(" ");
 
+      // Sem botão de áudio na pergunta!
       mount.innerHTML = `
         <div class="exercise-prompt">${ex.prompt}</div>
         <div class="teacher-speech-box">
           <div class="teacher-avatar-circle">${userState.heroClass === 'mage' ? '🧙‍♂️' : (userState.heroClass === 'paladin' ? '⚖️' : '⚔️')}</div>
-          <div class="speech-bubble" style="display:flex; justify-content:space-between; width:100%; align-items:center;">
+          <div class="speech-bubble">
             <span>"${ex.source}"</span>
-            <div style="display:flex; gap:6px; flex-shrink:0;">
-              <button class="btn-listen-bubble" onclick="speakTarget('${targetPhrase.replace(/'/g, "\\'")}', 1.0)" title="Ouvir normal">🔊</button>
-              <button class="btn-listen-bubble btn-slow" onclick="speakTarget('${targetPhrase.replace(/'/g, "\\'")}', 0.75)" title="Ouvir devagar">0.75x</button>
-            </div>
           </div>
         </div>
         <div class="phrase-assembly-zone" id="assembly-zone">
@@ -2457,7 +2696,16 @@
       `;
 
       const bank = document.getElementById("word-bank");
-      const shuffled = [...ex.pool].sort(() => Math.random() - 0.5);
+      let wordsToUse = [...ex.pool];
+
+      // Ajuste de Dificuldade: no modo Fácil, reduz distratores
+      if (userState.difficulty === 'easy') {
+        const correctSet = new Set(ex.correct);
+        const distractors = ex.pool.filter(w => !correctSet.has(w));
+        wordsToUse = [...ex.correct, ...distractors.slice(0, 1)];
+      }
+
+      const shuffled = wordsToUse.sort(() => Math.random() - 0.5);
 
       shuffled.forEach((w) => {
         const chip = document.createElement("button");
@@ -2519,10 +2767,10 @@
       ex.options.forEach((opt, idx) => {
         const card = document.createElement("div");
         card.className = "choice-card";
+        // Sem botão de áudio nas opções durante a pergunta!
         card.innerHTML = `
           <span>${idx + 1}.</span> 
           <span style="flex:1;">${opt}</span>
-          <button class="btn-listen-bubble" style="width:34px; height:34px; font-size:14px; margin-left:auto;" onclick="event.stopPropagation(); speakTarget('${opt.replace(/'/g, "\\'")}', 1.0)" title="Ouvir pronúncia desta opção">🔊</button>
         `;
         card.onclick = () => {
           playSound('click');
@@ -2536,16 +2784,13 @@
     }
 
     function renderSpeakingExercise(ex, mount) {
+      // Usuário lê o texto e pronuncia. Áudio toca depois de acertar!
       mount.innerHTML = `
         <div class="exercise-prompt">${ex.prompt}</div>
         <div class="teacher-speech-box">
           <div class="teacher-avatar-circle">${userState.heroClass === 'mage' ? '🧙‍♂️' : (userState.heroClass === 'paladin' ? '⚖️' : '⚔️')}</div>
-          <div class="speech-bubble" style="display:flex; justify-content:space-between; width:100%; align-items:center;">
+          <div class="speech-bubble">
             <span>"${ex.target}"</span>
-            <div style="display:flex; gap:6px; flex-shrink:0;">
-              <button class="btn-listen-bubble" onclick="speakTarget('${ex.target.replace(/'/g, "\\'")}', 1.0)" title="Ouvir normal">🔊</button>
-              <button class="btn-listen-bubble btn-slow" onclick="speakTarget('${ex.target.replace(/'/g, "\\'")}', 0.75)" title="Ouvir devagar">0.75x</button>
-            </div>
           </div>
         </div>
         <div style="font-size:13.5px; color:var(--text-muted); text-align:center; margin-top:-6px;">
@@ -2556,23 +2801,25 @@
             🎙️
           </button>
           <div id="mic-status-text" style="font-size:13px; color:var(--text-muted);">
-            Toque para falar
+            Toque no microfone para falar
           </div>
         </div>
       `;
     }
 
     function speakTarget(text, rate = 1.0) {
-      window.speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang = userState.targetLanguage === 'de' ? 'de-DE' : 'en-US';
-      u.rate = rate;
+      try {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = userState.targetLanguage === 'de' ? 'de-DE' : 'en-US';
+        u.rate = rate;
 
-      const voices = window.speechSynthesis.getVoices();
-      const preferred = voices.find(v => v.lang.startsWith(userState.targetLanguage === 'de' ? 'de' : 'en'));
-      if (preferred) u.voice = preferred;
+        const voices = window.speechSynthesis.getVoices();
+        const preferred = voices.find(v => v.lang.startsWith(userState.targetLanguage === 'de' ? 'de' : 'en'));
+        if (preferred) u.voice = preferred;
 
-      window.speechSynthesis.speak(u);
+        window.speechSynthesis.speak(u);
+      } catch(e) {}
     }
 
     function startExerciseSpeech() {
@@ -2628,6 +2875,9 @@
       banner.className = "feedback-banner";
     }
 
+    // ========================================================
+    // VERIFICAÇÃO, FEEDBACK EXPLICATIVO & ÁUDIO REFORÇO
+    // ========================================================
     function handleVerifyClick() {
       const btn = document.getElementById("btn-verify");
       if (btn.classList.contains("disabled")) return;
@@ -2650,12 +2900,13 @@
         solution = ex.options[ex.correct];
       } else if (ex.type === "speak") {
         isCorrect = true;
+        solution = ex.target;
       }
 
-      showFeedback(isCorrect, solution);
+      showFeedback(isCorrect, solution, ex.explanation || "");
     }
 
-    function showFeedback(isCorrect, solution) {
+    function showFeedback(isCorrect, solution, explanation) {
       isVerifying = true;
       const banner = document.getElementById("feedback-banner");
       const btn = document.getElementById("btn-verify");
@@ -2663,9 +2914,38 @@
       if (isCorrect) {
         playSound('correct');
         banner.className = "feedback-banner feedback-correct";
-        banner.innerHTML = `<span>🎉</span> <div><strong>Excelente!</strong> +15 XP ganho.</div>`;
+        
+        // Reproduz o áudio nativo automaticamente como reforço de acerto!
+        speakTarget(solution, 1.0);
+
+        banner.innerHTML = `
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-size:22px;">🎉</span>
+            <div>
+              <strong>Excelente! Resposta correta!</strong>
+              <div style="color:#ffffff; font-size:14px; margin-top:2px;">"${solution}"</div>
+            </div>
+          </div>
+          ${explanation ? `<div style="font-size:12.5px; color:#bbf7d0; line-height:1.4;">💡 <strong>Por que está certo:</strong> ${explanation}</div>` : ''}
+          <div class="feedback-audio-row">
+            <button class="btn-feedback-audio" onclick="speakTarget('${solution.replace(/'/g, "\\'")}', 1.0)">🔊 Ouvir Novamente</button>
+            <button class="btn-feedback-audio slow" onclick="speakTarget('${solution.replace(/'/g, "\\'")}', 0.75)">🐢 0.75x Lento</button>
+          </div>
+        `;
         btn.textContent = "Continuar";
         btn.style.background = "#58cc02";
+
+        // Mecânica de Ataque ao Boss
+        if (currentLesson.isBoss) {
+          playSound('boss_hit');
+          const damage = Math.ceil(100 / currentLesson.exercises.length);
+          currentBossHP = Math.max(0, currentBossHP - damage);
+          updateBossUI();
+
+          const bData = currentLesson.bossData;
+          document.getElementById("boss-speech").textContent = `"${bData.hurtPhrase}"`;
+        }
+
       } else {
         playSound('wrong');
         userState.hearts = Math.max(0, userState.hearts - 1);
@@ -2674,10 +2954,22 @@
         banner.className = "feedback-banner feedback-wrong";
         banner.innerHTML = `
           <div><strong>A resposta correta é:</strong></div>
-          <div style="color:#ffffff;">${solution}</div>
+          <div style="color:#ffffff; font-weight:800; font-size:14.5px;">"${solution}"</div>
+          ${explanation ? `<div style="font-size:12.5px; color:#fecaca; line-height:1.4; margin-top:4px;">💡 <strong>Explicação:</strong> ${explanation}</div>` : ''}
+          <div class="feedback-audio-row">
+            <button class="btn-feedback-audio" onclick="speakTarget('${solution.replace(/'/g, "\\'")}', 1.0)">🔊 Ouvir Pronúncia</button>
+          </div>
         `;
         btn.textContent = "Entendi";
         btn.style.background = "#ff4b4b";
+
+        // Contra-ataque do Boss
+        if (currentLesson.isBoss) {
+          playSound('boss_attack');
+          document.body.classList.add("screen-shake");
+          setTimeout(() => document.body.classList.remove("screen-shake"), 500);
+          document.getElementById("boss-speech").textContent = `"Haha! Esperava mais de você!"`;
+        }
       }
     }
 
@@ -2691,7 +2983,9 @@
     }
 
     function finishLesson() {
-      userState.xp += 50;
+      const isBoss = currentLesson.isBoss;
+      userState.xp += isBoss ? 120 : 50;
+
       const oldLevel = userState.level;
       const newLevel = Math.floor(userState.xp / 100) + 1;
 
@@ -2702,23 +2996,45 @@
         playSound('correct');
       }
 
-      if (currentLesson.id === userState.unlockedLesson) {
-        userState.unlockedLesson++;
+      if (!Array.isArray(userState.completedLessons)) {
+        userState.completedLessons = [];
+      }
+      if (!userState.completedLessons.includes(currentLesson.id)) {
+        userState.completedLessons.push(currentLesson.id);
+      }
+      userState.unlockedLesson = Math.max(userState.unlockedLesson || 1, currentLesson.id + 1);
+
+      // Adiciona o item ao inventário
+      const reward = currentLesson.rewardItem;
+      if (reward && !userState.inventory.some(i => i.name === reward.name)) {
+        userState.inventory.push(reward);
       }
       saveState();
 
       const itemDropContainer = document.getElementById("victory-item-drop-container");
-      const reward = currentLesson.rewardItem;
-
       itemDropContainer.innerHTML = `
         <div class="item-drop-card">
           <div class="item-drop-icon">${reward.icon}</div>
           <div class="item-drop-info">
-            <div class="item-drop-tag">Novo Equipamento Desbloqueado!</div>
+            <div class="item-drop-tag">${isBoss ? '👑 ITEM LENDÁRIO DE CHEFE DESBLOQUEADO!' : 'Novo Equipamento Desbloqueado!'}</div>
             <div class="item-drop-name">${reward.name} (${reward.slot})</div>
           </div>
         </div>
       `;
+
+      const titleEl = document.getElementById("victory-title-text");
+      const descEl = document.getElementById("victory-desc-text");
+      const trophyEl = document.getElementById("victory-trophy-icon");
+
+      if (isBoss) {
+        trophyEl.textContent = "👑";
+        titleEl.textContent = "CHEFE DERROTADO!";
+        descEl.textContent = currentLesson.bossData.defeatPhrase;
+      } else {
+        trophyEl.textContent = "🏆";
+        titleEl.textContent = "Aula Concluída!";
+        descEl.textContent = "Você completou o treino e fortaleceu o seu personagem!";
+      }
 
       document.getElementById("lesson-view").style.display = "none";
       document.getElementById("victory-modal").style.display = "flex";
@@ -2730,8 +3046,15 @@
       renderRoadmap();
     }
 
-    // Início
+    // Inicialização
     loadState();
+
+    // Registro do Service Worker para PWA (Instalação no celular)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
   </script>
 </body>
 </html>

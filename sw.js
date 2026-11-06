@@ -1,10 +1,12 @@
-// Service Worker para English Pro PWA
-const CACHE_NAME = 'english-pro-v1';
+// Service Worker para Polyglot RPG PWA
+const CACHE_NAME = 'polyglot-rpg-v6';
 const ASSETS = [
   './',
   './index.html',
   './manifest.json',
-  './icon.svg'
+  './icon.svg',
+  './curriculum_en.js',
+  './curriculum_de.js'
 ];
 
 // Instalação: Cache dos arquivos essenciais
