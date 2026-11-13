@@ -1,12 +1,17 @@
 // Service Worker para Polyglot RPG PWA
-const CACHE_NAME = 'polyglot-rpg-v6';
+const CACHE_NAME = 'polyglot-rpg-v7';
 const ASSETS = [
   './',
   './index.html',
   './manifest.json',
   './icon.svg',
   './curriculum_en.js',
-  './curriculum_de.js'
+  './curriculum_de.js',
+  './assets/knight.png',
+  './assets/mage.png',
+  './assets/paladin.png',
+  './assets/boss_vanthur.png',
+  './assets/crystal_orb.png'
 ];
 
 // Instalação: Cache dos arquivos essenciais

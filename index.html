@@ -17,6 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -471,6 +472,214 @@
       z-index: 2;
       animation: heroBreathe 3.5s infinite ease-in-out;
       filter: drop-shadow(0 10px 15px rgba(0,0,0,0.7));
+    }
+
+    /* Retratos em Alta Resolução sincronizados do Stitch */
+    .character-portrait-img {
+      width: 155px;
+      height: 155px;
+      border-radius: 50%;
+      object-fit: cover;
+      position: relative;
+      z-index: 2;
+      animation: heroBreathe 3.5s infinite ease-in-out;
+      transition: all 0.35s ease;
+      background: #0f172a;
+    }
+
+    .aura-warrior {
+      border: 3.5px solid #fbbf24;
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.5), inset 0 0 15px rgba(245, 158, 11, 0.3);
+    }
+
+    .aura-mage {
+      border: 3.5px solid #c084fc;
+      box-shadow: 0 0 25px rgba(168, 85, 247, 0.55), 0 0 45px rgba(59, 130, 246, 0.3);
+    }
+
+    .aura-paladin {
+      border: 3.5px solid #60a5fa;
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.55), inset 0 0 15px rgba(16, 185, 129, 0.25);
+    }
+
+    .select-card-thumb-box {
+      width: 58px;
+      height: 58px;
+      border-radius: 16px;
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: #0f172a;
+    }
+
+    .class-card-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .boss-portrait-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 14px;
+    }
+
+    .balloon-icon-box {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: rgba(0,0,0,0.3);
+      border: 1.5px solid var(--accent);
+      box-shadow: 0 0 15px rgba(28, 176, 246, 0.4);
+    }
+
+    .balloon-orb-icon {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .crystal-orb-header {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .crystal-orb-img {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2.5px solid var(--gold);
+      box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
+      animation: floatBalloon 3s infinite ease-in-out;
+    }
+
+    .placement-quiz-hero-card {
+      background: linear-gradient(135deg, rgba(28, 176, 246, 0.15), rgba(168, 85, 247, 0.2));
+      border: 2px solid var(--accent);
+      border-radius: 16px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(28, 176, 246, 0.25);
+      transition: all 0.2s;
+    }
+    .placement-quiz-hero-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 25px rgba(28, 176, 246, 0.4);
+    }
+
+    .placement-quiz-sparkle {
+      font-size: 26px;
+    }
+
+    .placement-quiz-card-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .placement-quiz-card-desc {
+      font-size: 11.5px;
+      color: #cbd5e1;
+      margin-top: 2px;
+    }
+
+    .btn-start-quiz-hero {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .header-hero-avatar-box {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--gold);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
+      transition: transform 0.2s;
+    }
+    .header-hero-avatar-box:hover {
+      transform: scale(1.08);
+    }
+    .header-hero-avatar {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Barra de Navegação Stitch Inferior */
+    .stitch-bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 62px;
+      background: rgba(7, 10, 18, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 99;
+      padding-bottom: env(safe-area-inset-bottom);
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .stitch-nav-item {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      min-width: 65px;
+      padding: 6px 0;
+    }
+
+    .stitch-nav-item .material-symbols-outlined {
+      font-size: 22px;
+      transition: transform 0.2s;
+    }
+
+    .stitch-nav-item:hover, .stitch-nav-item.active {
+      color: var(--gold);
+    }
+    .stitch-nav-item.active .material-symbols-outlined {
+      transform: scale(1.15);
+    }
+
+    @media (min-width: 881px) {
+      .stitch-bottom-nav {
+        display: none;
+      }
     }
 
     @keyframes heroBreathe {
@@ -1385,6 +1594,9 @@
     </div>
 
     <div class="stats-group">
+      <div class="header-hero-avatar-box" onclick="openClassModal()" title="Trocar Classe">
+        <img id="header-hero-avatar-img" class="header-hero-avatar" src="assets/knight.png" alt="Herói">
+      </div>
       <button class="btn-header-pill" onclick="openClassModal()">
         <span>🔄</span> Classe
       </button>
@@ -1409,9 +1621,11 @@
         <!-- BALÃO DE MINI-PROVA NO LOBBY -->
         <div class="lobby-quiz-balloon" id="lobby-quiz-balloon">
           <div class="balloon-left">
-            <div class="balloon-icon">⚡</div>
+            <div class="balloon-icon-box">
+              <img src="assets/crystal_orb.png" class="balloon-orb-icon" alt="Oráculo">
+            </div>
             <div>
-              <div class="balloon-badge">PROVA DE NIVELAMENTO</div>
+              <div class="balloon-badge">PROVA DE NIVELAMENTO DO ORÁCULO</div>
               <div class="balloon-title">Quer testar seu nível e ganhar XP bônus?</div>
               <div class="balloon-desc">Responda a 3 perguntas rápidas para calibrar sua dificuldade e desbloquear recompensas!</div>
             </div>
@@ -1508,7 +1722,10 @@
         <!-- ARENA DO BOSS (SE A AULA FOR BOSS) -->
         <div class="boss-arena-header" id="boss-arena-header" style="display:none;">
           <div class="boss-profile-row">
-            <div class="boss-avatar-box" id="boss-avatar">👔</div>
+            <div class="boss-avatar-box" id="boss-avatar">
+              <img id="boss-avatar-img" src="assets/boss_vanthur.png" class="boss-portrait-img" alt="Boss" onerror="this.style.display='none'; document.getElementById('boss-avatar-fallback').style.display='inline';">
+              <span id="boss-avatar-fallback" style="display:none;">👔</span>
+            </div>
             <div class="boss-info-col">
               <div class="boss-tag-title">⚔️ PROVA DE MÓDULO - CHEFE DE FASE</div>
               <div class="boss-name-title" id="boss-name">Dr. Victor Voss</div>
@@ -1555,7 +1772,9 @@
       <div class="pedestal-viewport" onclick="animateHeroClick()">
         <div class="magic-rune-floor" id="rune-floor"></div>
         
-        <svg class="character-avatar-svg" id="hero-svg-body" viewBox="0 0 160 190">
+        <img id="hero-portrait-img" class="character-portrait-img aura-warrior" src="assets/knight.png" alt="Personagem" onerror="this.style.display='none'; document.getElementById('hero-svg-body').style.display='block';">
+
+        <svg class="character-avatar-svg" id="hero-svg-body" viewBox="0 0 160 190" style="display:none;">
           <ellipse cx="80" cy="170" rx="45" ry="12" fill="rgba(0,0,0,0.5)" />
           <path id="svg-cape" d="M45 65 Q25 130 35 160 Q80 175 125 160 Q135 130 115 65 Z" fill="#4c1d95" />
           <rect id="svg-body-armor" x="55" y="65" width="50" height="75" rx="10" fill="#1e1b4b" stroke="#6366f1" stroke-width="2" />
@@ -1634,9 +1853,20 @@
   <!-- ============================================== -->
   <div class="modal-overlay" id="placement-modal">
     <div class="modal-card-box" id="placement-view-select">
-      <div class="modal-header-icon">🎯</div>
-      <div class="modal-title">QUAL É O SEU NÍVEL?</div>
-      <div class="modal-subtitle">Escolha como prefere começar sua jornada de aprendizado:</div>
+      <div class="crystal-orb-header">
+        <img src="assets/crystal_orb.png" class="crystal-orb-img" alt="Oráculo">
+      </div>
+      <div class="modal-title">ORÁCULO DO CONHECIMENTO</div>
+      <div class="modal-subtitle">Escolha sua dificuldade ou faça a avaliação interativa:</div>
+
+      <div class="placement-quiz-hero-card" onclick="startPlacementQuizFromLobby()">
+        <div class="placement-quiz-sparkle">✨</div>
+        <div style="flex:1;">
+          <div class="placement-quiz-card-title">Fazer Mini-Prova do Oráculo</div>
+          <div class="placement-quiz-card-desc">3 perguntas rápidas com feedback imediato para calibrar seu nível!</div>
+        </div>
+        <button class="btn-start-quiz-hero">Iniciar ➔</button>
+      </div>
 
       <div class="select-card-list">
         <!-- Fácil / Iniciante -->
@@ -1717,26 +1947,32 @@
 
       <div class="select-card-list">
         <div class="select-card selected" id="card-warrior" onclick="selectClassOption('warrior')">
-          <div class="select-card-badge">⚔️</div>
+          <div class="select-card-thumb-box aura-warrior">
+            <img src="assets/knight.png" class="class-card-thumb" alt="Guerreiro">
+          </div>
           <div>
-            <div class="select-card-title">Guerreiro das Vendas</div>
-            <div class="select-card-desc">Mestre do pitch, reuniões executivas e fechamento de contratos.</div>
+            <div class="select-card-title">Cavaleiro dos Negócios (Vendas)</div>
+            <div class="select-card-desc">Pitch executivo, reuniões B2B, fechamento de contratos e bosses negociadores.</div>
           </div>
         </div>
 
         <div class="select-card" id="card-mage" onclick="selectClassOption('mage')">
-          <div class="select-card-badge">🧙‍♂️</div>
+          <div class="select-card-thumb-box aura-mage">
+            <img src="assets/mage.png" class="class-card-thumb" alt="Mago">
+          </div>
           <div>
-            <div class="select-card-title">Mago do Código</div>
-            <div class="select-card-desc">Especialista em TI, Pull Requests, arquitetura e discussões técnicas.</div>
+            <div class="select-card-title">Mago da Tecnologia (TI / Dev)</div>
+            <div class="select-card-desc">Dailies, Pull Requests, arquitetura de sistemas, Cloud e bugs críticos.</div>
           </div>
         </div>
 
         <div class="select-card" id="card-paladin" onclick="selectClassOption('paladin')">
-          <div class="select-card-badge">⚖️</div>
+          <div class="select-card-thumb-box aura-paladin">
+            <img src="assets/paladin.png" class="class-card-thumb" alt="Paladino">
+          </div>
           <div>
-            <div class="select-card-title">Paladino do Direito</div>
-            <div class="select-card-desc">Especialista em contratos internacionais, compliance, cláusulas e NDAs.</div>
+            <div class="select-card-title">Paladina da Justiça (Direito)</div>
+            <div class="select-card-desc">Contratos internacionais, NDAs, compliance, cláusulas rígidas e GDPR.</div>
           </div>
         </div>
       </div>
@@ -1797,6 +2033,97 @@
     <button class="btn-main-action" style="width: 100%; max-width: 320px;" onclick="closeVictoryModal()">
       Equipar & Continuar
     </button>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL GRIMÓRIO & PERFIL DO HERÓI (STITCH DESIGN) -->
+  <!-- ============================================== -->
+  <div class="modal-overlay" id="spellbook-modal" style="display:none;">
+    <div class="modal-card-box" style="max-width: 440px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; width:100%; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:12px; margin-bottom:14px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span class="material-symbols-outlined" style="color:var(--gold); font-size:24px;">auto_stories</span>
+          <span style="font-family:'Cinzel', serif; font-size:16px; font-weight:900; color:var(--gold);">GRIMÓRIO DO HERÓI</span>
+        </div>
+        <button style="background:none; border:none; color:var(--text-muted); font-size:20px; cursor:pointer;" onclick="closeSpellbookModal()">✕</button>
+      </div>
+
+      <!-- Retrato e Estatísticas Centrais -->
+      <div style="display:flex; flex-direction:column; align-items:center; width:100%; gap:10px; margin-bottom:14px;">
+        <div style="width:110px; height:110px; border-radius:50%; overflow:hidden; position:relative; box-shadow:0 0 25px rgba(251,191,36,0.4); border:3px solid var(--gold);">
+          <img id="spellbook-hero-portrait" src="assets/knight.png" style="width:100%; height:100%; object-fit:cover;" alt="Herói">
+        </div>
+        <div id="spellbook-hero-name" style="font-size:17px; font-weight:800; color:#fff;">Cavaleiro dos Negócios</div>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <span id="spellbook-hero-level" style="background:rgba(251,191,36,0.15); border:1px solid var(--gold); color:var(--gold); padding:3px 10px; border-radius:12px; font-size:11.5px; font-weight:800;">Nível 1</span>
+          <span id="spellbook-hero-diff" style="background:rgba(28,176,246,0.15); border:1px solid var(--accent); color:var(--accent); padding:3px 10px; border-radius:12px; font-size:11.5px; font-weight:800;">Fácil</span>
+        </div>
+      </div>
+
+      <!-- Barra de XP do Grimório -->
+      <div style="width:100%; background:rgba(0,0,0,0.3); border-radius:14px; padding:12px 14px; border:1px solid var(--card-border); margin-bottom:14px;">
+        <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:800; color:var(--text-muted); margin-bottom:6px;">
+          <span>PROGRESSO DE EXP</span>
+          <span id="spellbook-xp-text">0 / 100 XP</span>
+        </div>
+        <div style="height:8px; background:rgba(255,255,255,0.08); border-radius:6px; overflow:hidden;">
+          <div id="spellbook-xp-fill" style="height:100%; width:0%; background:linear-gradient(90deg, #1cb0f6, #00f2fe); border-radius:6px; transition:width 0.4s;"></div>
+        </div>
+      </div>
+
+      <!-- Inventário de Equipamentos -->
+      <div style="width:100%; margin-bottom:14px;">
+        <div style="font-size:11.5px; font-weight:900; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:8px;">Relíquias & Equipamentos</div>
+        <div id="spellbook-gear-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+          <!-- Injetado dinamicamente -->
+        </div>
+      </div>
+
+      <div style="display:flex; gap:10px; width:100%;">
+        <button class="btn-main-action" style="flex:1; background:rgba(255,255,255,0.08); box-shadow:none; border:1px solid rgba(255,255,255,0.15); font-size:13px;" onclick="closeSpellbookModal(); openClassModal();">
+          <span>⚔️</span> Mudar Classe
+        </button>
+        <button class="btn-main-action" style="flex:1; font-size:13px;" onclick="closeSpellbookModal()">
+          Voltar ao Jogo
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL ARENA DE CHEFES (BOSS TRIALS) -->
+  <!-- ============================================== -->
+  <div class="modal-overlay" id="boss-arena-modal" style="display:none;">
+    <div class="modal-card-box" style="max-width: 440px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; width:100%; border-bottom:1px solid rgba(239,68,68,0.3); padding-bottom:12px; margin-bottom:14px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span class="material-symbols-outlined" style="color:#ef4444; font-size:24px;">swords</span>
+          <span style="font-family:'Cinzel', serif; font-size:16px; font-weight:900; color:#ef4444;">ARENA DE CHEFES</span>
+        </div>
+        <button style="background:none; border:none; color:var(--text-muted); font-size:20px; cursor:pointer;" onclick="closeBossArenaModal()">✕</button>
+      </div>
+
+      <!-- Banner Destaque do Boss Vanthur -->
+      <div style="width:100%; background:linear-gradient(135deg, rgba(69,10,10,0.9), rgba(24,6,6,0.95)); border:2px solid #ef4444; border-radius:16px; padding:14px; display:flex; align-items:center; gap:12px; margin-bottom:14px; box-shadow:0 0 20px rgba(239,68,68,0.3);">
+        <div style="width:58px; height:58px; border-radius:12px; overflow:hidden; border:2px solid #ef4444; flex-shrink:0;">
+          <img src="assets/boss_vanthur.png" style="width:100%; height:100%; object-fit:cover;" alt="Boss Supremo">
+        </div>
+        <div>
+          <div style="font-size:10px; font-weight:900; color:#f87171; letter-spacing:1px; text-transform:uppercase;">CHAVE DO CONHECIMENTO</div>
+          <div style="font-size:15px; font-weight:900; color:#fff;">Desafie os Chefes de Fase</div>
+          <div style="font-size:11.5px; color:#cbd5e1; margin-top:2px;">Derrote os Bosses para obter recompensas épicas e calibrar sua fluência!</div>
+        </div>
+      </div>
+
+      <!-- Lista de Bosses Disponíveis -->
+      <div id="boss-list-mount" style="display:flex; flex-direction:column; gap:10px; width:100%; margin-bottom:14px;">
+        <!-- Injetado via JS -->
+      </div>
+
+      <button class="btn-main-action" style="width:100%; background:rgba(255,255,255,0.08); box-shadow:none; border:1px solid rgba(255,255,255,0.15);" onclick="closeBossArenaModal()">
+        Fechar Arena
+      </button>
+    </div>
   </div>
 
   <!-- Currículos Modulares Polyglot RPG -->
@@ -2340,6 +2667,7 @@
         if (s3) s3.style.display = 'block';
         if (s4) s4.style.display = 'block';
         renderRoadmap();
+        updateSideHeroUI();
         return;
       }
 
@@ -2356,6 +2684,7 @@
       if (s4) s4.style.display = (cls === 'paladin') ? 'block' : 'none';
 
       renderRoadmap();
+      updateSideHeroUI();
 
       if (shouldScroll) {
         let target = null;
@@ -2370,67 +2699,96 @@
     }
 
     // ========================================================
-    // PALCO DO HERÓI LATERAL
+    // PALCO DO HERÓI LATERAL (RETROFIT STITCH HIGH-RES ART)
     // ========================================================
     function updateSideHeroUI() {
-      const cls = userState.heroClass;
-      let className = "Guerreiro Vendas";
+      const cls = userState.heroClass || 'warrior';
+      let className = "Cavaleiro dos Negócios";
       let classIcon = "⚔️";
+      let portraitSrc = "assets/knight.png";
+      let auraClass = "character-portrait-img aura-warrior";
 
       if (cls === 'mage') {
-        className = "Mago Dev";
+        className = "Mago da Tecnologia";
         classIcon = "🧙‍♂️";
+        portraitSrc = "assets/mage.png";
+        auraClass = "character-portrait-img aura-mage";
       } else if (cls === 'paladin') {
-        className = "Paladino da Lei";
+        className = "Paladina da Justiça";
         classIcon = "⚖️";
+        portraitSrc = "assets/paladin.png";
+        auraClass = "character-portrait-img aura-paladin";
       }
 
-      document.getElementById("side-hero-title").innerHTML = `<span>${classIcon}</span> ${className}`;
-      document.getElementById("side-hero-lvl").textContent = `Nível ${userState.level}`;
-      document.getElementById("user-xp").textContent = `${userState.xp} XP`;
-      document.getElementById("user-hearts").textContent = userState.hearts;
+      const sideTitle = document.getElementById("side-hero-title");
+      if (sideTitle) sideTitle.innerHTML = `<span>${classIcon}</span> ${className}`;
+
+      const sideLvl = document.getElementById("side-hero-lvl");
+      if (sideLvl) sideLvl.textContent = `Nível ${userState.level || 1}`;
+
+      const userXP = document.getElementById("user-xp");
+      if (userXP) userXP.textContent = `${userState.xp || 0} XP`;
+
+      const userHearts = document.getElementById("user-hearts");
+      if (userHearts) userHearts.textContent = userState.hearts || 5;
+
+      // Atualiza o Retrato do Herói em Alta Resolução (Stitch)
+      const heroImg = document.getElementById("hero-portrait-img");
+      if (heroImg) {
+        heroImg.src = portraitSrc;
+        heroImg.className = auraClass;
+        heroImg.style.display = "block";
+      }
+
+      // Atualiza avatar do cabeçalho
+      const headerAvatar = document.getElementById("header-hero-avatar-img");
+      if (headerAvatar) {
+        headerAvatar.src = portraitSrc;
+      }
 
       document.querySelectorAll('.career-pill').forEach(p => p.className = 'career-pill');
       const activePill = document.getElementById(`pill-${cls}`);
       if (activePill) activePill.classList.add(`active-${cls}`);
 
-      // Atualiza SVG do avatar
+      // Atualiza SVG do avatar (fallback)
       const cape = document.getElementById("svg-cape");
       const armor = document.getElementById("svg-body-armor");
       const headgear = document.getElementById("svg-headgear");
       const weaponGroup = document.getElementById("svg-weapon-group");
 
-      if (cls === 'warrior') {
-        cape.setAttribute("fill", "#b45309");
-        armor.setAttribute("fill", "#78350f");
-        armor.setAttribute("stroke", "#f59e0b");
-        headgear.setAttribute("fill", "#b45309");
-        weaponGroup.innerHTML = `
-          <line x1="0" y1="0" x2="10" y2="90" stroke="#f59e0b" stroke-width="5" stroke-linecap="round" />
-          <polygon points="5,-15 15,20 -5,20" fill="#fbbf24" />
-          <rect x="-8" y="20" width="26" height="6" rx="2" fill="#d97706" />
-        `;
-      } else if (cls === 'paladin') {
-        cape.setAttribute("fill", "#1e3a8a");
-        armor.setAttribute("fill", "#1e293b");
-        armor.setAttribute("stroke", "#3b82f6");
-        headgear.setAttribute("fill", "#1d4ed8");
-        weaponGroup.innerHTML = `
-          <line x1="0" y1="0" x2="0" y2="85" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" />
-          <rect x="-12" y="5" width="24" height="14" rx="3" fill="#60a5fa" />
-          <circle cx="0" cy="5" r="5" fill="#fbbf24" />
-        `;
-      } else {
-        // Mago
-        cape.setAttribute("fill", "#4c1d95");
-        armor.setAttribute("fill", "#1e1b4b");
-        armor.setAttribute("stroke", "#6366f1");
-        headgear.setAttribute("fill", "#6d28d9");
-        weaponGroup.innerHTML = `
-          <line x1="0" y1="0" x2="15" y2="105" stroke="#78350f" stroke-width="4" stroke-linecap="round" />
-          <circle cx="0" cy="0" r="10" fill="#38bdf8" filter="drop-shadow(0 0 8px #38bdf8)" />
-          <circle cx="0" cy="0" r="4" fill="#ffffff" />
-        `;
+      if (cape && armor && headgear && weaponGroup) {
+        if (cls === 'warrior') {
+          cape.setAttribute("fill", "#b45309");
+          armor.setAttribute("fill", "#78350f");
+          armor.setAttribute("stroke", "#f59e0b");
+          headgear.setAttribute("fill", "#b45309");
+          weaponGroup.innerHTML = `
+            <line x1="0" y1="0" x2="10" y2="90" stroke="#f59e0b" stroke-width="5" stroke-linecap="round" />
+            <polygon points="5,-15 15,20 -5,20" fill="#fbbf24" />
+            <rect x="-8" y="20" width="26" height="6" rx="2" fill="#d97706" />
+          `;
+        } else if (cls === 'paladin') {
+          cape.setAttribute("fill", "#1e3a8a");
+          armor.setAttribute("fill", "#1e293b");
+          armor.setAttribute("stroke", "#3b82f6");
+          headgear.setAttribute("fill", "#1d4ed8");
+          weaponGroup.innerHTML = `
+            <line x1="0" y1="0" x2="0" y2="85" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" />
+            <rect x="-12" y="5" width="24" height="14" rx="3" fill="#60a5fa" />
+            <circle cx="0" cy="5" r="5" fill="#fbbf24" />
+          `;
+        } else {
+          // Mago
+          cape.setAttribute("fill", "#4c1d95");
+          armor.setAttribute("fill", "#1e1b4b");
+          armor.setAttribute("stroke", "#6366f1");
+          headgear.setAttribute("fill", "#6d28d9");
+          weaponGroup.innerHTML = `
+            <line x1="0" y1="0" x2="15" y2="105" stroke="#78350f" stroke-width="4" stroke-linecap="round" />
+            <circle cx="0" cy="0" r="10" fill="#38bdf8" filter="drop-shadow(0 0 8px #38bdf8)" />
+            <circle cx="0" cy="0" r="4" fill="#ffffff" />
+          `;
+        }
       }
 
       // XP Bar
@@ -2640,7 +2998,13 @@
     function updateBossUI() {
       if (!currentLesson.isBoss) return;
       const bData = currentLesson.bossData;
-      document.getElementById("boss-avatar").textContent = bData.avatar;
+      const avatarBox = document.getElementById("boss-avatar");
+      if (avatarBox) {
+        avatarBox.innerHTML = `
+          <img id="boss-avatar-img" src="assets/boss_vanthur.png" class="boss-portrait-img" alt="Boss" onerror="this.style.display='none'; document.getElementById('boss-avatar-fallback').style.display='inline';">
+          <span id="boss-avatar-fallback" style="display:none; font-size:36px;">${bData.avatar || '👔'}</span>
+        `;
+      }
       document.getElementById("boss-name").textContent = bData.name;
       document.getElementById("boss-speech").textContent = `"${bData.introPhrase}"`;
       document.getElementById("boss-hp-text").textContent = `${currentBossHP} / 100`;
@@ -3046,6 +3410,140 @@
       renderRoadmap();
     }
 
+    // ========================================================
+    // NAVEGAÇÃO STITCH & MODAIS DE ARENA / GRIMÓRIO
+    // ========================================================
+    function navigateStitchTab(tab) {
+      playSound('click');
+      document.querySelectorAll('.stitch-nav-item').forEach(b => b.classList.remove('active'));
+      const activeBtn = document.getElementById(`nav-${tab}`);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      if (tab === 'map') {
+        document.getElementById("spellbook-modal").style.display = "none";
+        document.getElementById("boss-arena-modal").style.display = "none";
+        document.getElementById("class-modal").style.display = "none";
+        document.getElementById("lesson-view").style.display = "none";
+        document.getElementById("lesson-intro-view").style.display = "none";
+        document.getElementById("roadmap-view").style.display = "block";
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (tab === 'arena') {
+        openBossArenaModal();
+      } else if (tab === 'classes') {
+        openClassModal();
+      } else if (tab === 'profile') {
+        openSpellbookModal();
+      }
+    }
+
+    function openSpellbookModal() {
+      playSound('click');
+      const cls = userState.heroClass || 'warrior';
+      let className = "Cavaleiro dos Negócios";
+      let portrait = "assets/knight.png";
+
+      if (cls === 'mage') {
+        className = "Mago da Tecnologia";
+        portrait = "assets/mage.png";
+      } else if (cls === 'paladin') {
+        className = "Paladina da Justiça";
+        portrait = "assets/paladin.png";
+      }
+
+      document.getElementById("spellbook-hero-portrait").src = portrait;
+      document.getElementById("spellbook-hero-name").textContent = className;
+      document.getElementById("spellbook-hero-level").textContent = `Nível ${userState.level || 1}`;
+
+      const diffLabel = userState.difficulty === 'hard' ? 'Hard (Fluente)' : (userState.difficulty === 'medium' ? 'Médio (Intermediário)' : 'Fácil (Iniciante)');
+      document.getElementById("spellbook-hero-diff").textContent = diffLabel;
+
+      const currentLvlXP = ((userState.level || 1) - 1) * 100;
+      const progressInLevel = Math.max(0, (userState.xp || 0) - currentLvlXP);
+      const percent = Math.min(100, (progressInLevel / 100) * 100);
+
+      document.getElementById("spellbook-xp-text").textContent = `${progressInLevel} / 100 XP`;
+      document.getElementById("spellbook-xp-fill").style.width = `${percent}%`;
+
+      // Renderiza itens
+      const grid = document.getElementById("spellbook-gear-grid");
+      grid.innerHTML = "";
+      const gearSlots = [
+        { type: "Arma", defaultIcon: "⚔️", item: userState.inventory.find(i => i.slot === "Arma") },
+        { type: "Armadura", defaultIcon: "🛡️", item: userState.inventory.find(i => i.slot === "Armadura") },
+        { type: "Elmo", defaultIcon: "👑", item: userState.inventory.find(i => i.slot === "Elmo") },
+        { type: "Amuleto", defaultIcon: "💎", item: userState.inventory.find(i => i.slot === "Amuleto" || i.slot === "Acessório") }
+      ];
+
+      gearSlots.forEach(slot => {
+        const itemBox = document.createElement("div");
+        itemBox.className = `gear-slot-item ${slot.item ? 'unlocked' : ''}`;
+        itemBox.innerHTML = `
+          <div class="gear-slot-icon">${slot.item ? slot.item.icon : slot.defaultIcon}</div>
+          <div class="gear-slot-texts">
+            <span class="gear-slot-name">${slot.item ? slot.item.name : 'Vazio'}</span>
+            <span class="gear-slot-type">${slot.type}</span>
+          </div>
+        `;
+        grid.appendChild(itemBox);
+      });
+
+      document.getElementById("spellbook-modal").style.display = "flex";
+    }
+
+    function closeSpellbookModal() {
+      playSound('click');
+      document.getElementById("spellbook-modal").style.display = "none";
+      document.querySelectorAll('.stitch-nav-item').forEach(b => b.classList.remove('active'));
+      const mapBtn = document.getElementById('nav-map');
+      if (mapBtn) mapBtn.classList.add('active');
+    }
+
+    function openBossArenaModal() {
+      playSound('click');
+      const curriculum = getCurriculum();
+      const bosses = curriculum.filter(l => l.isBoss);
+      const mount = document.getElementById("boss-list-mount");
+      mount.innerHTML = "";
+
+      bosses.forEach(b => {
+        const unlocked = isLessonUnlocked(b.id);
+        const defeated = isLessonCompleted(b.id);
+
+        const card = document.createElement("div");
+        card.style.cssText = "background:rgba(255,255,255,0.04); border:1px solid " + (defeated ? '#22c55e' : (unlocked ? '#ef4444' : 'var(--card-border)')) + "; border-radius:14px; padding:10px 14px; display:flex; align-items:center; justify-content:space-between; gap:10px;";
+        
+        card.innerHTML = `
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div style="font-size:26px;">${defeated ? '👑' : b.bossData.avatar}</div>
+            <div>
+              <div style="font-size:13.5px; font-weight:800; color:#fff;">${b.bossData.name}</div>
+              <div style="font-size:11px; color:var(--text-muted);">${b.title} • Mod. ${b.module}</div>
+            </div>
+          </div>
+          <div>
+            ${defeated 
+              ? `<span style="font-size:11px; font-weight:800; color:#22c55e; background:rgba(34,197,94,0.15); padding:4px 8px; border-radius:8px;">DERROTADO</span>`
+              : (unlocked 
+                ? `<button class="btn-main-action" style="padding:6px 12px; font-size:11px; background:#ef4444; box-shadow:0 3px 0 #b91c1c;" onclick="closeBossArenaModal(); startLesson(${b.id});">LUTAR ⚔️</button>`
+                : `<span style="font-size:11px; color:var(--text-muted); background:rgba(255,255,255,0.05); padding:4px 8px; border-radius:8px;">BLOQUEADO 🔒</span>`
+              )
+            }
+          </div>
+        `;
+        mount.appendChild(card);
+      });
+
+      document.getElementById("boss-arena-modal").style.display = "flex";
+    }
+
+    function closeBossArenaModal() {
+      playSound('click');
+      document.getElementById("boss-arena-modal").style.display = "none";
+      document.querySelectorAll('.stitch-nav-item').forEach(b => b.classList.remove('active'));
+      const mapBtn = document.getElementById('nav-map');
+      if (mapBtn) mapBtn.classList.add('active');
+    }
+
     // Inicialização
     loadState();
 
@@ -3056,5 +3554,25 @@
       });
     }
   </script>
+
+  <!-- BARRA DE NAVEGAÇÃO INFERIOR STITCH (MOBILE/PWA) -->
+  <nav class="stitch-bottom-nav">
+    <button class="stitch-nav-item active" id="nav-map" onclick="navigateStitchTab('map')">
+      <span class="material-symbols-outlined">explore</span>
+      <span>Mapa</span>
+    </button>
+    <button class="stitch-nav-item" id="nav-arena" onclick="navigateStitchTab('arena')">
+      <span class="material-symbols-outlined">swords</span>
+      <span>Arena</span>
+    </button>
+    <button class="stitch-nav-item" id="nav-classes" onclick="navigateStitchTab('classes')">
+      <span class="material-symbols-outlined">shield</span>
+      <span>Classes</span>
+    </button>
+    <button class="stitch-nav-item" id="nav-profile" onclick="navigateStitchTab('profile')">
+      <span class="material-symbols-outlined">auto_stories</span>
+      <span>Grimório</span>
+    </button>
+  </nav>
 </body>
 </html>

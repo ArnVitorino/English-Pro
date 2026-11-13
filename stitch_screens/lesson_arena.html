@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&family=Space+Grotesk:wght@100..900&display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-container-highest": "#2d3449", "surface-container-low": "#131b2e", "on-secondary-fixed-variant": "#004395", "on-secondary-container": "#e6ecff", "outline": "#a08e7a", "error": "#ffb4ab", "secondary-container": "#0566d9", "on-secondary-fixed": "#001a42", "on-tertiary-container": "#004e34", "surface-tint": "#ffb95f", "secondary": "#adc6ff", "on-tertiary-fixed-variant": "#005236", "on-error": "#690005", "on-primary-fixed-variant": "#653e00", "on-primary-fixed": "#2a1700", "surface-variant": "#2d3449", "on-background": "#dae2fd", "surface-container": "#171f33", "surface-dim": "#0b1326", "surface-container-high": "#222a3d", "tertiary-fixed": "#6ffbbe", "secondary-fixed": "#d8e2ff", "primary": "#ffc174", "tertiary-fixed-dim": "#4edea3", "surface-container-lowest": "#060e20", "inverse-primary": "#855300", "surface": "#0b1326", "inverse-on-surface": "#283044", "background": "#0b1326", "outline-variant": "#534434", "on-primary": "#472a00", "on-tertiary": "#003824", "on-secondary": "#002e6a", "on-error-container": "#ffdad6", "primary-fixed": "#ffddb8", "tertiary-container": "#30c88f", "on-tertiary-fixed": "#002113", "inverse-surface": "#dae2fd", "primary-container": "#f59e0b", "on-primary-container": "#613b00", "error-container": "#93000a", "secondary-fixed-dim": "#adc6ff", "primary-fixed-dim": "#ffb95f", "surface-bright": "#31394d", "on-surface-variant": "#d8c3ad", "on-surface": "#dae2fd", "tertiary": "#56e5a9" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "gutter-tablet": "1.5rem", "space-lg": "1.5rem", "gutter-desktop": "2rem", "margin": "1rem", "gutter": "1rem", "margin-desktop": "3rem", "space-sm": "0.5rem", "space-xl": "2.5rem", "space-md": "1rem", "space-xs": "0.25rem", "margin-tablet": "2rem" }, fontFamily: { "headline-lg": ["Space Grotesk"], "label-lg": ["Space Grotesk"], "headline-md": ["Space Grotesk"], "display-hero": ["Space Grotesk"], "display-hero-mobile": ["Space Grotesk"], "body-lg": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "headline-sm": ["Space Grotesk"], "body-md": ["Plus Jakarta Sans"], "label-md": ["Space Grotesk"], "label-stat": ["Space Grotesk"] }, fontSize: { "headline-lg": ["28px", { lineHeight: "36px", letterSpacing: "-0.01em", fontWeight: "700" }], "label-lg": ["14px", { lineHeight: "20px", letterSpacing: "0.04em", fontWeight: "600" }], "headline-md": ["22px", { lineHeight: "30px", fontWeight: "600" }], "display-hero": ["40px", { lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "700" }], "display-hero-mobile": ["30px", { lineHeight: "38px", letterSpacing: "-0.02em", fontWeight: "700" }], "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }], "body-sm": ["13px", { lineHeight: "18px", fontWeight: "400" }], "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }], "body-md": ["15px", { lineHeight: "22px", fontWeight: "400" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.06em", fontWeight: "600" }], "label-stat": ["11px", { lineHeight: "14px", letterSpacing: "0.08em", fontWeight: "700" }] } } } };</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#0b1326;color:#dae2fd;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface min-h-screen flex flex-col antialiased selection:bg-primary/20"><header class="fixed top-0 w-full z-50 pt-safe bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_4px_24px_rgba(6,14,32,0.6)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs"><button class="w-11 h-11 -ml-2 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><img alt="Arcane Lingua Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvEnQnqbaedIcw3TzH9kRhoKfR4fo_geFho3NFZhy0rh4J8uMzkNuAjySUQ1Cd9xwSz7Z-4saD8kzERg2_jNi-A0jqR8M8qku3PrRi-mekJL-NSIxwRzOpLZ5QcYeb20-AXL4KAEpJYuF7GmWi3LKfzcxRxBvEYlMqGg8Q3aE0YX16YC0nqllU-DQkMgvgSpatU8dHHbLyNRH4Tc2pig8bqObek9wE9vyzkrf-kcs"/><h1 class="font-headline-sm text-headline-sm font-bold text-on-surface tracking-wide">Lesson Arena</h1></div><div class="flex items-center gap-space-xs"><div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high/90 backdrop-blur-md shadow-[0_0_12px_rgba(5,102,217,0.25)]"><span class="material-symbols-outlined text-[14px] text-secondary">bolt</span><span class="font-label-stat text-label-stat text-secondary font-bold">450 MP</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-[0_0_10px_rgba(255,193,116,0.35)] shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 w-full bg-surface pt-16 pb-safe"><div class="flex flex-col w-full relative pb-28">
+<!-- Dynamic Ambient Battle Aura Glow -->
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-80 h-72 bg-gradient-to-b from-secondary-container/20 via-primary-container/10 to-transparent blur-3xl pointer-events-none -z-10"></div>
+<!-- Battle Header HUD (Boss vs Caster Status) -->
+<div class="px-margin pt-space-sm pb-space-xs flex flex-col gap-space-sm">
+<!-- Turn Counter & Class Tier -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high shadow-md">
+<span class="material-symbols-outlined text-primary text-[15px]" style="font-variation-settings: 'FILL' 1;">swords</span>
+<span class="font-label-stat text-label-stat text-primary uppercase">Duelo 03 / 05</span>
+</div>
+<!-- Combo Meter Ribbon -->
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-primary-container/30 to-secondary-container/30 shadow-[0_0_12px_rgba(245,158,11,0.2)]">
+<span class="material-symbols-outlined text-primary text-[16px]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="font-label-stat text-label-stat text-primary-fixed font-bold tracking-wider">COMBO x4 • 2x MANA</span>
+</div>
+</div>
+<!-- Boss Status Card -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container-low shadow-xl p-3 flex flex-col gap-2.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="relative w-11 h-11 rounded-lg overflow-hidden shrink-0 shadow-[0_0_12px_rgba(255,180,171,0.25)] bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="A menacing digital techno-goblin monster made of corrupted crimson and toxic green code syntax glitches, glowing cybernetic eye, in dark high fantasy obsidian chamber style, dramatic rim lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBarSObrgGope8Ww_23KGf0pIMg6BHvPi-Oqm3Bap8RfXJjOMgsVbzUau5TXywJqVzF9W53z5umsnPK0t4Q34ikOCOOdUgX6d_9qXHvb-_B77Go8497syYfoy2QSIbkzyZ5u44bwXjb2lHcps1OJcS7tCGhNFa0ic1tpL9AjeQRYJoTI4ZaRDrv-o9qRSvV5P07nejNXmq1_WYWe0ystBc6OL-mRIvh3uNNnO51OLI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 to-transparent"></div>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-headline-sm text-error font-bold truncate">Goblin de Compilação</span>
+<span class="px-1.5 py-0.5 rounded bg-error-container text-on-error-container font-label-stat text-label-stat">NVL 24</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Debuff: NullPointerException Passivo</span>
+</div>
+</div>
+<div class="text-right shrink-0">
+<span class="font-label-md text-label-md text-error font-bold tracking-wide">350 / 500 HP</span>
+</div>
+</div>
+<!-- Boss HP Health Bar (Segmented Crimson Gauge) -->
+<div class="w-full h-2.5 bg-surface-container-highest rounded-full overflow-hidden p-0.5 shadow-inner">
+<div class="h-full bg-gradient-to-r from-error to-error-container rounded-full shadow-[0_0_10px_rgba(255,180,171,0.6)]" style="width: 70%;"></div>
+</div>
+</div>
+<!-- Player Vitality HUD (Lives + Mana Bar) -->
+<div class="grid grid-cols-2 gap-space-xs">
+<!-- Player HP / Hearts -->
+<div class="rounded-lg bg-surface-container p-2.5 flex items-center justify-between shadow-md">
+<div class="flex items-center gap-1.5">
+<span class="font-label-stat text-label-stat text-on-surface-variant uppercase">Vidas</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px] text-error" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="material-symbols-outlined text-[18px] text-error" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="material-symbols-outlined text-[18px] text-error" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="material-symbols-outlined text-[18px] text-surface-bright" style="font-variation-settings: 'FILL' 1;">heart_broken</span>
+</div>
+</div>
+<!-- Player Mana Pool -->
+<div class="rounded-lg bg-surface-container p-2.5 flex flex-col justify-center gap-1 shadow-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1 text-secondary">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+<span class="font-label-stat text-label-stat font-bold uppercase">Mana</span>
+</div>
+<span class="font-label-stat text-label-stat text-secondary font-bold">180 / 250 MP</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-secondary to-secondary-container rounded-full shadow-[0_0_8px_rgba(173,198,255,0.7)]" style="width: 72%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Scenario Prompt Deck (Arcane Codex Scroll) -->
+<div class="px-margin mt-space-xs">
+<div class="relative rounded-xl bg-surface-container-high/90 backdrop-blur-md p-space-md shadow-xl flex flex-col gap-3">
+<!-- Lore & Situation Tag -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5 text-primary">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+<span class="font-label-md text-label-md uppercase tracking-wider font-bold">Incidente de Produção</span>
+</div>
+<!-- Audio Rune Speaker Button -->
+<button class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-highest text-secondary hover:text-primary-fixed hover:bg-surface-bright active:scale-95 transition-all shadow-sm" id="spellAudioBtn">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">volume_up</span>
+<span class="font-label-stat text-label-stat">Ouvir Pronúncia</span>
+</button>
+</div>
+<!-- The Tactical Question Context -->
+<p class="font-body-md text-body-md text-on-surface leading-relaxed">
+        O Tech Lead sênior questiona a latência crítica do microserviço em produção. Como você explica que a consulta ao banco de dados foi otimizada para evitar gargalos estruturais?
+      </p>
+<!-- Sub-tip Rune -->
+<div class="flex items-center gap-2 pt-1">
+<span class="material-symbols-outlined text-[15px] text-tertiary">auto_fix_high</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant italic">Selecione o feitiço de resposta com a sintaxe técnica correta.</span>
+</div>
+</div>
+</div>
+<!-- Spellcasting Action Deck (Interactive Cards) -->
+<div class="px-margin mt-space-md flex flex-col gap-space-xs">
+<div class="flex items-center justify-between mb-0.5">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Grimório de Respostas</span>
+<span class="font-label-stat text-label-stat text-tertiary-fixed font-bold">1 Feitiço Selecionado</span>
+</div>
+<!-- Spell Card A (Active Selected Spell) -->
+<div class="spell-card group relative rounded-xl p-3.5 bg-gradient-to-r from-surface-container-high to-surface-container-highest shadow-[0_0_20px_rgba(5,102,217,0.35)] cursor-pointer active:scale-[0.99] transition-all" onclick="selectSpell(this, 150, true)">
+<div class="flex items-start gap-3">
+<!-- Rune Glyph Badge -->
+<div class="w-8 h-8 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center font-headline-sm text-headline-sm font-bold shadow-[0_0_10px_rgba(5,102,217,0.5)] shrink-0">
+          A
+        </div>
+<div class="flex flex-col flex-1 min-w-0">
+<p class="font-headline-sm text-headline-sm text-on-surface font-semibold leading-snug">
+            "We optimized the database query using indexing and caching to mitigate bottlenecks."
+          </p>
+<div class="flex items-center gap-2 mt-2">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/40 text-secondary font-label-stat text-label-stat flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">bolt</span>
+              Relâmpago de Clareza
+            </span>
+<span class="font-label-stat text-label-stat text-tertiary font-bold">+150 DANO</span>
+</div>
+</div>
+<div class="w-6 h-6 rounded-full bg-secondary text-on-secondary flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[16px] font-bold">check</span>
+</div>
+</div>
+</div>
+<!-- Spell Card B -->
+<div class="spell-card group relative rounded-xl p-3.5 bg-surface-container-low hover:bg-surface-container shadow-md cursor-pointer active:scale-[0.99] transition-all" onclick="selectSpell(this, -30, false)">
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-headline-sm text-headline-sm font-bold shrink-0">
+          B
+        </div>
+<div class="flex flex-col flex-1 min-w-0">
+<p class="font-body-md text-body-md text-on-surface-variant leading-snug">
+            "We run the database very fast without any error because code is fine."
+          </p>
+<div class="flex items-center gap-2 mt-2">
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-label-stat text-label-stat flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">warning</span>
+              Vigência Frágil
+            </span>
+<span class="font-label-stat text-label-stat text-error font-bold">FALHA CRÍTICA (-1 VIDA)</span>
+</div>
+</div>
+<div class="w-6 h-6 rounded-full bg-surface-container-highest text-surface-bright flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[16px]">radio_button_unchecked</span>
+</div>
+</div>
+</div>
+<!-- Spell Card C -->
+<div class="spell-card group relative rounded-xl p-3.5 bg-surface-container-low hover:bg-surface-container shadow-md cursor-pointer active:scale-[0.99] transition-all" onclick="selectSpell(this, 40, false)">
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-headline-sm text-headline-sm font-bold shrink-0">
+          C
+        </div>
+<div class="flex flex-col flex-1 min-w-0">
+<p class="font-body-md text-body-md text-on-surface-variant leading-snug">
+            "The query was made manually inside the server loop without cache."
+          </p>
+<div class="flex items-center gap-2 mt-2">
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-label-stat text-label-stat flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">cloud_off</span>
+              Sintaxe Incompleta
+            </span>
+<span class="font-label-stat text-label-stat text-outline font-bold">DANO REDUZIDO (+40 DANO)</span>
+</div>
+</div>
+<div class="w-6 h-6 rounded-full bg-surface-container-highest text-surface-bright flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[16px]">radio_button_unchecked</span>
+</div>
+</div>
+</div>
+<!-- Spell Card D -->
+<div class="spell-card group relative rounded-xl p-3.5 bg-surface-container-low hover:bg-surface-container shadow-md cursor-pointer active:scale-[0.99] transition-all" onclick="selectSpell(this, -50, false)">
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-headline-sm text-headline-sm font-bold shrink-0">
+          D
+        </div>
+<div class="flex flex-col flex-1 min-w-0">
+<p class="font-body-md text-body-md text-on-surface-variant leading-snug">
+            "We deleted the database table to stop all slow requests."
+          </p>
+<div class="flex items-center gap-2 mt-2">
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-error font-label-stat text-label-stat flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">dangerous</span>
+              Colapso Total
+            </span>
+<span class="font-label-stat text-label-stat text-error font-bold">AUTO-INFLIGIDO (-2 VIDAS)</span>
+</div>
+</div>
+<div class="w-6 h-6 rounded-full bg-surface-container-highest text-surface-bright flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[16px]">radio_button_unchecked</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Persistent Arcane Hero Action Dock (Sticky Above Safe Area) -->
+<div class="fixed bottom-0 left-0 right-0 p-margin bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_-8px_28px_rgba(6,14,32,0.8)] z-40 flex flex-col gap-2.5">
+<!-- Cast Hero Button with Extruded Fantasy Rim -->
+<button class="w-full relative py-3.5 px-space-md rounded-xl bg-gradient-to-r from-primary-container to-primary text-on-primary font-headline-sm text-headline-sm font-bold tracking-wide uppercase shadow-[0_6px_0_#b45309,0_12px_24px_rgba(245,158,11,0.35)] active:translate-y-1 active:shadow-[0_2px_0_#b45309] transition-all flex items-center justify-center gap-2" id="castSpellBtn">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">auto_fix_normal</span>
+<span>Conjurar Resposta (Lançar Feitiço)</span>
+</button>
+<!-- Support Hint Spell Action Button -->
+<div class="flex items-center justify-between px-1">
+<button class="flex items-center gap-1.5 text-secondary hover:text-secondary-fixed active:scale-95 transition-all" id="hintBtn">
+<span class="material-symbols-outlined text-[17px]">menu_book</span>
+<span class="font-label-md text-label-md">Dica do Grimório</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-secondary-fixed font-label-stat text-label-stat font-bold">-10 MP</span>
+</button>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-stat text-label-stat">
+<span class="material-symbols-outlined text-[14px] text-tertiary">check_circle</span>
+<span>Pronúncia Nativa Ativa</span>
+</div>
+</div>
+</div>
+</div>
+<script>
+  function selectSpell(cardElement, damage, isCorrect) {
+    // Reset all spell cards
+    const cards = document.querySelectorAll('.spell-card');
+    cards.forEach(c => {
+      c.className = 'spell-card group relative rounded-xl p-3.5 bg-surface-container-low hover:bg-surface-container shadow-md cursor-pointer active:scale-[0.99] transition-all';
+      const icon = c.querySelector('.material-symbols-outlined:last-child');
+      const iconWrap = icon ? icon.parentElement : null;
+      if (iconWrap) {
+        iconWrap.className = 'w-6 h-6 rounded-full bg-surface-container-highest text-surface-bright flex items-center justify-center shrink-0';
+        icon.textContent = 'radio_button_unchecked';
+      }
+      const badge = c.querySelector('.font-headline-sm');
+      if (badge && !badge.closest('p')) {
+        badge.className = 'w-8 h-8 rounded-lg bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-headline-sm text-headline-sm font-bold shrink-0';
+      }
+    });
+
+    // Apply glowing arcane focus to the chosen spell
+    cardElement.className = 'spell-card group relative rounded-xl p-3.5 bg-gradient-to-r from-surface-container-high to-surface-container-highest shadow-[0_0_20px_rgba(5,102,217,0.35)] cursor-pointer active:scale-[0.99] transition-all';
+    const activeBadge = cardElement.querySelector('.font-headline-sm');
+    if (activeBadge && !activeBadge.closest('p')) {
+      activeBadge.className = 'w-8 h-8 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center font-headline-sm text-headline-sm font-bold shadow-[0_0_10px_rgba(5,102,217,0.5)] shrink-0';
+    }
+    const checkWrap = cardElement.querySelector('.material-symbols-outlined:last-child')?.parentElement;
+    const checkIcon = cardElement.querySelector('.material-symbols-outlined:last-child');
+    if (checkWrap && checkIcon) {
+      checkWrap.className = 'w-6 h-6 rounded-full bg-secondary text-on-secondary flex items-center justify-center shrink-0 shadow-sm';
+      checkIcon.textContent = 'check';
+    }
+  }
+
+  // Audio Playback simulation with runic visual pulse
+  const audioBtn = document.getElementById('spellAudioBtn');
+  if (audioBtn) {
+    audioBtn.addEventListener('click', () => {
+      audioBtn.classList.add('bg-secondary-container', 'text-on-secondary-container', 'scale-105');
+      setTimeout(() => {
+        audioBtn.classList.remove('bg-secondary-container', 'text-on-secondary-container', 'scale-105');
+      }, 1000);
+    });
+  }
+
+  // Cast Spell celebration vibration simulation
+  const castBtn = document.getElementById('castSpellBtn');
+  if (castBtn) {
+    castBtn.addEventListener('click', () => {
+      castBtn.classList.add('brightness-125');
+      setTimeout(() => castBtn.classList.remove('brightness-125'), 300);
+    });
+  }
+</script></main></body></html>

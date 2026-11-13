@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&family=Space+Grotesk:wght@100..900&display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-container-highest": "#2d3449", "surface-container-low": "#131b2e", "on-secondary-fixed-variant": "#004395", "on-secondary-container": "#e6ecff", "outline": "#a08e7a", "error": "#ffb4ab", "secondary-container": "#0566d9", "on-secondary-fixed": "#001a42", "on-tertiary-container": "#004e34", "surface-tint": "#ffb95f", "secondary": "#adc6ff", "on-tertiary-fixed-variant": "#005236", "on-error": "#690005", "on-primary-fixed-variant": "#653e00", "on-primary-fixed": "#2a1700", "surface-variant": "#2d3449", "on-background": "#dae2fd", "surface-container": "#171f33", "surface-dim": "#0b1326", "surface-container-high": "#222a3d", "tertiary-fixed": "#6ffbbe", "secondary-fixed": "#d8e2ff", "primary": "#ffc174", "tertiary-fixed-dim": "#4edea3", "surface-container-lowest": "#060e20", "inverse-primary": "#855300", "surface": "#0b1326", "inverse-on-surface": "#283044", "background": "#0b1326", "outline-variant": "#534434", "on-primary": "#472a00", "on-tertiary": "#003824", "on-secondary": "#002e6a", "on-error-container": "#ffdad6", "primary-fixed": "#ffddb8", "tertiary-container": "#30c88f", "on-tertiary-fixed": "#002113", "inverse-surface": "#dae2fd", "primary-container": "#f59e0b", "on-primary-container": "#613b00", "error-container": "#93000a", "secondary-fixed-dim": "#adc6ff", "primary-fixed-dim": "#ffb95f", "surface-bright": "#31394d", "on-surface-variant": "#d8c3ad", "on-surface": "#dae2fd", "tertiary": "#56e5a9" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "gutter-tablet": "1.5rem", "space-lg": "1.5rem", "gutter-desktop": "2rem", "margin": "1rem", "gutter": "1rem", "margin-desktop": "3rem", "space-sm": "0.5rem", "space-xl": "2.5rem", "space-md": "1rem", "space-xs": "0.25rem", "margin-tablet": "2rem" }, fontFamily: { "headline-lg": ["Space Grotesk"], "label-lg": ["Space Grotesk"], "headline-md": ["Space Grotesk"], "display-hero": ["Space Grotesk"], "display-hero-mobile": ["Space Grotesk"], "body-lg": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "headline-sm": ["Space Grotesk"], "body-md": ["Plus Jakarta Sans"], "label-md": ["Space Grotesk"], "label-stat": ["Space Grotesk"] }, fontSize: { "headline-lg": ["28px", { lineHeight: "36px", letterSpacing: "-0.01em", fontWeight: "700" }], "label-lg": ["14px", { lineHeight: "20px", letterSpacing: "0.04em", fontWeight: "600" }], "headline-md": ["22px", { lineHeight: "30px", fontWeight: "600" }], "display-hero": ["40px", { lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "700" }], "display-hero-mobile": ["30px", { lineHeight: "38px", letterSpacing: "-0.02em", fontWeight: "700" }], "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }], "body-sm": ["13px", { lineHeight: "18px", fontWeight: "400" }], "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }], "body-md": ["15px", { lineHeight: "22px", fontWeight: "400" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.06em", fontWeight: "600" }], "label-stat": ["11px", { lineHeight: "14px", letterSpacing: "0.08em", fontWeight: "700" }] } } } };</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#0b1326;color:#dae2fd;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface min-h-screen flex flex-col antialiased selection:bg-primary/20"><header class="fixed top-0 w-full z-50 pt-safe bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_4px_24px_rgba(5,102,217,0.12)]"><div class="h-20 px-margin flex items-center justify-between gap-space-xs"><div class="flex items-center gap-space-sm shrink-0"><img alt="Arcane Lingua Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvEnQnqbaedIcw3TzH9kRhoKfR4fo_geFho3NFZhy0rh4J8uMzkNuAjySUQ1Cd9xwSz7Z-4saD8kzERg2_jNi-A0jqR8M8qku3PrRi-mekJL-NSIxwRzOpLZ5QcYeb20-AXL4KAEpJYuF7GmWi3LKfzcxRxBvEYlMqGg8Q3aE0YX16YC0nqllU-DQkMgvgSpatU8dHHbLyNRH4Tc2pig8bqObek9wE9vyzkrf-kcs"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm font-bold text-primary tracking-wide leading-none">Arcane Lingua</span><span class="font-label-stat text-label-stat text-on-surface-variant uppercase tracking-widest mt-1">Spellbook Profile</span></div></div><div class="flex items-center gap-space-xs"><div class="flex items-center gap-1 px-2 py-1 rounded-full bg-surface-container-high/90 backdrop-blur-md shadow-[0_0_12px_rgba(245,158,11,0.2)]"><span class="material-symbols-outlined text-[15px] text-primary">local_fire_department</span><span class="font-label-stat text-label-stat text-primary font-bold whitespace-nowrap">14d</span></div><div class="flex items-center gap-1 px-2 py-1 rounded-full bg-surface-container-high/90 backdrop-blur-md shadow-[0_0_12px_rgba(5,102,217,0.25)]"><span class="material-symbols-outlined text-[14px] text-secondary">bolt</span><span class="font-label-stat text-label-stat text-secondary font-bold whitespace-nowrap">450</span></div><div class="flex items-center justify-center px-2 py-1 rounded-full bg-secondary-container/30 backdrop-blur-md text-secondary-fixed"><span class="font-label-stat text-label-stat font-bold">Lv.12</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-[0_0_10px_rgba(255,193,116,0.35)] shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 w-full bg-surface pt-20 pb-24"><div class="flex flex-col w-full px-margin pb-space-xl space-y-space-md">
+<!-- Hero Avatar & Mastery Frame Card -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container-high/90 backdrop-blur-xl shadow-[0_8px_32px_rgba(5,102,217,0.22)] p-space-md">
+<!-- Ambient Arcane Glows -->
+<div class="absolute -top-16 -right-16 w-44 h-44 rounded-full bg-secondary-container/20 blur-3xl pointer-events-none"></div>
+<div class="absolute -bottom-16 -left-16 w-44 h-44 rounded-full bg-primary/15 blur-3xl pointer-events-none"></div>
+<div class="relative flex items-start gap-space-md">
+<!-- Avatar with Level & Runic Ring -->
+<div class="relative shrink-0">
+<div class="w-20 h-20 rounded-xl overflow-hidden shadow-[0_0_20px_rgba(245,158,11,0.35)] bg-surface-container-lowest">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of a powerful young arcane tech mage with glowing cyan eyes and sharp gilded gold ornate shoulder guards against a mystical library filled with glowing floating ancient codexes and holographic binary runes in deep dark navy atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqqBxmD4F2p28IclcT0-ffp9NGVOlHPHWLYNA3TYdjU_C1wFOBLJKJYg-cBYOjK0zimZalo61cnXIzmTjCZVZJ4v98axu1z5gqX9mAdsyZYiN1mfouYJLUBsBXelMe2TYhFpmhjfxXKz6Ik8sjchSnxLTOqLleyrCuJlsIGU7Jld_iRpXa2zUudZnl03nK0-hd5j96EBEAdvK1HspRnvwrZm2V7dEHQk3zg4obRD0"/>
+</div>
+<div class="absolute -bottom-2 -right-2 px-2 py-0.5 rounded-full bg-primary-container text-on-primary-container shadow-md flex items-center justify-center">
+<span class="font-label-stat text-label-stat font-bold uppercase tracking-wider">Nv.12</span>
+</div>
+</div>
+<!-- Hero Identity & Active Title -->
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/40 text-secondary-fixed font-label-stat text-label-stat uppercase tracking-wider font-semibold">Tecnomago</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-lowest/80 text-tertiary-fixed font-label-stat text-label-stat font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>
+            Ordem Sênior
+          </span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight truncate mt-1">
+          Mago Arcano da Tecnologia
+        </h2>
+<!-- Active Title Badge -->
+<div class="mt-1.5 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-container-lowest/90 shadow-sm max-w-full">
+<span class="material-symbols-outlined text-[16px] text-primary" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+<span class="font-label-md text-label-md text-primary font-bold truncate">Arquimago do Clean Code</span>
+</div>
+</div>
+</div>
+<!-- XP Gauge Progression -->
+<div class="mt-space-md space-y-1.5">
+<div class="flex items-center justify-between text-on-surface-variant font-label-stat text-label-stat">
+<span class="font-semibold uppercase tracking-wider text-secondary">Aura de Conhecimento (XP)</span>
+<span class="text-on-surface font-bold">4.850 / 6.000 XP</span>
+</div>
+<div class="w-full h-2.5 rounded-full bg-surface-container-lowest overflow-hidden p-0.5">
+<div class="h-full rounded-full bg-gradient-to-r from-secondary-container via-secondary to-primary shadow-[0_0_12px_rgba(255,193,116,0.5)] transition-all duration-700" style="width: 80.8%;"></div>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant font-label-stat text-label-stat">
+<span>Faltam 1.150 XP</span>
+<span class="text-primary font-bold">Nível 13 em breve</span>
+</div>
+</div>
+<!-- Mastered Stats Bento Row -->
+<div class="grid grid-cols-3 gap-2 mt-space-md pt-space-sm">
+<div class="flex flex-col items-center justify-center p-2.5 rounded-lg bg-surface-container-lowest/80 text-center">
+<span class="material-symbols-outlined text-[20px] text-primary mb-1">auto_stories</span>
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface leading-tight">1.420</span>
+<span class="font-label-stat text-label-stat text-on-surface-variant uppercase tracking-wider mt-0.5">Termos</span>
+</div>
+<div class="flex flex-col items-center justify-center p-2.5 rounded-lg bg-surface-container-lowest/80 text-center">
+<span class="material-symbols-outlined text-[20px] text-tertiary mb-1">target</span>
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface leading-tight">98%</span>
+<span class="font-label-stat text-label-stat text-on-surface-variant uppercase tracking-wider mt-0.5">Precisão</span>
+</div>
+<div class="flex flex-col items-center justify-center p-2.5 rounded-lg bg-surface-container-lowest/80 text-center">
+<span class="material-symbols-outlined text-[20px] text-secondary mb-1">swords</span>
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface leading-tight">42</span>
+<span class="font-label-stat text-label-stat text-on-surface-variant uppercase tracking-wider mt-0.5">Vitórias</span>
+</div>
+</div>
+</div>
+<!-- Interactive Archetype Showcase Carousel Preview -->
+<div class="p-space-sm rounded-xl bg-surface-container-low/90 backdrop-blur-md flex items-center justify-between gap-space-sm shadow-md">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-lg overflow-hidden shrink-0 bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="Regal guild merchant knight in gilded golden lion armor smiling holding a quill and ledger inside a warm stone hall with stained glass and glowing fireplace" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKvC1LPKStsflYBb3gRBdRm_Y7cGvYE1AB00wJY3uvXtBGBzwxgK8ElhJdG896mo0v4Ny5lUd7m6ZDo-pkyYNzAwPlnfH22VfKT2H6bnAoKtbbpi7aujeOoBiSAA0Zkqq2BJF-uhEgPZ5IPSvoG17uQ5B9aNb67LAzwsp88DlAx4QhboCnIrHY-R3LNHxXH32YPKH93hY_0NXESgkbL_gsPh6Ch11G3hUDJFUrlH8"/>
+</div>
+<div class="min-w-0">
+<span class="font-label-stat text-label-stat text-primary font-bold uppercase tracking-wider">Guilda Aliada</span>
+<p class="font-label-md text-label-md text-on-surface font-semibold truncate">Cavaleiros Mercantes & Paladinos Jurídicos</p>
+</div>
+</div>
+<button class="shrink-0 px-3 py-1.5 rounded-lg bg-secondary-container/30 text-secondary font-label-stat text-label-stat font-bold uppercase tracking-wider active:scale-95 transition-transform">
+      Ver Tomos
+    </button>
+</div>
+<!-- Arcane Navigation Tabs -->
+<div class="grid grid-cols-3 p-1 rounded-xl bg-surface-container-low/95 gap-1 shadow-inner">
+<button class="py-2.5 px-1 rounded-lg bg-primary text-on-primary font-label-stat text-label-stat font-bold uppercase tracking-wider flex items-center justify-center gap-1 shadow-md transition-all">
+<span class="material-symbols-outlined text-[16px]">menu_book</span>
+<span>Grimório</span>
+</button>
+<button class="py-2.5 px-1 rounded-lg text-on-surface-variant hover:text-on-surface font-label-stat text-label-stat font-bold uppercase tracking-wider flex items-center justify-center gap-1 transition-all">
+<span class="material-symbols-outlined text-[16px]">shield</span>
+<span>Runas</span>
+</button>
+<button class="py-2.5 px-1 rounded-lg text-on-surface-variant hover:text-on-surface font-label-stat text-label-stat font-bold uppercase tracking-wider flex items-center justify-center gap-1 transition-all">
+<span class="material-symbols-outlined text-[16px]">emoji_events</span>
+<span>Ligas PvP</span>
+</button>
+</div>
+<!-- Filter / Sort Bar -->
+<div class="flex items-center justify-between gap-space-sm pt-1">
+<div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+<button class="px-3 py-1 rounded-full bg-surface-container-highest text-primary font-label-stat text-label-stat font-bold whitespace-nowrap shadow-sm">
+        Todos (1.420)
+      </button>
+<button class="px-3 py-1 rounded-full bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-stat text-label-stat font-medium whitespace-nowrap">
+        Engenharia
+      </button>
+<button class="px-3 py-1 rounded-full bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-stat text-label-stat font-medium whitespace-nowrap">
+        Direito
+      </button>
+<button class="px-3 py-1 rounded-full bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-stat text-label-stat font-medium whitespace-nowrap">
+        Negócios
+      </button>
+</div>
+<button class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface-variant shrink-0">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+</button>
+</div>
+<!-- Vocabulary Flashcard Spells Deck -->
+<div class="space-y-space-sm">
+<!-- Card 1: Throughput (Lendário) -->
+<div class="group relative rounded-xl bg-surface-container-high/90 backdrop-blur-md p-space-md shadow-[0_4px_20px_rgba(245,158,11,0.12)] transition-all active:scale-[0.99]">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full bg-primary/20 text-primary font-label-stat text-label-stat font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            Lendário ★★★
+          </span>
+<span class="font-label-stat text-label-stat text-secondary font-semibold">Tech Arcana</span>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container-lowest/80 text-primary flex items-center justify-center hover:bg-primary hover:text-on-primary transition-colors shadow-sm" onclick="event.stopPropagation(); this.classList.toggle('scale-110');">
+<span class="material-symbols-outlined text-[18px]">volume_up</span>
+</button>
+</div>
+<div class="mt-2.5">
+<div class="flex items-baseline gap-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">Throughput</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-mono">/ˈθruː.pʊt/</span>
+</div>
+<p class="font-body-md text-body-md text-primary font-medium mt-0.5">
+          Vazão / Capacidade de processamento contínuo
+        </p>
+</div>
+<!-- Contextual Spell Sentence -->
+<div class="mt-3 p-2.5 rounded-lg bg-surface-container-lowest/70">
+<p class="font-body-sm text-body-sm text-on-surface italic">
+          "The optimized distributed message queue increased our server <span class="text-primary font-semibold underline decoration-primary/50">throughput</span> by 300% during peak raids."
+        </p>
+</div>
+<!-- Mastery Level Bar -->
+<div class="mt-3 flex items-center justify-between text-on-surface-variant font-label-stat text-label-stat">
+<span class="flex items-center gap-1 text-tertiary font-semibold">
+<span class="material-symbols-outlined text-[14px]">verified</span> Domínio Pleno
+        </span>
+<span class="text-primary font-bold">100% Retenção</span>
+</div>
+</div>
+<!-- Card 2: Due Diligence (Épico) -->
+<div class="relative rounded-xl bg-surface-container-high/90 backdrop-blur-md p-space-md shadow-md transition-all active:scale-[0.99]">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/30 text-secondary font-label-stat text-label-stat font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            Épico ★★☆
+          </span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-lowest text-on-tertiary-container font-label-stat text-label-stat font-medium">Paladino Jurídico</span>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container-lowest/80 text-secondary flex items-center justify-center hover:bg-secondary hover:text-on-secondary transition-colors shadow-sm" onclick="event.stopPropagation();">
+<span class="material-symbols-outlined text-[18px]">volume_up</span>
+</button>
+</div>
+<div class="mt-2.5">
+<div class="flex items-baseline gap-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">Due Diligence</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-mono">/ˌduː ˈdɪl.ə.dʒəns/</span>
+</div>
+<p class="font-body-md text-body-md text-secondary font-medium mt-0.5">
+          Auditoria prévia / Análise investigativa de conformidade
+        </p>
+</div>
+<div class="mt-3 p-2.5 rounded-lg bg-surface-container-lowest/70">
+<p class="font-body-sm text-body-sm text-on-surface italic">
+          "The archon council completed the legal <span class="text-secondary font-semibold underline decoration-secondary/50">due diligence</span> before sealing the acquisition treaty."
+        </p>
+</div>
+<div class="mt-3 flex items-center justify-between text-on-surface-variant font-label-stat text-label-stat">
+<span class="flex items-center gap-1 text-secondary font-semibold">
+<span class="material-symbols-outlined text-[14px]">history_edu</span> Em Consolidação
+        </span>
+<span class="text-secondary font-bold">82% Retenção</span>
+</div>
+</div>
+<!-- Card 3: Value Proposition (Raro) -->
+<div class="relative rounded-xl bg-surface-container-high/90 backdrop-blur-md p-space-md shadow-md transition-all active:scale-[0.99]">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full bg-tertiary/20 text-tertiary font-label-stat text-label-stat font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            Raro ★★☆
+          </span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-lowest text-primary font-label-stat text-label-stat font-medium">Cavaleiro Mercante</span>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container-lowest/80 text-tertiary flex items-center justify-center hover:bg-tertiary hover:text-on-tertiary transition-colors shadow-sm" onclick="event.stopPropagation();">
+<span class="material-symbols-outlined text-[18px]">volume_up</span>
+</button>
+</div>
+<div class="mt-2.5">
+<div class="flex items-baseline gap-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">Value Proposition</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-mono">/ˈvæl.juː ˌprɑː.pəˈzɪʃ.ən/</span>
+</div>
+<p class="font-body-md text-body-md text-tertiary font-medium mt-0.5">
+          Proposta de Valor / Benefício central do produto
+        </p>
+</div>
+<div class="mt-3 p-2.5 rounded-lg bg-surface-container-lowest/70">
+<p class="font-body-sm text-body-sm text-on-surface italic">
+          "Our core <span class="text-tertiary font-semibold underline decoration-tertiary/50">value proposition</span> lies in automating zero-trust compliance for global enterprise clients."
+        </p>
+</div>
+<div class="mt-3 flex items-center justify-between text-on-surface-variant font-label-stat text-label-stat">
+<span class="flex items-center gap-1 text-tertiary font-semibold">
+<span class="material-symbols-outlined text-[14px]">local_fire_department</span> Prática Diária
+        </span>
+<span class="text-tertiary font-bold">76% Retenção</span>
+</div>
+</div>
+<!-- Card 4: Scalability & Fault Tolerance (Mítico) -->
+<div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-surface-container-high via-surface-container-high to-surface-container-highest p-space-md shadow-[0_4px_24px_rgba(245,158,11,0.2)] transition-all active:scale-[0.99]">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-2xl pointer-events-none"></div>
+<div class="relative flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full bg-primary-container text-on-primary-container font-label-stat text-label-stat font-bold uppercase tracking-wider flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+            Mítico ★★★
+          </span>
+<span class="font-label-stat text-label-stat text-primary font-bold">Encanto Supremo</span>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container-lowest/90 text-primary flex items-center justify-center hover:bg-primary hover:text-on-primary transition-colors shadow-sm" onclick="event.stopPropagation();">
+<span class="material-symbols-outlined text-[18px]">volume_up</span>
+</button>
+</div>
+<div class="relative mt-2.5">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">Scalability & Fault Tolerance</h3>
+<p class="font-body-md text-body-md text-primary font-medium mt-0.5">
+          Escalabilidade e Tolerância a Falhas em Sistemas Críticos
+        </p>
+</div>
+<div class="relative mt-3 p-2.5 rounded-lg bg-surface-container-lowest/80">
+<p class="font-body-sm text-body-sm text-on-surface italic">
+          "Architecting for true <span class="text-primary font-semibold underline decoration-primary/50">fault tolerance</span> ensures the microservices heal automatically during network partitions."
+        </p>
+</div>
+<div class="relative mt-3 flex items-center justify-between text-on-surface-variant font-label-stat text-label-stat">
+<span class="flex items-center gap-1 text-primary font-semibold">
+<span class="material-symbols-outlined text-[14px]">military_tech</span> Domínio de Grão-Mestre
+        </span>
+<span class="text-primary font-bold">99% Retenção</span>
+</div>
+</div>
+</div>
+<!-- Arcane Trophies & Achievements Section -->
+<div class="rounded-xl bg-surface-container-low/90 backdrop-blur-md p-space-md shadow-md space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]" style="font-variation-settings: 'FILL' 1;">trophy</span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Conquistas Desbloqueadas</h3>
+</div>
+<span class="font-label-stat text-label-stat text-primary font-bold">3 / 12 Ativas</span>
+</div>
+<div class="space-y-2.5">
+<!-- Trophy 1: Refatorador Supremo (Gold) -->
+<div class="flex items-center gap-space-sm p-3 rounded-xl bg-surface-container-high/80">
+<div class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-container to-surface-tint flex items-center justify-center text-on-primary-container shrink-0 shadow-[0_0_16px_rgba(245,158,11,0.3)]">
+<span class="material-symbols-outlined text-[26px]" style="font-variation-settings: 'FILL' 1;">auto_fix_high</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<h4 class="font-label-lg text-label-lg font-bold text-on-surface truncate">Refatorador Supremo</h4>
+<span class="px-2 py-0.5 rounded-full bg-primary/20 text-primary font-label-stat text-label-stat font-bold shrink-0">Ouro</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1 mt-0.5">
+            500 feitiços técnicos aplicados sem hesitação no editor de código.
+          </p>
+</div>
+</div>
+<!-- Trophy 2: 7 Dias Sem Erros (Platinum) -->
+<div class="flex items-center gap-space-sm p-3 rounded-xl bg-surface-container-high/80">
+<div class="w-12 h-12 rounded-xl bg-gradient-to-br from-secondary to-on-secondary-container flex items-center justify-center text-on-secondary-fixed shrink-0 shadow-[0_0_16px_rgba(173,198,255,0.35)]">
+<span class="material-symbols-outlined text-[26px]" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<h4 class="font-label-lg text-label-lg font-bold text-on-surface truncate">Sem Erros de Sintaxe</h4>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/40 text-secondary-fixed font-label-stat text-label-stat font-bold shrink-0">Platina</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1 mt-0.5">
+            Completou 7 dias consecutivos mantendo 100% de precisão gramatical.
+          </p>
+</div>
+</div>
+<!-- Trophy 3: Negociador Implacável (Bronze) -->
+<div class="flex items-center gap-space-sm p-3 rounded-xl bg-surface-container-high/80">
+<div class="w-12 h-12 rounded-xl bg-gradient-to-br from-outline to-outline-variant flex items-center justify-center text-surface-container-lowest shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[26px]" style="font-variation-settings: 'FILL' 1;">handshake</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<h4 class="font-label-lg text-label-lg font-bold text-on-surface truncate">Negociador Implacável</h4>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-lowest text-on-surface-variant font-label-stat text-label-stat font-bold shrink-0">Bronze</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1 mt-0.5">
+            Dominou 50 termos de contratos internacionais e rodadas seed.
+          </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom CTA Action Rune Button -->
+<button class="w-full py-3.5 px-space-md rounded-xl bg-gradient-to-r from-primary-container via-surface-tint to-primary text-on-primary-container font-headline-sm text-headline-sm font-bold shadow-[0_6px_20px_rgba(245,158,11,0.35)] active:translate-y-1 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[22px]">play_circle</span>
+<span>Iniciar Ritual de Revisão Rápida</span>
+</button>
+</div></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/85 backdrop-blur-xl shadow-[0_-4px_24px_rgba(6,14,32,0.8)]" data-active-classes="text-primary font-bold"><div class="h-16 px-space-sm flex items-center justify-around"><a class="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-colors" data-path="dungeon-map" href="#"><span class="material-symbols-outlined text-[22px]">explore</span><span class="font-label-stat text-label-stat uppercase tracking-wider">Mapa</span></a><a class="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-colors" data-path="arena-trials" href="#"><span class="material-symbols-outlined text-[22px]">swords</span><span class="font-label-stat text-label-stat uppercase tracking-wider">Arena</span></a><a class="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-colors" data-path="hero-classes" href="#"><span class="material-symbols-outlined text-[22px]">shield</span><span class="font-label-stat text-label-stat uppercase tracking-wider">Classes</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] transition-colors text-primary font-bold" data-path="spellbook-profile" href="#"><span class="material-symbols-outlined text-[22px]">auto_stories</span><span class="font-label-stat text-label-stat uppercase tracking-wider">Grimório</span></a></div></nav></body></html>
